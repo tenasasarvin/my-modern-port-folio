@@ -1,6 +1,43 @@
 import React, { useState, useEffect, useRef, useContext, createContext } from 'react';
 
-import profileImage from './assets/profile.jpg';
+// --- ICONS (as SVG components for a premium feel) ---
+const HomeIcon = (props) => (
+    <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+);
+const UserIcon = (props) => (
+    <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+);
+const CodeIcon = (props) => (
+    <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+);
+const BriefcaseIcon = (props) => (
+    <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="20" height="14" x="2" y="7" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+);
+const LayersIcon = (props) => (
+    <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+);
+const MailIcon = (props) => (
+    <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+);
+const SunIcon = (props) => (
+    <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
+);
+const MoonIcon = (props) => (
+    <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+);
+const MenuIcon = (props) => (
+    <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+);
+const XIcon = (props) => (
+    <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+);
+const BotIcon = (props) => (
+    <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 8V4H8"/><rect width="16" height="12" x="4" y="8" rx="2"/><path d="M2 14h2"/><path d="M20 14h2"/><path d="M15 13v2"/><path d="M9 13v2"/></svg>
+);
+const SendIcon = (props) => (
+     <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg>
+);
+
 
 // --- THEME CONTEXT ---
 const ThemeContext = createContext();
@@ -13,7 +50,7 @@ const ThemeProvider = ({ children }) => {
     }, [theme]);
 
     const toggleTheme = () => {
-        setTheme(prevTheme => (prevTheme === 'light' ? 'dark' : 'light'));
+        setTheme(prevTheme => prevTheme === 'light' ? 'dark' : 'light');
     };
 
     return (
@@ -25,106 +62,47 @@ const ThemeProvider = ({ children }) => {
 
 const useTheme = () => useContext(ThemeContext);
 
+
 // --- ASSETS ---
-const profileImageUrl = 'https://placehold.co/512x512/0A0A0A/08F7FE?text=AT';
+import profileImageUrl from './assets/profile.jpg';
 const projectImageUrl1 = 'https://placehold.co/600x400/0A0A0A/FFFFFF?text=E-Shop+Pro';
 const projectImageUrl2 = 'https://placehold.co/600x400/0A0A0A/9CA3AF?text=Smart+Grow';
 const projectImageUrl3 = 'https://placehold.co/600x400/0A0A0A/08F7FE?text=Portfolio+v2';
 
 
-// --- HELPER HOOK for detecting elements in viewport ---
-const useOnScreen = (options) => {
-    const ref = useRef(null);
-    const [isVisible, setIsVisible] = useState(false);
-
+// --- ANIMATION HOOK ---
+const useScrollReveal = (ref, dependency) => {
     useEffect(() => {
-        const observer = new IntersectionObserver(([entry]) => {
-            if (entry.isIntersecting) {
-                setIsVisible(true);
-            }
-        }, options);
+        const target = ref.current;
+        if (!target) return;
 
-        if (ref.current) {
-            observer.observe(ref.current);
-        }
-
-        return () => {
-            if (ref.current) {
-                observer.unobserve(ref.current);
-            }
-        };
-    }, [ref, options]);
-
-    return [ref, isVisible];
-};
-
-// --- COMPONENTS ---
-
-const Header = () => {
-    const [isMenuOpen, setIsMenuOpen] = useState(false);
-    const [isScrolled, setIsScrolled] = useState(false);
-    const [activeSection, setActiveSection] = useState('home');
-    const { theme, toggleTheme } = useTheme();
-
-    useEffect(() => {
-        const handleScroll = () => {
-            setIsScrolled(window.scrollY > 20);
-            const sections = ["home", "about", "experience", "projects", "contact"];
-            const current = sections.find(section => {
-                const element = document.getElementById(section);
-                if (element) {
-                    const rect = element.getBoundingClientRect();
-                    return rect.top <= 100 && rect.bottom >= 100;
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
                 }
-                return false;
             });
-            if (current) setActiveSection(current);
+        }, { threshold: 0.1, root: document.querySelector('.content-area') });
+
+        const revealElements = target.querySelectorAll('.reveal');
+        revealElements.forEach(el => observer.observe(el));
+        
+        return () => {
+            revealElements.forEach(el => observer.unobserve(el));
         };
-        window.addEventListener('scroll', handleScroll, { passive: true });
-        return () => window.removeEventListener('scroll', handleScroll);
-    }, []);
-
-    const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
-    const closeMenu = () => setIsMenuOpen(false);
-    const navLinks = ["Home", "About", "Experience", "Projects", "Contact"];
-
-    return (
-        <header id="header" className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? 'glass-header-scrolled' : 'glass-header'}`}>
-            <div className="container mx-auto px-6 py-4 flex justify-between items-center">
-                <a href="#home" className="text-2xl font-heading font-bold tracking-wider hover:text-brand-accent transition-colors">
-                    ARVIN.DEV
-                </a>
-                <nav className="hidden md:flex items-center space-x-8 font-medium">
-                    {navLinks.map(link => (
-                        <a key={link} href={`#${link.toLowerCase()}`} className={`nav-link ${activeSection === link.toLowerCase() ? 'active' : ''}`}>{link}</a>
-                    ))}
-                    <button onClick={toggleTheme} className="theme-toggle-btn">
-                        <i className={`fas ${theme === 'dark' ? 'fa-sun' : 'fa-moon'}`}></i>
-                    </button>
-                </nav>
-                <div className="md:hidden flex items-center">
-                     <button onClick={toggleTheme} className="theme-toggle-btn mr-4">
-                        <i className={`fas ${theme === 'dark' ? 'fa-sun' : 'fa-moon'}`}></i>
-                    </button>
-                    <button id="mobile-menu-button" className="text-2xl z-50" onClick={toggleMenu}>
-                        <i className={isMenuOpen ? "fas fa-times" : "fas fa-bars"}></i>
-                    </button>
-                </div>
-            </div>
-            <div id="mobile-menu" className={`md:hidden mobile-menu-bg transition-all duration-300 ease-in-out ${isMenuOpen ? 'max-h-96' : 'max-h-0'} overflow-hidden`}>
-                {navLinks.map(link => (
-                    <a key={link} href={`#${link.toLowerCase()}`} onClick={closeMenu} className="block py-3 px-6 text-center mobile-link">{link}</a>
-                ))}
-            </div>
-        </header>
-    );
+    }, [ref, dependency]);
 };
+
+
+// --- PAGE COMPONENTS ---
 
 const Hero = () => {
     const titles = React.useMemo(() => ["Full-Stack Developer", "Creative Problem-Solver", "UI/UX Enthusiast"], []);
     const [titleIndex, setTitleIndex] = useState(0);
     const [text, setText] = useState('');
     const [isDeleting, setIsDeleting] = useState(false);
+    const canvasRef = useRef(null);
+    const { theme } = useTheme();
 
     useEffect(() => {
         const currentTitle = titles[titleIndex];
@@ -149,8 +127,63 @@ const Hero = () => {
         return () => clearTimeout(timer);
     }, [text, isDeleting, titleIndex, titles]);
 
+    useEffect(() => {
+        const canvas = canvasRef.current;
+        const ctx = canvas.getContext('2d');
+        let animationFrameId;
+        
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const particles = [];
+        const particleCount = 50;
+
+        for (let i = 0; i < particleCount; i++) {
+            particles.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                radius: Math.random() * 1.5 + 0.5,
+                vx: Math.random() * 1 - 0.5,
+                vy: Math.random() * 1 - 0.5,
+            });
+        }
+
+        const animate = () => {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = theme === 'dark' ? 'rgba(8, 247, 254, 0.6)' : 'rgba(0, 122, 127, 0.6)';
+            
+            particles.forEach(p => {
+                p.x += p.vx;
+                p.y += p.vy;
+
+                if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
+                if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
+
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                ctx.fill();
+            });
+            
+            animationFrameId = requestAnimationFrame(animate);
+        };
+        
+        animate();
+
+        const handleResize = () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', handleResize);
+
+        return () => {
+            cancelAnimationFrame(animationFrameId);
+            window.removeEventListener('resize', handleResize);
+        }
+    }, [theme]);
+
     return (
-        <section id="home" className="min-h-screen flex items-center justify-center relative">
+        <section id="home" className="min-h-full flex items-center justify-center relative p-6 overflow-hidden">
+            <canvas ref={canvasRef} className="absolute top-0 left-0 w-full h-full z-0 opacity-50"></canvas>
             <div className="text-center z-10">
                 <h1 className="text-4xl md:text-6xl lg:text-7xl font-heading font-bold leading-tight mb-4 reveal">
                     Crafting Digital Experiences
@@ -158,7 +191,7 @@ const Hero = () => {
                     <span className="text-brand-accent">Where Code Meets Creativity.</span>
                 </h1>
                 <p className="text-lg text-subtext mb-4 max-w-2xl mx-auto reveal" style={{ transitionDelay: '200ms' }}>
-                    Hi, I'm Arvin Tenasas. A Computer Engineer passionate about building intuitive, high-performance web applications and embedded systems.
+                    Hi, I'm Arvin Tenasas. A Computer Engineer and Full-Stack Developer based in Manila, Philippines, passionate about building intuitive, high-performance web applications and embedded systems.
                 </p>
                 <div className="bg-card/50 p-4 rounded-md border border-main-border font-mono text-lg text-left max-w-xl mx-auto mb-8 reveal" style={{ transitionDelay: '400ms' }}>
                     <span className="text-gray-500">&gt; </span>
@@ -179,128 +212,149 @@ const Hero = () => {
     );
 };
 
-const About = () => {
-    return (
-        <section id="about" className="py-24 md:py-32 reveal">
-            <div className="text-center mb-16">
-                <h2 className="section-subtitle">INTRODUCTION</h2>
-                <p className="section-title">Who I Am</p>
-            </div>
-            <div className="flex flex-col md:flex-row items-center gap-12 lg:gap-16">
-                <div className="md:w-1/2 lg:w-2/5">
-                    <div className="relative w-full group">
-                        <div className="absolute -inset-1 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-lg blur opacity-25 group-hover:opacity-100 transition duration-1000 group-hover:duration-200 animate-tilt"></div>
-                        <img src={profileImage} alt="Arvin Tenasas" className="relative rounded-lg shadow-2xl w-full" />
-                    </div>
+const About = () => (
+    <section id="about" className="py-24 md:py-32 reveal">
+        <div className="text-center mb-16">
+            <h2 className="section-subtitle">INTRODUCTION</h2>
+            <p className="section-title">Who I Am</p>
+        </div>
+        <div className="flex flex-col md:flex-row items-center gap-12 lg:gap-16">
+            <div className="md:w-1/2 lg:w-2/5">
+                <div className="relative w-full group">
+                    <div className="absolute -inset-1 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-lg blur opacity-25 group-hover:opacity-100 transition duration-1000 group-hover:duration-200 animate-tilt"></div>
+                    <img src={profileImageUrl} alt="Arvin Tenasas" className="relative rounded-lg shadow-2xl w-full" />
                 </div>
-                <div className="md:w-1/2 lg:w-3/5">
-                    <p className="text-subtext text-lg mb-6">
-                        I'm a Computer Engineering graduate with a relentless curiosity for how things work. From designing responsive front-end interfaces to programming low-level microcontrollers, I'm driven by the challenge of solving complex problems and creating technology that makes a tangible impact.
-                    </p>
-                    <p className="text-subtext text-lg mb-8">
-                        My goal is to not just write code, but to architect elegant, scalable solutions. I thrive in collaborative, agile environments where I can learn from my peers and contribute to building the future, one line of code at a time.
-                    </p>
-                    <h3 className="text-2xl font-heading font-semibold mb-6">My Tech Arsenal</h3>
-                    <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 text-sm md:text-base">
-                        <div className="tech-item"><i className="fab fa-react text-brand-accent"></i><span>React & Next.js</span></div>
-                        <div className="tech-item"><i className="fab fa-node-js text-brand-accent"></i><span>Node.js & Express</span></div>
-                        <div className="tech-item"><i className="fas fa-wind text-brand-accent"></i><span>Tailwind CSS</span></div>
-                        <div className="tech-item"><i className="fas fa-database text-brand-accent"></i><span>MongoDB & Firebase</span></div>
-                        <div className="tech-item"><i className="fab fa-js-square text-brand-accent"></i><span>TypeScript</span></div>
-                        <div className="tech-item"><i className="fas fa-code text-brand-accent"></i><span>C++</span></div>
-                        <div className="tech-item"><i className="fas fa-microchip text-brand-accent"></i><span>Arduino (UNO, Mega)</span></div>
-                        <div className="tech-item"><i className="fas fa-robot text-brand-accent"></i><span>IoT (ESP32/8266)</span></div>
-                        <div className="tech-item"><i className="fab fa-git-alt text-brand-accent"></i><span>Git & GitHub</span></div>
-                        <div className="tech-item"><i className="fab fa-figma text-brand-accent"></i><span>Figma</span></div>
+            </div>
+            <div className="md:w-1/2 lg:w-3/5">
+                <p className="text-subtext text-lg mb-6">
+                    I'm a Computer Engineering graduate with a relentless curiosity for how things work. From designing responsive front-end interfaces to programming low-level microcontrollers, I'm driven by the challenge of solving complex problems and creating technology that makes a tangible impact.
+                </p>
+                <p className="text-subtext text-lg mb-8">
+                    My goal is to not just write code, but to architect elegant, scalable solutions. I thrive in collaborative, agile environments where I can learn from my peers and contribute to building the future, one line of code at a time.
+                </p>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <div className="philosophy-card">
+                        <h4 className="font-bold text-lg mb-2 text-main-text">User-Centric Design</h4>
+                        <p className="text-subtext text-sm">I prioritize creating intuitive and accessible interfaces that provide a seamless user experience.</p>
+                    </div>
+                    <div className="philosophy-card">
+                        <h4 className="font-bold text-lg mb-2 text-main-text">Scalable Architecture</h4>
+                        <p className="text-subtext text-sm">I build robust and maintainable codebases that can grow and adapt with the project's needs.</p>
                     </div>
                 </div>
             </div>
-        </section>
-    );
-};
+        </div>
+    </section>
+);
 
-const Experience = () => {
-    return (
-        <section id="experience" className="py-24 md:py-32 reveal">
-            <div className="text-center mb-16">
-                <h2 className="section-subtitle">My Journey</h2>
-                <p className="section-title">Career & Education</p>
+const Services = () => (
+    <section id="services" className="py-24 md:py-32 reveal">
+        <div className="text-center mb-16">
+            <h2 className="section-subtitle">WHAT I DO</h2>
+            <p className="section-title">My Services</p>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="service-card">
+                <div className="text-brand-accent mb-4"><i className="fas fa-laptop-code fa-3x"></i></div>
+                <h3 className="text-xl font-heading font-bold mb-2">Web Development</h3>
+                <p className="text-subtext">Crafting responsive, high-performance websites and full-stack applications using modern technologies like React, Node.js, and Next.js.</p>
             </div>
-            <div className="max-w-3xl mx-auto">
-                <div className="relative">
-                    <div className="absolute left-3 md:left-1/2 w-0.5 h-full timeline-line"></div>
-                    
-                    <div className="timeline-item mb-12">
-                        <div className="timeline-content md:text-right">
-                            <div className="timeline-dot work"></div>
-                            <div className="timeline-card">
-                                <img src="https://placehold.co/400x200/141414/2A2A2A?text=Hospitality" alt="MGrand Royale Resort" className="rounded-md mb-4 object-cover w-full h-32" />
-                                <p className="text-sm text-subtext mb-1">June 2024 - Feb 2025</p>
-                                <h4 className="card-title">Service Crew</h4>
-                                <p className="text-brand-accent font-medium">MGrand Royale Resort</p>
-                                <p className="text-subtext mt-2 text-sm">Honed communication and teamwork skills in a fast-paced, customer-focused environment, ensuring high standards of service and collaboration.</p>
-                            </div>
+            <div className="service-card">
+                <div className="text-brand-accent mb-4"><i className="fas fa-drafting-compass fa-3x"></i></div>
+                <h3 className="text-xl font-heading font-bold mb-2">UI/UX Design</h3>
+                <p className="text-subtext">Designing intuitive and visually appealing user interfaces that prioritize user experience, from wireframing in Figma to final implementation.</p>
+            </div>
+            <div className="service-card">
+                <div className="text-brand-accent mb-4"><i className="fas fa-microchip fa-3x"></i></div>
+                <h3 className="text-xl font-heading font-bold mb-2">IoT & Embedded Systems</h3>
+                <p className="text-subtext">Developing smart, connected devices and control systems using platforms like ESP32 and Arduino for automation and data collection.</p>
+            </div>
+        </div>
+    </section>
+);
+
+const Experience = () => (
+    <section id="experience" className="py-24 md:py-32 reveal">
+        <div className="text-center mb-16">
+            <h2 className="section-subtitle">My Journey</h2>
+            <p className="section-title">Career & Education</p>
+        </div>
+        <div className="max-w-3xl mx-auto">
+            <div className="relative">
+                <div className="absolute left-3 md:left-1/2 w-0.5 h-full timeline-line"></div>
+                <div className="timeline-item mb-12">
+                    <div className="timeline-content md:text-right">
+                        <div className="timeline-dot work"></div>
+                        <div className="timeline-card">
+                            <p className="text-sm text-subtext mb-1">March 2025 - Present</p>
+                            <h4 className="card-title">Fullstack Developer & Field Technician</h4>
+                            <p className="text-brand-accent font-medium">LSI Leading Technologies INC.</p>
+                            <ul className="text-subtext mt-3 text-sm list-disc list-inside space-y-1 text-left">
+                                <li>Leading the development of the new, modern corporate website for LSI.</li>
+                                <li>Installing and maintaining high-tech Uninterruptible Power Supply (UPS) systems for major clients.</li>
+                                <li>Bridging software development with hands-on technical fieldwork across the Philippines.</li>
+                            </ul>
                         </div>
                     </div>
-
-                    <div className="timeline-item mb-12">
-                        <div className="timeline-content">
-                            <div className="timeline-dot work"></div>
-                            <div className="timeline-card">
-                                <img src="https://placehold.co/400x200/141414/2A2A2A?text=Tech+Support" alt="Bits N' Bytes Computer Shop" className="rounded-md mb-4 object-cover w-full h-32" />
-                                <p className="text-sm text-subtext mb-1">Feb 2024 - May 2024</p>
-                                <h4 className="card-title">Technical Support Intern</h4>
-                                <p className="text-brand-accent font-medium">Bits N' Bytes Computer Shop</p>
-                                <p className="text-subtext mt-2 text-sm">Diagnosed and resolved diverse hardware/software issues, assembled custom PC builds, and provided direct client support, strengthening my technical problem-solving abilities.</p>
-                            </div>
+                </div>
+                <div className="timeline-item mb-12">
+                    <div className="timeline-content">
+                        <div className="timeline-dot work"></div>
+                        <div className="timeline-card">
+                            <p className="text-sm text-subtext mb-1">Feb 2024 - May 2024</p>
+                            <h4 className="card-title">Technical Support Intern</h4>
+                            <p className="text-brand-accent font-medium">Bits N' Bytes Computer Shop</p>
+                            <ul className="text-subtext mt-3 text-sm list-disc list-inside space-y-1">
+                                <li>Diagnosed and resolved a wide range of hardware and software issues for clients.</li>
+                                <li>Assembled, configured, and tested custom PC builds based on customer specifications.</li>
+                                <li>Provided direct customer support, improving communication and problem-solving skills.</li>
+                            </ul>
                         </div>
                     </div>
-
-                    <div className="timeline-item mb-12">
-                        <div className="timeline-content md:text-right">
-                            <div className="timeline-dot education"></div>
-                            <div className="timeline-card">
-                                <img src="https://placehold.co/400x200/141414/2A2A2A?text=University" alt="Samar State University" className="rounded-md mb-4 object-cover w-full h-32" />
-                                <p className="text-sm text-subtext mb-1">2020 - 2024</p>
-                                <h4 className="card-title">BS in Computer Engineering</h4>
-                                <p className="font-medium text-subtext">Samar State University</p>
-                                <p className="text-subtext mt-2 text-sm">Graduated as a Dean's Lister, with a comprehensive foundation in software development, embedded systems, and computer architecture.</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="timeline-item">
-                        <div className="timeline-content">
-                            <div className="timeline-dot education"></div>
-                            <div className="timeline-card">
-                                <img src="https://placehold.co/400x200/141414/2A2A2A?text=CSS+Certification" alt="Quintin Quijano Sr. Agricultural School" className="rounded-md mb-4 object-cover w-full h-32" />
-                                <p className="text-sm text-subtext mb-1">2018 - 2020</p>
-                                <h4 className="card-title">Computer System Servicing NCII</h4>
-                                <p className="font-medium text-subtext">Quintin Quijano Sr. Agricultural School</p>
-                                <p className="text-subtext mt-2 text-sm">Gained a national certification in IT support and network administration, building a strong practical foundation for my engineering degree.</p>
-                            </div>
+                </div>
+                <div className="timeline-item mb-12">
+                    <div className="timeline-content md:text-right">
+                        <div className="timeline-dot education"></div>
+                        <div className="timeline-card">
+                            <p className="text-sm text-subtext mb-1">2020 - 2024</p>
+                            <h4 className="card-title">BS in Computer Engineering</h4>
+                            <p className="font-medium text-subtext">Samar State University</p>
+                            <ul className="text-subtext mt-3 text-sm list-disc list-inside space-y-1 text-left">
+                                <li>Graduated as a Dean's Lister, demonstrating consistent academic excellence.</li>
+                                <li>Specialized in software development, embedded systems, and computer architecture.</li>
+                                <li>Led a capstone project on an IoT-based automated plant monitoring system.</li>
+                            </ul>
                         </div>
                     </div>
                 </div>
             </div>
-        </section>
-    );
-};
+        </div>
+    </section>
+);
 
 const ProjectCard = ({ imgSrc, title, description, liveLink, sourceLink, tags }) => (
-    <div className="project-card">
-        <div className="overflow-hidden rounded-t-xl">
+    <div className="project-card group">
+        <div className="relative overflow-hidden rounded-t-xl">
             <img src={imgSrc} alt={title} className="w-full h-56 object-cover transform group-hover:scale-105 transition-transform duration-500" />
         </div>
-        <div className="p-6">
+        <div className="p-6 flex flex-col flex-grow">
             <h3 className="text-2xl font-heading font-bold mb-2">{title}</h3>
             <div className="flex flex-wrap gap-2 mb-4">
                 {tags.map(tag => <span key={tag} className="tag">{tag}</span>)}
             </div>
-            <p className="text-subtext mb-4 min-h-[70px]">{description}</p>
-            <div className="flex space-x-4 mt-4">
-                <a href={liveLink} target="_blank" rel="noopener noreferrer" className="project-link">Live Demo <i className="fas fa-external-link-alt ml-1"></i></a>
-                <a href={sourceLink} target="_blank" rel="noopener noreferrer" className="project-link">Source Code <i className="fab fa-github ml-1"></i></a>
+            <p className="text-subtext mb-4 flex-grow">{description}</p>
+            
+            <div className="mt-auto pt-4 border-t border-transparent group-hover:border-main-border transition-colors duration-300">
+                <div className="flex items-center justify-between opacity-0 group-hover:opacity-100 transition-opacity duration-300 transform-gpu translate-y-2 group-hover:translate-y-0">
+                    <a href={liveLink} target="_blank" rel="noopener noreferrer" className="project-link">
+                        <span>Live Demo</span>
+                        <i className="fas fa-external-link-alt ml-2"></i>
+                    </a>
+                    <a href={sourceLink} target="_blank" rel="noopener noreferrer" className="project-link">
+                        <span>Source Code</span>
+                        <i className="fab fa-github ml-2"></i>
+                    </a>
+                </div>
             </div>
         </div>
     </div>
@@ -308,30 +362,9 @@ const ProjectCard = ({ imgSrc, title, description, liveLink, sourceLink, tags })
 
 const Projects = () => {
     const projectData = [
-        {
-            imgSrc: projectImageUrl1,
-            title: "E-Shop Pro",
-            description: "A full-stack e-commerce platform built with the MERN stack, featuring user authentication, product catalog, and a Stripe-powered checkout.",
-            liveLink: "#",
-            sourceLink: "#",
-            tags: ["React", "Node.js", "MongoDB", "Stripe API"]
-        },
-        {
-            imgSrc: projectImageUrl2,
-            title: "Smart Grow System",
-            description: "An IoT automated plant monitoring system using an ESP32. Data is sent to Firebase and visualized on a real-time React dashboard.",
-            liveLink: "#",
-            sourceLink: "#",
-            tags: ["Embedded C++", "ESP32", "Firebase", "IoT"]
-        },
-        {
-            imgSrc: projectImageUrl3,
-            title: "This Developer Portfolio",
-            description: "A sleek, modern personal portfolio built with React and Tailwind CSS to showcase my skills and projects with style and animations.",
-            liveLink: "#",
-            sourceLink: "#",
-            tags: ["React", "Tailwind CSS", "UI/UX"]
-        },
+        { imgSrc: projectImageUrl1, title: "E-Shop Pro", description: "A full-stack e-commerce platform built with the MERN stack. Features user authentication, a dynamic product catalog, and a secure checkout process powered by the Stripe API. The goal was to create a seamless online shopping experience.", liveLink: "#", sourceLink: "#", tags: ["React", "Node.js", "MongoDB", "Stripe API"] },
+        { imgSrc: projectImageUrl2, title: "Smart Grow System", description: "My capstone project: an IoT automated plant monitoring system using an ESP32 microcontroller. It collects real-time data (moisture, temperature) and sends it to Firebase, which is then visualized on a live React dashboard.", liveLink: "#", sourceLink: "#", tags: ["C++", "ESP32", "Firebase", "IoT"] },
+        { imgSrc: projectImageUrl3, title: "This Developer Portfolio", description: "A sleek, modern personal portfolio built from scratch with React and Tailwind CSS. Designed to showcase my skills and projects with a focus on clean UI, smooth animations, and a premium, responsive user experience.", liveLink: "#", sourceLink: "#", tags: ["React", "Tailwind CSS", "UI/UX"] },
     ];
 
     return (
@@ -350,70 +383,294 @@ const Projects = () => {
 };
 
 const Contact = () => {
+    const [status, setStatus] = useState('');
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        setStatus('Thank you for your message!');
+        e.target.reset();
+        setTimeout(() => setStatus(''), 3000);
+    };
+
     return (
-        <section id="contact" className="py-24 md:py-32 text-center reveal">
-            <div className="text-center mb-10">
-                <h2 className="section-subtitle">What's Next?</h2>
-                <p className="section-title">Let's Build Together</p>
-            </div>
-            <p className="text-subtext max-w-2xl mx-auto mb-8 text-lg">
-                I'm actively seeking new opportunities to apply my skills and collaborate on innovative projects. If you have an idea, a project, or just want to connect, my inbox is always open.
-            </p>
-            <a href="mailto:arvintenasas29@gmail.com" className="btn-premium inline-block text-lg">
-                Say Hello <i className="fas fa-paper-plane ml-2"></i>
-            </a>
-        </section>
+    <section id="contact" className="py-24 md:py-32 text-center reveal min-h-full flex flex-col justify-center items-center">
+         <div className="text-center mb-10">
+             <h2 className="section-subtitle">What's Next?</h2>
+             <p className="section-title">Let's Build Together</p>
+         </div>
+         <p className="text-subtext max-w-2xl mx-auto mb-8 text-lg">
+             I'm actively seeking new opportunities and am open to collaboration. Whether you have a project in mind or just want to connect, feel free to reach out.
+         </p>
+         <div className="w-full max-w-lg mx-auto">
+             <form onSubmit={handleSubmit} className="space-y-6 text-left">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <div>
+                        <label htmlFor="name" className="contact-label">Name</label>
+                        <input type="text" id="name" name="name" required className="contact-input" />
+                    </div>
+                    <div>
+                        <label htmlFor="email" className="contact-label">Email</label>
+                        <input type="email" id="email" name="email" required className="contact-input" />
+                    </div>
+                </div>
+                 <div>
+                    <label htmlFor="message" className="contact-label">Message</label>
+                    <textarea id="message" name="message" rows="4" required className="contact-input"></textarea>
+                 </div>
+                 <div className="text-center">
+                    <button type="submit" className="btn-premium inline-block text-lg w-full sm:w-auto">
+                        Send Message <i className="fas fa-paper-plane ml-2"></i>
+                    </button>
+                 </div>
+             </form>
+             {status && <p className="mt-4 text-brand-accent">{status}</p>}
+         </div>
+     </section>
     );
 };
 
-const Footer = () => {
+// --- AI CHAT COMPONENT ---
+const AIChat = () => {
+    const [isOpen, setIsOpen] = useState(false);
+    const [messages, setMessages] = useState([]);
+    const [input, setInput] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
+    const chatBodyRef = useRef(null);
+
+    const portfolioContext = `
+        You are a helpful AI assistant for Arvin Tenasas's portfolio. 
+        Your goal is to answer questions about Arvin based ONLY on the information provided below.
+        Be friendly, professional, and concise. Do not answer questions unrelated to Arvin.
+
+        Information about Arvin Tenasas:
+        - Full Name: Arvin Tenasas
+        - Role: Full-Stack Developer & Field Technician Engineer
+        - Location: Manila, Philippines
+        - Passion: Building intuitive, high-performance web applications and embedded systems.
+        - Philosophy: 1) User-Centric Design (intuitive, accessible interfaces). 2) Scalable Architecture (robust, maintainable code).
+        
+        Services Offered:
+        - Web Development: React, Node.js, Next.js.
+        - UI/UX Design: Wireframing in Figma to implementation.
+        - IoT & Embedded Systems: ESP32 and Arduino development.
+
+        Experience:
+        1. LSI Leading Technologies INC. (June 2024 - Present): Fullstack Developer & Field Technician.
+           - Developing the new corporate website for LSI.
+           - Installing and maintaining high-tech Uninterruptible Power Supply (UPS) systems for clients.
+           - Combining software development with hands-on technical fieldwork.
+        2. Bits N' Bytes Computer Shop (Feb 2024 - May 2024): Technical Support Intern.
+           - Diagnosed hardware/software issues, assembled custom PCs, and provided client support.
+
+        Education:
+        - Samar State University (2020 - 2024): BS in Computer Engineering (Dean's Lister).
+          - Specialized in software development, embedded systems, and computer architecture.
+          - Led a capstone project on an IoT-based automated plant monitoring system.
+
+        Projects:
+        1. E-Shop Pro: A full-stack MERN e-commerce platform with Stripe API integration.
+        2. Smart Grow System: His capstone project, an IoT plant monitoring system using ESP32 and Firebase with a React dashboard.
+        3. Developer Portfolio (this site): Built with React and Tailwind CSS, focusing on clean UI and animations.
+    `;
+
+    useEffect(() => {
+        if(isOpen && messages.length === 0) {
+             setMessages([{ sender: 'ai', text: "Hello! I'm Arvin's AI assistant. Ask me anything about his skills, experience, or projects." }]);
+        }
+    }, [isOpen]);
+
+    useEffect(() => {
+        if (chatBodyRef.current) {
+            chatBodyRef.current.scrollTop = chatBodyRef.current.scrollHeight;
+        }
+    }, [messages]);
+    
+    const handleSend = async () => {
+        if (input.trim() === '' || isLoading) return;
+        
+        const userMessage = { sender: 'user', text: input };
+        setMessages(prev => [...prev, userMessage]);
+        setInput('');
+        setIsLoading(true);
+
+        try {
+            const apiKey = "";
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
+            const payload = {
+                contents: [{ parts: [{ text: userMessage.text }] }],
+                systemInstruction: { parts: [{ text: portfolioContext }] },
+            };
+            
+            const response = await fetch(apiUrl, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+            
+            if (!response.ok) {
+                throw new Error(`API error: ${response.statusText}`);
+            }
+            
+            const result = await response.json();
+            const aiText = result.candidates?.[0]?.content?.parts?.[0]?.text || "Sorry, I couldn't process that. Please try again.";
+            setMessages(prev => [...prev, { sender: 'ai', text: aiText }]);
+            
+        } catch (error) {
+            console.error("AI Chat Error:", error);
+            setMessages(prev => [...prev, { sender: 'ai', text: "Apologies, I'm having trouble connecting right now." }]);
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
     return (
-        <footer className="border-t border-main-border/50 relative">
-            <div className="container mx-auto px-6 py-8 text-center text-subtext">
-                <div className="flex justify-center space-x-6 mb-4">
-                     <a href="https://github.com/arvintenasas" target="_blank" rel="noopener noreferrer" className="social-icon"><i className="fab fa-github"></i></a>
-                    <a href="https://linkedin.com/in/arvin-tenasas" target="_blank" rel="noopener noreferrer" className="social-icon"><i className="fab fa-linkedin"></i></a>
-                    <a href="mailto:arvintenasas29@gmail.com" className="social-icon"><i className="fas fa-envelope"></i></a>
+        <>
+            <button onClick={() => setIsOpen(!isOpen)} className="ai-chat-button">
+                {isOpen ? <XIcon className="w-8 h-8"/> : <BotIcon className="w-8 h-8"/>}
+            </button>
+
+            <div className={`ai-chat-window ${isOpen ? 'open' : ''}`}>
+                <div className="chat-header">
+                    <h3 className="font-heading text-lg">AI Assistant</h3>
+                    <p className="text-xs text-subtext">Ask Me</p>
                 </div>
-                <p>&copy; {new Date().getFullYear()} Arvin Tenasas. Designed & Built with passion.</p>
+                <div className="chat-body" ref={chatBodyRef}>
+                    {messages.map((msg, index) => (
+                        <div key={index} className={`chat-message ${msg.sender}`}>
+                            <p>{msg.text}</p>
+                        </div>
+                    ))}
+                    {isLoading && <div className="chat-message ai"><p className="typing-indicator">...</p></div>}
+                </div>
+                <div className="chat-input-area">
+                    <input 
+                        type="text" 
+                        value={input}
+                        onChange={(e) => setInput(e.target.value)}
+                        onKeyPress={(e) => e.key === 'Enter' && handleSend()}
+                        placeholder="Ask about my projects..."
+                        className="chat-input"
+                    />
+                    <button onClick={handleSend} className="send-button" disabled={isLoading}>
+                        <SendIcon className="w-5 h-5"/>
+                    </button>
+                </div>
             </div>
-        </footer>
+        </>
     );
 };
+
+
+// --- SIDEBAR & LAYOUT COMPONENTS ---
+
+const NavItem = ({ icon, label, page, activePage, setActivePage, setSidebarOpen }) => (
+    <button
+        onClick={() => {
+            setActivePage(page);
+            setSidebarOpen(false);
+        }}
+        className={`flex items-center w-full px-4 py-3 text-left transition-all duration-200 rounded-lg ${activePage === page ? 'bg-brand-accent/20 text-brand-accent' : 'text-subtext hover:bg-card hover:text-main-text'}`}
+    >
+        {icon}
+        <span className="ml-4 font-medium">{label}</span>
+    </button>
+);
+
+const ThemeToggle = () => {
+    const { theme, toggleTheme } = useTheme();
+    return (
+        <button onClick={toggleTheme} className="flex items-center w-full px-4 py-3 text-left transition-colors duration-200 rounded-lg text-subtext hover:bg-card hover:text-main-text">
+            {theme === 'light' ? <MoonIcon className="w-5 h-5"/> : <SunIcon className="w-5 h-5" />}
+            <span className="ml-4 font-medium">Toggle Theme</span>
+        </button>
+    );
+};
+
+const Sidebar = ({ activePage, setActivePage, isSidebarOpen, setSidebarOpen }) => {
+    const navItems = [
+        { icon: <HomeIcon className="w-5 h-5"/>, label: "Home", page: "home" },
+        { icon: <UserIcon className="w-5 h-5"/>, label: "About", page: "about" },
+        { icon: <CodeIcon className="w-5 h-5"/>, label: "Services", page: "services" },
+        { icon: <BriefcaseIcon className="w-5 h-5"/>, label: "Experience", page: "experience" },
+        { icon: <LayersIcon className="w-5 h-5"/>, label: "Projects", page: "projects" },
+        { icon: <MailIcon className="w-5 h-5"/>, label: "Contact", page: "contact" },
+    ];
+
+    return (
+        <>
+            <aside className={`fixed top-0 left-0 z-50 h-full w-64 bg-sidebar-bg border-r border-main-border flex-col p-4 transition-transform duration-300 ease-in-out md:translate-x-0 ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'}`}>
+                <div className="flex flex-col h-full">
+                     <a href="#" onClick={() => setActivePage('home')} className="text-2xl font-heading font-bold tracking-wider hover:text-brand-accent transition-colors p-4 text-center">
+                        ARVIN.DEV
+                    </a>
+                    <nav className="flex-grow mt-8 space-y-2">
+                        {navItems.map(item => (
+                            <NavItem key={item.page} {...item} activePage={activePage} setActivePage={setActivePage} setSidebarOpen={setSidebarOpen} />
+                        ))}
+                    </nav>
+                    <div className="space-y-2">
+                        <ThemeToggle />
+                    </div>
+                    <div className="border-t border-main-border/50 mt-4 pt-4">
+                        <div className="flex justify-center space-x-4 mb-4">
+                            <a href="https://github.com/arvintenasas" target="_blank" rel="noopener noreferrer" className="social-icon text-xl"><i className="fab fa-github"></i></a>
+                            <a href="https://linkedin.com/in/arvin-tenasas" target="_blank" rel="noopener noreferrer" className="social-icon text-xl"><i className="fab fa-linkedin"></i></a>
+                            <a href="mailto:arvintenasas29@gmail.com" className="social-icon text-xl"><i className="fas fa-envelope"></i></a>
+                        </div>
+                        <p className="text-xs text-subtext text-center">&copy; {new Date().getFullYear()} Arvin Tenasas.</p>
+                    </div>
+                </div>
+            </aside>
+            {isSidebarOpen && <div onClick={() => setSidebarOpen(false)} className="fixed inset-0 bg-black/50 z-40 md:hidden"></div>}
+        </>
+    );
+};
+
 
 // --- MAIN APP COMPONENT ---
 
 export default function App() {
+    const [activePage, setActivePage] = useState('home');
+    const [isSidebarOpen, setSidebarOpen] = useState(false);
+    const contentRef = useRef(null);
+
+    useScrollReveal(contentRef, activePage);
 
     useEffect(() => {
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
-            });
-        }, { threshold: 0.1 });
+        if (contentRef.current) {
+            contentRef.current.scrollTop = 0;
+        }
+    }, [activePage]);
 
-        const revealElements = document.querySelectorAll('.reveal');
-        revealElements.forEach(el => observer.observe(el));
-        
-        return () => {
-            revealElements.forEach(el => observer.unobserve(el));
-        };
-    }, []);
+    const renderPage = () => {
+        switch (activePage) {
+            case 'home': return <Hero />;
+            case 'about': return <About />;
+            case 'services': return <Services />;
+            case 'experience': return <Experience />;
+            case 'projects': return <Projects />;
+            case 'contact': return <Contact />;
+            default: return <Hero />;
+        }
+    };
 
     return (
         <ThemeProvider>
             <StyleInjector />
-            <Header />
-            <main className="container mx-auto px-6">
-                <Hero />
-                <About />
-                <Experience />
-                <Projects />
-                <Contact />
-            </main>
-            <Footer />
+            <div className="app-layout">
+                <Sidebar activePage={activePage} setActivePage={setActivePage} isSidebarOpen={isSidebarOpen} setSidebarOpen={setSidebarOpen} />
+                
+                <button onClick={() => setSidebarOpen(!isSidebarOpen)} className="fixed top-4 left-4 z-50 p-2 rounded-md bg-card/80 backdrop-blur-sm md:hidden">
+                    {isSidebarOpen ? <XIcon /> : <MenuIcon />}
+                </button>
+
+                <main ref={contentRef} className="content-area">
+                    <div key={activePage} className="page-content">
+                        {renderPage()}
+                    </div>
+                </main>
+                <AIChat />
+            </div>
         </ThemeProvider>
     );
 }
@@ -429,52 +686,42 @@ const StyleInjector = () => (
             50% { background-position: 100% 50%; }
             100% { background-position: 0% 50%; }
         }
-
-        :root {
-            --gradient-start: #08F7FE;
-            --gradient-end: #00B2B6;
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes typing {
+            0% { width: 0; }
+            50% { width: 5px; }
+            100% { width: 10px; }
         }
         
-        /* Dark Mode (default) */
+        :root { --gradient-start: #08F7FE; --gradient-end: #00B2B6; }
+        
         body.dark-mode {
-            --bg: #0A0A0A;
-            --card: #141414;
-            --main-border: #2A2A2A;
-            --main-text: #E5E7EB;
-            --subtext: #9CA3AF;
-            --brand-accent: #08F7FE;
-            --brand-accent-glow: rgba(8, 247, 254, 0.5);
+            --bg: #0A0A0A; --sidebar-bg: #0F0F0F; --card: #141414; --main-border: #2A2A2A; --main-text: #E5E7EB; --subtext: #9CA3AF; --brand-accent: #08F7FE; --brand-accent-glow: rgba(8, 247, 254, 0.5);
             background: linear-gradient(-45deg, #0A0A0A, #111827, #022c43, #0A0A0A);
         }
-
-        /* Light Mode */
         body.light-mode {
-            --bg: #f0f4f8;
-            --card: #ffffff;
-            --main-border: #dee2e6;
-            --main-text: #212529;
-            --subtext: #495057;
-            --brand-accent: #007A7F;
-            --brand-accent-glow: rgba(0, 122, 127, 0.3);
+            --bg: #f0f4f8; --sidebar-bg: #FFFFFF; --card: #ffffff; --main-border: #dee2e6; --main-text: #212529; --subtext: #495057; --brand-accent: #007A7F; --brand-accent-glow: rgba(0, 122, 127, 0.3);
             background: linear-gradient(-45deg, #ffffff, #e6f7ff, #d1eaff, #ffffff);
         }
         
-        .light-mode .project-card,
-        .light-mode .timeline-card,
-        .light-mode .tech-item {
+        .light-mode .project-card, .light-mode .timeline-card, .light-mode .tech-item, .light-mode .philosophy-card, .light-mode .service-card {
             box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.07), 0 2px 4px -2px rgb(0 0 0 / 0.07);
         }
         
         html { scroll-behavior: smooth; }
         body {
-            color: var(--main-text);
-            font-family: 'Inter', sans-serif;
-            transition: background-color 0.3s ease, color 0.3s ease;
-            background-size: 400% 400%;
-            animation: gradientAnimation 15s ease infinite;
+            color: var(--main-text); font-family: 'Inter', sans-serif; transition: background-color 0.3s ease, color 0.3s ease;
+            background-size: 400% 400%; animation: gradientAnimation 15s ease infinite;
         }
 
-        /* Typography */
+        .app-layout { display: flex; }
+        .content-area {
+            flex-grow: 1; height: 100vh; overflow-y: auto; background-color: var(--bg);
+            transition: background-color 0.3s ease; padding-left: 0;
+        }
+        @media (min-width: 768px) { .content-area { padding-left: 16rem; } }
+        .page-content { max-width: 1100px; margin: 0 auto; padding: 0 1.5rem; animation: fadeIn 0.6s ease-out; }
+
         .font-heading { font-family: 'Orbitron', sans-serif; text-shadow: 0 0 8px var(--brand-accent-glow); color: var(--main-text); }
         .text-brand-accent { color: var(--brand-accent); text-shadow: 0 0 8px var(--brand-accent-glow); }
         .text-subtext { color: var(--subtext); }
@@ -482,23 +729,6 @@ const StyleInjector = () => (
         .section-title { font-family: 'Orbitron', sans-serif; font-size: 2.5rem; font-weight: bold; color: var(--main-text); text-shadow: 0 0 10px var(--brand-accent-glow); }
         @media (min-width: 768px) { .section-title { font-size: 3rem; } }
 
-        /* Header & Nav */
-        .glass-header { background-color: transparent; border-bottom: 1px solid transparent; }
-        .glass-header-scrolled { background-color: color-mix(in srgb, var(--bg) 80%, transparent); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid var(--main-border); }
-        .nav-link { color: var(--subtext); position: relative; transition: color 0.3s ease; }
-        .nav-link:hover, .nav-link.active { color: var(--main-text); }
-        .nav-link::after { content: ''; position: absolute; bottom: -6px; left: 0; width: 0; height: 2px; background: var(--brand-accent); box-shadow: 0 0 8px var(--brand-accent-glow); transition: width .3s; }
-        .nav-link:hover::after, .nav-link.active::after { width: 100%; }
-        .mobile-menu-bg { background-color: var(--card); }
-        .mobile-link { color: var(--subtext); transition: all 0.3s ease; }
-        .mobile-link:hover { background-color: var(--brand-accent); color: #fff; }
-
-
-        /* Theme Toggle */
-        .theme-toggle-btn { background: none; border: none; font-size: 1.25rem; cursor: pointer; color: var(--subtext); transition: color 0.3s ease, transform 0.3s ease; }
-        .theme-toggle-btn:hover { color: var(--brand-accent); transform: scale(1.1) rotate(15deg); }
-
-        /* Buttons & Links */
         .btn-premium, .btn-secondary { padding: 0.75rem 2rem; border-radius: 9999px; font-weight: bold; transition: all 0.3s ease; display: inline-block; text-align: center; border: 1px solid transparent; }
         .btn-premium { color: #fff; background-image: linear-gradient(to right, var(--brand-accent) 0%, color-mix(in srgb, var(--brand-accent) 80%, black) 51%, var(--brand-accent) 100%); background-size: 200% auto; box-shadow: 0 0 15px var(--brand-accent-glow); }
         .dark-mode .btn-premium { color: #0A0A0A; }
@@ -506,36 +736,30 @@ const StyleInjector = () => (
         .btn-secondary { background-color: transparent; color: var(--main-text); border: 1px solid var(--main-border); }
         .btn-secondary:hover { border-color: var(--brand-accent); color: var(--brand-accent); box-shadow: 0 0 15px var(--brand-accent-glow); transform: translateY(-2px); }
 
-        /* Social Icons */
-        .social-icon { color: var(--subtext); font-size: 1.5rem; transition: all 0.3s ease; }
+        .social-icon { color: var(--subtext); transition: all 0.3s ease; }
         .social-icon:hover { color: var(--brand-accent); transform: scale(1.1) translateY(-2px); text-shadow: 0 0 10px var(--brand-accent-glow); }
 
-        /* Typing Cursor */
         @keyframes blink { 50% { opacity: 0; } }
         .cursor-blink { animation: blink 1s step-end infinite; }
         
-        /* Tilt Animation */
         @keyframes tilt { 0%, 100% { transform: rotate(0deg); } 25% { transform: rotate(-1deg); } 75% { transform: rotate(1deg); } }
         .animate-tilt { animation: tilt 10s infinite linear; }
 
-        /* Scroll Reveal Animation */
         .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease-out, transform 0.8s ease-out; }
         .reveal.visible { opacity: 1; transform: translateY(0); }
+        
+        .philosophy-card { background-color: var(--card); padding: 1.5rem; border-radius: 0.5rem; border: 1px solid var(--main-border); transition: all .3s ease; }
+        .philosophy-card:hover { border-color: var(--brand-accent); transform: translateY(-3px); }
 
-        /* Tech Item */
-        .tech-item { display: flex; align-items: center; gap: 0.75rem; background-color: var(--card); padding: 0.75rem; border-radius: 0.5rem; border: 1px solid var(--main-border); transition: all 0.3s; color: var(--main-text); }
-        .tech-item:hover { border-color: var(--brand-accent); transform: translateY(-3px); box-shadow: 0 4px 20px rgba(8, 247, 254, 0.1);}
+        .service-card { background-color: var(--card); padding: 2rem; border-radius: 0.75rem; border: 1px solid var(--main-border); transition: all .3s ease; text-align: center; }
+        .service-card:hover { border-color: var(--brand-accent); transform: translateY(-5px); box-shadow: 0 8px 30px rgba(8, 247, 254, 0.1); }
 
-        /* Timeline */
         .timeline-line { background-color: var(--main-border); box-shadow: 0 0 8px var(--brand-accent-glow); }
         .timeline-dot { position: absolute; top: 0.25rem; left: 0; transform: translateX(-50%); width: 1.25rem; height: 1.25rem; border-radius: 9999px; border: 4px solid var(--bg); box-shadow: 0 0 10px var(--brand-accent-glow); }
         .timeline-dot.work { background-color: var(--brand-accent); }
         .timeline-dot.education { background-color: var(--main-text); }
         .timeline-card { background-color: var(--card); padding: 1.5rem; border-radius: 0.5rem; border: 1px solid var(--main-border); transition: all .3s ease; }
-        .timeline-card img { opacity: 0.75; transition: opacity .3s ease; }
         .timeline-card:hover { border-color: var(--brand-accent); box-shadow: 0 0 20px rgba(8, 247, 254, 0.15); transform: translateY(-5px); }
-        .timeline-card:hover img { opacity: 1; }
-        .card-title { font-size: 1.25rem; font-family: 'Orbitron', sans-serif; font-weight: bold; color: var(--main-text); }
         @media (min-width: 768px) {
             .timeline-item:nth-child(odd) .timeline-content { margin-left: 50%; padding-left: 2rem; }
             .timeline-item:nth-child(even) .timeline-content { margin-right: 50%; padding-right: 2rem; text-align: right; }
@@ -543,20 +767,136 @@ const StyleInjector = () => (
             .timeline-item:nth-child(even) .timeline-content { margin-left: 0; }
             .timeline-dot { left: 50%; }
         }
-
-        /* Project Card */
-        .project-card { background-color: var(--card); border: 1px solid var(--main-border); border-radius: 0.75rem; overflow: hidden; transition: all 0.3s ease; display: flex; flex-direction: column; }
-        .project-card:hover { transform: translateY(-8px); border-color: var(--brand-accent); }
-        .dark-mode .project-card:hover { box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1); }
-        .light-mode .project-card:hover { box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1); }
-
-        .project-card h3 { color: var(--main-text); }
-        .tag { font-size: 0.75rem; font-weight: 600; background-color: var(--brand-accent); color: #fff; padding: 0.25rem 0.75rem; border-radius: 9999px; }
-        .light-mode .tag { color: #fff; }
-        .dark-mode .tag { background-color: var(--brand-accent)/20; color: var(--brand-accent); }
+        .card-title { font-size: 1.25rem; font-family: 'Orbitron', sans-serif; font-weight: bold; color: var(--main-text); }
         
-        .project-link { color: var(--subtext); font-weight: 600; transition: color 0.3s ease; }
-        .project-link:hover { color: var(--brand-accent); }
+
+        .project-card { background-color: var(--card); border: 1px solid var(--main-border); border-radius: 0.75rem; overflow: hidden; transition: all 0.3s ease; display: flex; flex-direction: column; }
+        .project-card:hover { transform: translateY(-8px); border-color: var(--brand-accent); box-shadow: 0 8px 30px rgba(8, 247, 254, 0.1); }
+        .project-link { 
+            color: var(--subtext); 
+            font-weight: 600; 
+            transition: all 0.3s ease; 
+            display: inline-flex; 
+            align-items: center;
+            font-size: 0.875rem;
+        }
+        .project-link:hover { 
+            color: var(--brand-accent);
+            transform: translateY(-2px);
+        }
+        .project-link i {
+            transition: transform 0.3s ease;
+        }
+        .project-link:hover i {
+            transform: scale(1.1);
+        }
+        .project-card h3 { color: var(--main-text); }
+        .tag { font-size: 0.75rem; font-weight: 600; padding: 0.25rem 0.75rem; border-radius: 9999px; }
+        .dark-mode .tag { background-color: var(--brand-accent)/20; color: var(--brand-accent); }
+        .light-mode .tag { background-color: var(--brand-accent); color: #fff; }
+
+        .contact-label { display: block; margin-bottom: 0.5rem; font-size: 0.875rem; color: var(--subtext); }
+        .contact-input { width: 100%; background-color: var(--card); border: 1px solid var(--main-border); border-radius: 0.5rem; padding: 0.75rem; color: var(--main-text); transition: border-color 0.3s; }
+        .contact-input:focus { outline: none; border-color: var(--brand-accent); box-shadow: 0 0 0 2px var(--brand-accent-glow); }
+        
+        /* AI Chat Styles */
+        .ai-chat-button {
+            position: fixed;
+            bottom: 1.5rem;
+            right: 1.5rem;
+            z-index: 100;
+            width: 4rem;
+            height: 4rem;
+            border-radius: 9999px;
+            background-image: linear-gradient(to right, var(--brand-accent) 0%, color-mix(in srgb, var(--brand-accent) 80%, black) 51%, var(--brand-accent) 100%);
+            background-size: 200% auto;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 20px var(--brand-accent-glow);
+            transition: all 0.3s ease;
+        }
+        .dark-mode .ai-chat-button { color: #0A0A0A; }
+        .ai-chat-button:hover { transform: scale(1.1); box-shadow: 0 8px 30px var(--brand-accent-glow); }
+        
+        .ai-chat-window {
+            position: fixed;
+            bottom: 6.5rem;
+            right: 1.5rem;
+            z-index: 100;
+            width: 90%;
+            max-width: 400px;
+            height: 70vh;
+            max-height: 500px;
+            background-color: var(--sidebar-bg);
+            border: 1px solid var(--main-border);
+            border-radius: 1rem;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transform: translateY(20px) scale(0.95);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease-out;
+            overflow: hidden;
+        }
+        .ai-chat-window.open {
+            transform: translateY(0) scale(1);
+            opacity: 1;
+            visibility: visible;
+        }
+        .chat-header {
+            padding: 1rem;
+            border-bottom: 1px solid var(--main-border);
+            text-align: center;
+        }
+        .chat-body {
+            flex-grow: 1;
+            padding: 1rem;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        .chat-message { max-width: 80%; padding: 0.75rem; border-radius: 0.75rem; line-height: 1.5; }
+        .chat-message.user { align-self: flex-end; background-color: var(--brand-accent); color: #fff; border-bottom-right-radius: 0; }
+        .dark-mode .chat-message.user { color: #0A0A0A; }
+        .chat-message.ai { align-self: flex-start; background-color: var(--card); border: 1px solid var(--main-border); border-bottom-left-radius: 0; }
+        .chat-input-area { padding: 1rem; border-top: 1px solid var(--main-border); display: flex; gap: 0.5rem; }
+        .chat-input {
+            flex-grow: 1;
+            background-color: var(--card);
+            border: 1px solid var(--main-border);
+            border-radius: 9999px;
+            padding: 0.5rem 1rem;
+            color: var(--main-text);
+            outline: none;
+        }
+        .chat-input:focus { border-color: var(--brand-accent); }
+        .send-button {
+            background-color: var(--brand-accent);
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            width: 2.5rem;
+            height: 2.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+        .dark-mode .send-button { color: #0A0A0A; }
+        .send-button:disabled { opacity: 0.5; cursor: not-allowed; }
+        .typing-indicator {
+            display: inline-block;
+            overflow: hidden;
+            white-space: nowrap;
+            animation: typing 1s steps(3, end) infinite;
+        }
     `}
     </style>
 );
