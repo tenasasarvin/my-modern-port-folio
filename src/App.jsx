@@ -19,6 +19,9 @@ const LayersIcon = (props) => (
 const MailIcon = (props) => (
     <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
 );
+const FileTextIcon = (props) => (
+    <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><line x1="16" x2="8" y1="13" y2="13"/><line x1="16" x2="8" y1="17" y2="17"/><line x1="10" x2="8" y1="9" y2="9"/></svg>
+);
 const SunIcon = (props) => (
     <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
 );
@@ -64,10 +67,13 @@ const useTheme = () => useContext(ThemeContext);
 
 
 // --- ASSETS ---
-import profileImageUrl from './assets/profile.jpg';
-const projectImageUrl1 = 'https://placehold.co/600x400/0A0A0A/FFFFFF?text=E-Shop+Pro';
-const projectImageUrl2 = 'https://placehold.co/600x400/0A0A0A/9CA3AF?text=Smart+Grow';
-const projectImageUrl3 = 'https://placehold.co/600x400/0A0A0A/08F7FE?text=Portfolio+v2';
+const ASSETS = {
+    profileImageUrl: 'https://placehold.co/512x512/0A0A0A/08F7FE?text=AT&font=orbitron',
+    projectImageUrl1: 'https://placehold.co/600x400/0A0A0A/08F7FE?text=SmartPen+IoT',
+    projectImageUrl2: 'https://placehold.co/600x400/0A0A0A/FFFFFF?text=LSI+Website',
+    projectImageUrl3: 'https://placehold.co/600x400/0A0A0A/9CA3AF?text=Portfolio+v3',
+    thesisDiagramUrl: 'https://i.imgur.com/G2x21J9.png',
+};
 
 
 // --- ANIMATION HOOK ---
@@ -222,7 +228,7 @@ const About = () => (
             <div className="md:w-1/2 lg:w-2/5">
                 <div className="relative w-full group">
                     <div className="absolute -inset-1 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-lg blur opacity-25 group-hover:opacity-100 transition duration-1000 group-hover:duration-200 animate-tilt"></div>
-                    <img src={profileImageUrl} alt="Arvin Tenasas" className="relative rounded-lg shadow-2xl w-full" />
+                    <img src={ASSETS.profileImageUrl} alt="Arvin Tenasas" className="relative rounded-lg shadow-2xl w-full" />
                 </div>
             </div>
             <div className="md:w-1/2 lg:w-3/5">
@@ -286,7 +292,7 @@ const Experience = () => (
                     <div className="timeline-content md:text-right">
                         <div className="timeline-dot work"></div>
                         <div className="timeline-card">
-                            <p className="text-sm text-subtext mb-1">March 2025 - Present</p>
+                            <p className="text-sm text-subtext mb-1">June 2024 - Present</p>
                             <h4 className="card-title">Fullstack Developer & Field Technician</h4>
                             <p className="text-brand-accent font-medium">LSI Leading Technologies INC.</p>
                             <ul className="text-subtext mt-3 text-sm list-disc list-inside space-y-1 text-left">
@@ -362,9 +368,9 @@ const ProjectCard = ({ imgSrc, title, description, liveLink, sourceLink, tags })
 
 const Projects = () => {
     const projectData = [
-        { imgSrc: projectImageUrl1, title: "E-Shop Pro", description: "A full-stack e-commerce platform built with the MERN stack. Features user authentication, a dynamic product catalog, and a secure checkout process powered by the Stripe API. The goal was to create a seamless online shopping experience.", liveLink: "#", sourceLink: "#", tags: ["React", "Node.js", "MongoDB", "Stripe API"] },
-        { imgSrc: projectImageUrl2, title: "Smart Grow System", description: "My capstone project: an IoT automated plant monitoring system using an ESP32 microcontroller. It collects real-time data (moisture, temperature) and sends it to Firebase, which is then visualized on a live React dashboard.", liveLink: "#", sourceLink: "#", tags: ["C++", "ESP32", "Firebase", "IoT"] },
-        { imgSrc: projectImageUrl3, title: "This Developer Portfolio", description: "A sleek, modern personal portfolio built from scratch with React and Tailwind CSS. Designed to showcase my skills and projects with a focus on clean UI, smooth animations, and a premium, responsive user experience.", liveLink: "#", sourceLink: "#", tags: ["React", "Tailwind CSS", "UI/UX"] },
+        { imgSrc: ASSETS.projectImageUrl1, title: "SmartPen: IoT Aquaculture System", description: "My undergraduate thesis project. SmartPen is an IoT-based system that automates fish feeding in marine pens by monitoring water quality, temperature, and sea currents. Features an Android app for remote control and data visualization via Firebase.", liveLink: "#", sourceLink: "#", tags: ["IoT", "ESP32", "Firebase", "Android", "Thesis"] },
+        { imgSrc: ASSETS.projectImageUrl2, title: "LSI Website Modernization", description: "Leading the ground-up development of a new corporate website for LSI Leading Technologies. The project involves a complete UI/UX overhaul and implementation with a modern tech stack (React, Vite, Tailwind CSS) to enhance online presence and user engagement.", liveLink: "#", sourceLink: "#", tags: ["React", "Vite", "Tailwind CSS", "UI/UX"] },
+        { imgSrc: ASSETS.projectImageUrl3, title: "AI-Powered Developer Portfolio", description: "The portfolio you're viewing now. A sleek, single-page application built with React and Tailwind CSS, featuring an integrated AI assistant (powered by Gemini) trained on my professional data to answer visitor questions.", liveLink: "#", sourceLink: "#", tags: ["React", "Tailwind CSS", "Gemini API", "UI/UX"] },
     ];
 
     return (
@@ -429,6 +435,173 @@ const Contact = () => {
     );
 };
 
+const Credentials = () => {
+    const [isThesisModalOpen, setIsThesisModalOpen] = useState(false);
+    const [activeCredential, setActiveCredential] = useState(null);
+
+    const thesisData = {
+        type: 'thesis',
+        title: "SmartPen: Smart Precision Feeding and Monitoring System for Marine Pens in Samar",
+        abstract: "The 'SmartPen' system addresses inefficiencies in aquaculture, specifically in marine fish pens in Samar, by automating the feeding process. It utilizes sensors to monitor water quality (pH level), water temperature, and sea current direction to optimize feeding schedules and feed amounts, aiming to reduce waste and improve fish growth and health. The system features an Android-based application for remote monitoring and control, with data stored and managed via a Firebase cloud database.",
+        objectives: [
+            "Monitor water quality and temperature to determine optimal feeding times.",
+            "Analyze sea currents to adjust feeding strategies and minimize feed loss.",
+            "Calculate fish volume to dispense the appropriate amount of feed.",
+            "Provide a remote monitoring and control interface via an Android application."
+        ],
+        downloadLink: "/Updated-Manuscript-as-of-August-29-2023 Original Copy.docx"
+    };
+
+    const credentialsData = {
+        academic: [
+            {
+                ...thesisData,
+                issuer: "Samar State University",
+                date: "May 2023",
+                action: () => setIsThesisModalOpen(true),
+                buttonText: "View Summary"
+            }
+        ],
+        professional: [
+            {
+                title: "Certificate of Employment",
+                issuer: "LSI Leading Technologies INC.",
+                date: "Present",
+                description: "This document certifies that Arvin D. Tenasas has been employed at LSI Leading Technologies Inc. from June 2024 to the present, holding the position of Fullstack Developer & Field Technician Engineer. Responsibilities include full-cycle web application development and on-site installation and maintenance of critical power systems.",
+                buttonText: "View"
+            },
+            {
+                title: "Internship (OJT) Completion",
+                issuer: "Bits N' Bytes Computer Shop",
+                date: "May 2024",
+                description: "This certifies that Arvin D. Tenasas has successfully completed 486 hours of On-the-Job Training as a Technical Support Intern. The training covered hardware diagnostics, custom PC assembly, software troubleshooting, and direct customer service.",
+                buttonText: "View"
+            },
+            {
+                title: "Data Science & Analytics Seminar",
+                issuer: "Analytics Association of PH",
+                date: "March 2024",
+                description: "Certificate of Participation awarded to Arvin D. Tenasas for attending the 'Data Science & Analytics Seminar'. Topics included data modeling, machine learning fundamentals, data visualization techniques, and industry case studies.",
+                buttonText: "View"
+            },
+            {
+                title: "Modern Web Development Seminar",
+                issuer: "Tech Institute PH",
+                date: "Jan 2024",
+                description: "Certificate of Completion awarded to Arvin D. Tenasas for completing the 'Modern Web Development' seminar. The curriculum focused on advanced React patterns, state management with Context and Redux, performance optimization strategies, and modern CSS frameworks.",
+                buttonText: "View"
+            }
+        ],
+        organizational: [
+            {
+                title: "Member, Institute of Computer Engineers",
+                issuer: "ICpEP.SE - SSU Chapter",
+                date: "2022 - 2024",
+                description: "This certificate recognizes Arvin D. Tenasas as an active member of the Institute of Computer Engineers of the Philippines (ICpEP.SE) - Samar State University Student Chapter for the academic years 2022-2024. Actively participated in organization-led seminars, workshops, and community events.",
+                buttonText: "View"
+            }
+        ]
+    };
+
+    credentialsData.professional.forEach(c => c.action = () => setActiveCredential(c));
+    credentialsData.organizational.forEach(c => c.action = () => setActiveCredential(c));
+    
+    const renderCredentialCard = (cred, index) => (
+        <div key={index} className="credential-card">
+            <div className="flex-grow">
+                <p className="text-sm text-subtext">{cred.issuer}</p>
+                <h3 className="text-xl font-heading font-bold my-2">{cred.title}</h3>
+            </div>
+            <div className="mt-4 pt-4 border-t border-main-border/50 flex justify-between items-center">
+                <span className="text-sm text-subtext">{cred.date}</span>
+                <button onClick={cred.action} className="btn-secondary !py-2 !px-4 !text-sm">{cred.buttonText}</button>
+            </div>
+        </div>
+    );
+
+    return (
+        <>
+            <section id="credentials" className="py-24 md:py-32 reveal">
+                <div className="text-center mb-16">
+                    <h2 className="section-subtitle">MY QUALIFICATIONS</h2>
+                    <p className="section-title">Credentials & Documents</p>
+                </div>
+                
+                <div className="space-y-12">
+                    <div>
+                        <h3 className="text-2xl font-heading font-semibold mb-6 border-l-4 border-brand-accent pl-4">Academic & Research</h3>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            {credentialsData.academic.map(renderCredentialCard)}
+                        </div>
+                    </div>
+                    <div>
+                        <h3 className="text-2xl font-heading font-semibold mb-6 border-l-4 border-brand-accent pl-4">Professional Development</h3>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                           {credentialsData.professional.map(renderCredentialCard)}
+                        </div>
+                    </div>
+                     <div>
+                        <h3 className="text-2xl font-heading font-semibold mb-6 border-l-4 border-brand-accent pl-4">Organizational Involvement</h3>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            {credentialsData.organizational.map(renderCredentialCard)}
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            {isThesisModalOpen && (
+                <div className="modal-overlay" onClick={() => setIsThesisModalOpen(false)}>
+                    <div className="modal-content" onClick={e => e.stopPropagation()}>
+                        <div className="modal-header">
+                            <h2 className="section-title !text-2xl md:!text-3xl">{thesisData.title}</h2>
+                            <button onClick={() => setIsThesisModalOpen(false)} className="absolute top-4 right-4 text-subtext hover:text-main-text">
+                                <XIcon className="w-8 h-8"/>
+                            </button>
+                        </div>
+                        <div className="modal-body">
+                           <img src={ASSETS.thesisDiagramUrl} alt="SmartPen System Architecture" className="rounded-lg mb-6 border border-main-border"/>
+                            <h3 className="text-xl font-heading font-bold mb-2">Abstract</h3>
+                            <p className="text-subtext mb-6">{thesisData.abstract}</p>
+                            
+                            <h3 className="text-xl font-heading font-bold mb-2">Key Objectives</h3>
+                            <ul className="text-subtext list-disc list-inside space-y-2 mb-6">
+                                {thesisData.objectives.map((obj, i) => <li key={i}>{obj}</li>)}
+                            </ul>
+                        </div>
+                        <div className="modal-footer">
+                            <a href={thesisData.downloadLink} download className="btn-premium w-full">Download Full Manuscript</a>
+                        </div>
+                    </div>
+                </div>
+            )}
+
+            {activeCredential && (
+                 <div className="modal-overlay" onClick={() => setActiveCredential(null)}>
+                    <div className="modal-content" onClick={e => e.stopPropagation()}>
+                        <div className="modal-header">
+                            <h2 className="section-title !text-2xl md:!text-3xl">{activeCredential.title}</h2>
+                            <button onClick={() => setActiveCredential(null)} className="absolute top-4 right-4 text-subtext hover:text-main-text">
+                                <XIcon className="w-8 h-8"/>
+                            </button>
+                        </div>
+                        <div className="modal-body">
+                           <div className="bg-card p-6 rounded-lg border border-main-border">
+                                <p className="text-subtext mb-4"><strong>Issuer:</strong> {activeCredential.issuer}</p>
+                                <p className="text-subtext mb-6"><strong>Date:</strong> {activeCredential.date}</p>
+                                <p className="text-main-text">{activeCredential.description}</p>
+                           </div>
+                        </div>
+                        <div className="modal-footer">
+                           <p className="text-xs text-subtext text-center">This is placeholder content. The actual certificate can be linked here.</p>
+                        </div>
+                    </div>
+                </div>
+            )}
+        </>
+    );
+};
+
+
 // --- AI CHAT COMPONENT ---
 const AIChat = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -458,7 +631,6 @@ const AIChat = () => {
         1. LSI Leading Technologies INC. (June 2024 - Present): Fullstack Developer & Field Technician.
            - Developing the new corporate website for LSI.
            - Installing and maintaining high-tech Uninterruptible Power Supply (UPS) systems for clients.
-           - Combining software development with hands-on technical fieldwork.
         2. Bits N' Bytes Computer Shop (Feb 2024 - May 2024): Technical Support Intern.
            - Diagnosed hardware/software issues, assembled custom PCs, and provided client support.
 
@@ -466,16 +638,30 @@ const AIChat = () => {
         - Samar State University (2020 - 2024): BS in Computer Engineering (Dean's Lister).
           - Specialized in software development, embedded systems, and computer architecture.
           - Led a capstone project on an IoT-based automated plant monitoring system.
+        - Quintin Quijano Sr. Agricultural School (2018-2020): Computer System Servicing NCII.
 
         Projects:
-        1. E-Shop Pro: A full-stack MERN e-commerce platform with Stripe API integration.
-        2. Smart Grow System: His capstone project, an IoT plant monitoring system using ESP32 and Firebase with a React dashboard.
-        3. Developer Portfolio (this site): Built with React and Tailwind CSS, focusing on clean UI and animations.
+        1. SmartPen (Undergraduate Thesis): An IoT system to automate fish feeding in marine pens by monitoring water quality (pH), temperature, and sea currents. Features an Android app for remote control and data visualization via Firebase. It is solar-powered. A summary and download link for the manuscript are available on the 'Credentials' page.
+        2. LSI Website Modernization: Currently leading the development of a new corporate website for LSI from scratch using React, Vite, and Tailwind CSS. This involves a complete UI/UX overhaul.
+        3. AI-Powered Developer Portfolio (this site): Built with React and Tailwind CSS, and features an integrated AI assistant powered by the Gemini API to answer questions about my profile.
+        
+        Credentials:
+        - The 'Credentials' page contains his documents organized into categories: Academic & Research (Thesis), Professional Development (Certificate of Employment, OJT Completion, Seminar Certificates), and Organizational Involvement.
     `;
+    
+    const suggestionPrompts = [
+        "Tell me about the SmartPen project",
+        "What is his current role?",
+        "Where can I find his thesis?",
+    ];
 
     useEffect(() => {
         if(isOpen && messages.length === 0) {
-             setMessages([{ sender: 'ai', text: "Hello! I'm Arvin's AI assistant. Ask me anything about his skills, experience, or projects." }]);
+             setMessages([{ 
+                 sender: 'ai', 
+                 text: "Hello! I'm Arvin's AI assistant. I can answer any questions you have about his portfolio. Feel free to ask, or select a topic below to start.",
+                 suggestions: suggestionPrompts 
+             }]);
         }
     }, [isOpen]);
 
@@ -485,19 +671,13 @@ const AIChat = () => {
         }
     }, [messages]);
     
-    const handleSend = async () => {
-        if (input.trim() === '' || isLoading) return;
-        
-        const userMessage = { sender: 'user', text: input };
-        setMessages(prev => [...prev, userMessage]);
-        setInput('');
+    const callGeminiAPI = async (text) => {
         setIsLoading(true);
-
         try {
             const apiKey = "";
             const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
             const payload = {
-                contents: [{ parts: [{ text: userMessage.text }] }],
+                contents: [{ parts: [{ text: text }] }],
                 systemInstruction: { parts: [{ text: portfolioContext }] },
             };
             
@@ -507,9 +687,7 @@ const AIChat = () => {
                 body: JSON.stringify(payload)
             });
             
-            if (!response.ok) {
-                throw new Error(`API error: ${response.statusText}`);
-            }
+            if (!response.ok) throw new Error(`API error: ${response.statusText}`);
             
             const result = await response.json();
             const aiText = result.candidates?.[0]?.content?.parts?.[0]?.text || "Sorry, I couldn't process that. Please try again.";
@@ -523,39 +701,70 @@ const AIChat = () => {
         }
     };
 
+    const handleSend = () => {
+        if (input.trim() === '' || isLoading) return;
+        const userMessage = { sender: 'user', text: input };
+        setMessages(prev => [...prev.map(m => ({...m, suggestions: null})), userMessage]);
+        setInput('');
+        callGeminiAPI(input);
+    };
+
+    const handleSuggestionClick = (prompt) => {
+        const userMessage = { sender: 'user', text: prompt };
+        setMessages(prev => [...prev.map(m => ({...m, suggestions: null})), userMessage]);
+        callGeminiAPI(prompt);
+    };
+
     return (
         <>
             <button onClick={() => setIsOpen(!isOpen)} className="ai-chat-button">
-                {isOpen ? <XIcon className="w-8 h-8"/> : <BotIcon className="w-8 h-8"/>}
+                <BotIcon className="w-8 h-8"/>
             </button>
 
-            <div className={`ai-chat-window ${isOpen ? 'open' : ''}`}>
-                <div className="chat-header">
-                    <h3 className="font-heading text-lg">AI Assistant</h3>
-                    <p className="text-xs text-subtext">Ask Me</p>
-                </div>
-                <div className="chat-body" ref={chatBodyRef}>
-                    {messages.map((msg, index) => (
-                        <div key={index} className={`chat-message ${msg.sender}`}>
-                            <p>{msg.text}</p>
+            {isOpen && (
+                 <div className="ai-chat-modal-overlay">
+                    <div className="ai-chat-window">
+                        <div className="chat-header">
+                            <h3 className="font-heading text-lg">AI Portfolio Assistant</h3>
+                            <button onClick={() => setIsOpen(false)} className="absolute top-3 right-3 text-subtext hover:text-main-text">
+                                <XIcon className="w-6 h-6"/>
+                            </button>
                         </div>
-                    ))}
-                    {isLoading && <div className="chat-message ai"><p className="typing-indicator">...</p></div>}
+                        <div className="chat-body" ref={chatBodyRef}>
+                            {messages.map((msg, index) => (
+                                <div key={index}>
+                                    <div className={`chat-message ${msg.sender}`}>
+                                        <p>{msg.text}</p>
+                                    </div>
+                                    {msg.suggestions && (
+                                        <div className="flex flex-wrap gap-2 mt-2 justify-start">
+                                            {msg.suggestions.map((prompt, i) => (
+                                                <button key={i} onClick={() => handleSuggestionClick(prompt)} className="suggestion-chip">
+                                                    {prompt}
+                                                </button>
+                                            ))}
+                                        </div>
+                                    )}
+                                </div>
+                            ))}
+                            {isLoading && <div className="chat-message ai"><p className="typing-indicator">...</p></div>}
+                        </div>
+                        <div className="chat-input-area">
+                            <input 
+                                type="text" 
+                                value={input}
+                                onChange={(e) => setInput(e.target.value)}
+                                onKeyPress={(e) => e.key === 'Enter' && handleSend()}
+                                placeholder="Ask about my projects..."
+                                className="chat-input"
+                            />
+                            <button onClick={handleSend} className="send-button" disabled={isLoading}>
+                                <SendIcon className="w-5 h-5"/>
+                            </button>
+                        </div>
+                    </div>
                 </div>
-                <div className="chat-input-area">
-                    <input 
-                        type="text" 
-                        value={input}
-                        onChange={(e) => setInput(e.target.value)}
-                        onKeyPress={(e) => e.key === 'Enter' && handleSend()}
-                        placeholder="Ask about my projects..."
-                        className="chat-input"
-                    />
-                    <button onClick={handleSend} className="send-button" disabled={isLoading}>
-                        <SendIcon className="w-5 h-5"/>
-                    </button>
-                </div>
-            </div>
+            )}
         </>
     );
 };
@@ -593,12 +802,13 @@ const Sidebar = ({ activePage, setActivePage, isSidebarOpen, setSidebarOpen }) =
         { icon: <CodeIcon className="w-5 h-5"/>, label: "Services", page: "services" },
         { icon: <BriefcaseIcon className="w-5 h-5"/>, label: "Experience", page: "experience" },
         { icon: <LayersIcon className="w-5 h-5"/>, label: "Projects", page: "projects" },
+        { icon: <FileTextIcon className="w-5 h-5"/>, label: "Credentials", page: "credentials" },
         { icon: <MailIcon className="w-5 h-5"/>, label: "Contact", page: "contact" },
     ];
 
     return (
         <>
-            <aside className={`fixed top-0 left-0 z-50 h-full w-64 bg-sidebar-bg border-r border-main-border flex-col p-4 transition-transform duration-300 ease-in-out md:translate-x-0 ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'}`}>
+            <aside className={`fixed top-0 left-0 z-[60] h-full w-64 bg-sidebar-bg border-r border-main-border flex-col p-4 transition-transform duration-300 ease-in-out md:translate-x-0 ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'}`}>
                 <div className="flex flex-col h-full">
                      <a href="#" onClick={() => setActivePage('home')} className="text-2xl font-heading font-bold tracking-wider hover:text-brand-accent transition-colors p-4 text-center">
                         ARVIN.DEV
@@ -621,7 +831,7 @@ const Sidebar = ({ activePage, setActivePage, isSidebarOpen, setSidebarOpen }) =
                     </div>
                 </div>
             </aside>
-            {isSidebarOpen && <div onClick={() => setSidebarOpen(false)} className="fixed inset-0 bg-black/50 z-40 md:hidden"></div>}
+            {isSidebarOpen && <div onClick={() => setSidebarOpen(false)} className="fixed inset-0 bg-black/50 z-50 md:hidden"></div>}
         </>
     );
 };
@@ -649,6 +859,7 @@ export default function App() {
             case 'services': return <Services />;
             case 'experience': return <Experience />;
             case 'projects': return <Projects />;
+            case 'credentials': return <Credentials />;
             case 'contact': return <Contact />;
             default: return <Hero />;
         }
@@ -704,7 +915,7 @@ const StyleInjector = () => (
             background: linear-gradient(-45deg, #ffffff, #e6f7ff, #d1eaff, #ffffff);
         }
         
-        .light-mode .project-card, .light-mode .timeline-card, .light-mode .tech-item, .light-mode .philosophy-card, .light-mode .service-card {
+        .light-mode .project-card, .light-mode .timeline-card, .light-mode .tech-item, .light-mode .philosophy-card, .light-mode .service-card, .light-mode .credential-card {
             box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.07), 0 2px 4px -2px rgb(0 0 0 / 0.07);
         }
         
@@ -799,6 +1010,47 @@ const StyleInjector = () => (
         .contact-input { width: 100%; background-color: var(--card); border: 1px solid var(--main-border); border-radius: 0.5rem; padding: 0.75rem; color: var(--main-text); transition: border-color 0.3s; }
         .contact-input:focus { outline: none; border-color: var(--brand-accent); box-shadow: 0 0 0 2px var(--brand-accent-glow); }
         
+        .credential-card {
+            background-color: var(--card);
+            border: 1px solid var(--main-border);
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            transition: all 0.3s ease;
+        }
+        .credential-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--brand-accent);
+        }
+
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background-color: rgba(0,0,0,0.7);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.3s ease;
+        }
+        .modal-content {
+            background-color: var(--sidebar-bg);
+            border: 1px solid var(--main-border);
+            border-radius: 1rem;
+            width: 90%;
+            max-width: 800px;
+            max-height: 90vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        .modal-header { position: relative; padding: 1.5rem; border-bottom: 1px solid var(--main-border); }
+        .modal-body { flex-grow: 1; padding: 1.5rem; overflow-y: auto; }
+        .modal-footer { padding: 1.5rem; border-top: 1px solid var(--main-border); background-color: var(--card); }
+
         /* AI Chat Styles */
         .ai-chat-button {
             position: fixed;
@@ -822,33 +1074,33 @@ const StyleInjector = () => (
         .dark-mode .ai-chat-button { color: #0A0A0A; }
         .ai-chat-button:hover { transform: scale(1.1); box-shadow: 0 8px 30px var(--brand-accent-glow); }
         
-        .ai-chat-window {
+        .ai-chat-modal-overlay {
             position: fixed;
-            bottom: 6.5rem;
-            right: 1.5rem;
+            inset: 0;
+            background-color: rgba(0,0,0,0.7);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
             z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.3s ease;
+        }
+        .ai-chat-window {
             width: 90%;
-            max-width: 400px;
-            height: 70vh;
-            max-height: 500px;
+            max-width: 600px;
+            height: 80vh;
+            max-height: 700px;
             background-color: var(--sidebar-bg);
             border: 1px solid var(--main-border);
             border-radius: 1rem;
             display: flex;
             flex-direction: column;
             box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-            transform: translateY(20px) scale(0.95);
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s ease-out;
             overflow: hidden;
         }
-        .ai-chat-window.open {
-            transform: translateY(0) scale(1);
-            opacity: 1;
-            visibility: visible;
-        }
         .chat-header {
+            position: relative;
             padding: 1rem;
             border-bottom: 1px solid var(--main-border);
             text-align: center;
@@ -861,7 +1113,7 @@ const StyleInjector = () => (
             flex-direction: column;
             gap: 1rem;
         }
-        .chat-message { max-width: 80%; padding: 0.75rem; border-radius: 0.75rem; line-height: 1.5; }
+        .chat-message { max-width: 80%; padding: 0.75rem 1rem; border-radius: 0.75rem; line-height: 1.5; word-wrap: break-word; }
         .chat-message.user { align-self: flex-end; background-color: var(--brand-accent); color: #fff; border-bottom-right-radius: 0; }
         .dark-mode .chat-message.user { color: #0A0A0A; }
         .chat-message.ai { align-self: flex-start; background-color: var(--card); border: 1px solid var(--main-border); border-bottom-left-radius: 0; }
@@ -883,6 +1135,7 @@ const StyleInjector = () => (
             border-radius: 50%;
             width: 2.5rem;
             height: 2.5rem;
+            flex-shrink: 0;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -897,7 +1150,24 @@ const StyleInjector = () => (
             white-space: nowrap;
             animation: typing 1s steps(3, end) infinite;
         }
+        .suggestion-chip {
+            background-color: var(--card);
+            border: 1px solid var(--main-border);
+            color: var(--subtext);
+            padding: 0.5rem 1rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .suggestion-chip:hover {
+            border-color: var(--brand-accent);
+            color: var(--brand-accent);
+        }
     `}
     </style>
 );
+
+
+
 
