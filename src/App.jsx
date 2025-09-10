@@ -40,6 +40,12 @@ const BotIcon = (props) => (
 const SendIcon = (props) => (
      <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg>
 );
+const ChevronLeftIcon = (props) => (
+    <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+);
+const ChevronRightIcon = (props) => (
+    <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+);
 
 
 // --- THEME CONTEXT ---
@@ -70,8 +76,8 @@ const useTheme = () => useContext(ThemeContext);
 const ASSETS = {
     profileImageUrl: 'https://placehold.co/512x512/0A0A0A/08F7FE?text=AT&font=orbitron',
     projectImageUrl1: 'https://placehold.co/600x400/0A0A0A/08F7FE?text=SmartPen+IoT',
-    projectImageUrl2: 'https://placehold.co/600x400/0A0A0A/FFFFFF?text=LSI+Website',
-    projectImageUrl3: 'https://placehold.co/600x400/0A0A0A/9CA3AF?text=Portfolio+v3',
+    projectImageUrl2: 'https://placehold.co/600x400/0A0A0A/3B82F6?text=LSI+Website',
+    projectImageUrl3: 'https://placehold.co/600x400/0A0A0A/9CA3AF?text=AI+Portfolio',
     thesisDiagramUrl: 'https://i.imgur.com/G2x21J9.png',
 };
 
@@ -81,6 +87,10 @@ const useScrollReveal = (ref, dependency) => {
     useEffect(() => {
         const target = ref.current;
         if (!target) return;
+
+        // Ensure elements are visible on new page load
+        const initialVisibleElements = target.querySelectorAll('.reveal');
+        initialVisibleElements.forEach(el => el.classList.remove('visible'));
 
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
@@ -102,13 +112,38 @@ const useScrollReveal = (ref, dependency) => {
 
 // --- PAGE COMPONENTS ---
 
-const Hero = () => {
+const Hero = ({ setActivePage }) => {
     const titles = React.useMemo(() => ["Full-Stack Developer", "Creative Problem-Solver", "UI/UX Enthusiast"], []);
     const [titleIndex, setTitleIndex] = useState(0);
     const [text, setText] = useState('');
     const [isDeleting, setIsDeleting] = useState(false);
     const canvasRef = useRef(null);
     const { theme } = useTheme();
+    const [currentIndex, setCurrentIndex] = useState(0);
+
+    const featuredProjects = [
+        { imgSrc: ASSETS.projectImageUrl1, title: "SmartPen: IoT System" },
+        { imgSrc: ASSETS.projectImageUrl2, title: "LSI Website Modernization" },
+        { imgSrc: ASSETS.projectImageUrl3, title: "AI-Powered Portfolio" }
+    ];
+
+    const prevSlide = () => {
+        const isFirstSlide = currentIndex === 0;
+        const newIndex = isFirstSlide ? featuredProjects.length - 1 : currentIndex - 1;
+        setCurrentIndex(newIndex);
+    };
+
+    const nextSlide = React.useCallback(() => {
+        const isLastSlide = currentIndex === featuredProjects.length - 1;
+        const newIndex = isLastSlide ? 0 : currentIndex + 1;
+        setCurrentIndex(newIndex);
+    }, [currentIndex, featuredProjects.length]);
+    
+    useEffect(() => {
+        const slideInterval = setInterval(nextSlide, 5000);
+        return () => clearInterval(slideInterval);
+    }, [currentIndex, nextSlide]);
+
 
     useEffect(() => {
         const currentTitle = titles[titleIndex];
@@ -135,6 +170,7 @@ const Hero = () => {
 
     useEffect(() => {
         const canvas = canvasRef.current;
+        if(!canvas) return;
         const ctx = canvas.getContext('2d');
         let animationFrameId;
         
@@ -188,9 +224,9 @@ const Hero = () => {
     }, [theme]);
 
     return (
-        <section id="home" className="min-h-full flex items-center justify-center relative p-6 overflow-hidden">
+        <section id="home" className="min-h-full flex flex-col items-center justify-center relative p-6 overflow-hidden">
             <canvas ref={canvasRef} className="absolute top-0 left-0 w-full h-full z-0 opacity-50"></canvas>
-            <div className="text-center z-10">
+            <div className="text-center z-10 flex flex-col items-center">
                 <h1 className="text-4xl md:text-6xl lg:text-7xl font-heading font-bold leading-tight mb-4 reveal">
                     Crafting Digital Experiences
                     <br />
@@ -205,13 +241,44 @@ const Hero = () => {
                     <span className="cursor-blink text-brand-accent">|</span>
                 </div>
                 <div className="flex flex-col sm:flex-row items-center justify-center gap-4 reveal" style={{ transitionDelay: '600ms' }}>
-                    <a href="#projects" className="btn-premium w-full sm:w-auto">View My Work</a>
+                    <a href="#projects" onClick={(e) => { e.preventDefault(); setActivePage('projects'); }} className="btn-premium w-full sm:w-auto">View My Work</a>
                     <a href="/Updated_Resume_Arvin_Tenasas.pdf" download className="btn-secondary w-full sm:w-auto">Get My Resume</a>
                 </div>
                 <div className="mt-12 flex justify-center space-x-6 reveal" style={{ transitionDelay: '800ms' }}>
                     <a href="https://github.com/arvintenasas" target="_blank" rel="noopener noreferrer" className="social-icon"><i className="fab fa-github"></i></a>
                     <a href="https://linkedin.com/in/arvin-tenasas" target="_blank" rel="noopener noreferrer" className="social-icon"><i className="fab fa-linkedin"></i></a>
                     <a href="mailto:arvintenasas29@gmail.com" className="social-icon"><i className="fas fa-envelope"></i></a>
+                </div>
+
+                <div className="mt-24 w-full max-w-3xl mx-auto reveal" style={{ transitionDelay: '1000ms' }}>
+                    <div className="carousel-container">
+                        <div className="carousel-inner">
+                            {featuredProjects.map((project, index) => (
+                                <div
+                                    key={index}
+                                    className={`slide ${index === currentIndex ? 'active' : ''}`}
+                                    onClick={() => setActivePage('projects')}
+                                >
+                                    <img src={project.imgSrc} alt={project.title} className="slide-image" />
+                                    <div className="slide-overlay"></div>
+                                    <div className="slide-caption">
+                                        <h3 className="font-heading text-lg md:text-xl">{project.title}</h3>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                        <button onClick={prevSlide} className="carousel-arrow left"><ChevronLeftIcon /></button>
+                        <button onClick={nextSlide} className="carousel-arrow right"><ChevronRightIcon /></button>
+                        <div className="carousel-dots">
+                             {featuredProjects.map((_, index) => (
+                                <button
+                                    key={index}
+                                    onClick={() => setCurrentIndex(index)}
+                                    className={`dot ${currentIndex === index ? 'active' : ''}`}
+                                />
+                            ))}
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -232,21 +299,26 @@ const About = () => (
                 </div>
             </div>
             <div className="md:w-1/2 lg:w-3/5">
-                <p className="text-subtext text-lg mb-6">
+                <p className="text-subtext text-lg mb-6 text-justify">
                     I'm a Computer Engineering graduate with a relentless curiosity for how things work. From designing responsive front-end interfaces to programming low-level microcontrollers, I'm driven by the challenge of solving complex problems and creating technology that makes a tangible impact.
                 </p>
-                <p className="text-subtext text-lg mb-8">
+                <p className="text-subtext text-lg mb-8 text-justify">
                     My goal is to not just write code, but to architect elegant, scalable solutions. I thrive in collaborative, agile environments where I can learn from my peers and contribute to building the future, one line of code at a time.
                 </p>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                    <div className="philosophy-card">
-                        <h4 className="font-bold text-lg mb-2 text-main-text">User-Centric Design</h4>
-                        <p className="text-subtext text-sm">I prioritize creating intuitive and accessible interfaces that provide a seamless user experience.</p>
-                    </div>
-                    <div className="philosophy-card">
-                        <h4 className="font-bold text-lg mb-2 text-main-text">Scalable Architecture</h4>
-                        <p className="text-subtext text-sm">I build robust and maintainable codebases that can grow and adapt with the project's needs.</p>
-                    </div>
+                <h3 className="text-2xl font-heading font-semibold mb-6">My Tech Arsenal</h3>
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 text-sm md:text-base">
+                    <div className="tech-item"><i className="fab fa-html5 text-brand-accent"></i><span>HTML5</span></div>
+                    <div className="tech-item"><i className="fab fa-css3-alt text-brand-accent"></i><span>CSS3</span></div>
+                    <div className="tech-item"><i className="fab fa-js-square text-brand-accent"></i><span>JavaScript</span></div>
+                    <div className="tech-item"><i className="fab fa-react text-brand-accent"></i><span>React</span></div>
+                    <div className="tech-item"><i className="fas fa-bolt text-brand-accent"></i><span>Vite</span></div>
+                    <div className="tech-item"><i className="fas fa-wind text-brand-accent"></i><span>Tailwind CSS</span></div>
+                    <div className="tech-item"><i className="fab fa-node-js text-brand-accent"></i><span>Node.js</span></div>
+                    <div className="tech-item"><i className="fas fa-cubes text-brand-accent"></i><span>Next.js</span></div>
+                    <div className="tech-item"><i className="fas fa-database text-brand-accent"></i><span>MySQL</span></div>
+                    <div className="tech-item"><i className="fas fa-code text-brand-accent"></i><span>C++</span></div>
+                    <div className="tech-item"><i className="fab fa-figma text-brand-accent"></i><span>Figma</span></div>
+                    <div className="tech-item"><i className="fas fa-robot text-brand-accent"></i><span>AI Tools</span></div>
                 </div>
             </div>
         </div>
@@ -259,7 +331,7 @@ const Services = () => (
             <h2 className="section-subtitle">WHAT I DO</h2>
             <p className="section-title">My Services</p>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
             <div className="service-card">
                 <div className="text-brand-accent mb-4"><i className="fas fa-laptop-code fa-3x"></i></div>
                 <h3 className="text-xl font-heading font-bold mb-2">Web Development</h3>
@@ -274,6 +346,11 @@ const Services = () => (
                 <div className="text-brand-accent mb-4"><i className="fas fa-microchip fa-3x"></i></div>
                 <h3 className="text-xl font-heading font-bold mb-2">IoT & Embedded Systems</h3>
                 <p className="text-subtext">Developing smart, connected devices and control systems using platforms like ESP32 and Arduino for automation and data collection.</p>
+            </div>
+             <div className="service-card">
+                <div className="text-brand-accent mb-4"><i className="fas fa-tools fa-3x"></i></div>
+                <h3 className="text-xl font-heading font-bold mb-2">Computer Services</h3>
+                <p className="text-subtext">Providing technical support including computer repair, system maintenance, OS formatting, and assistance with Microsoft Office applications.</p>
             </div>
         </div>
     </section>
@@ -295,7 +372,7 @@ const Experience = () => (
                             <p className="text-sm text-subtext mb-1">June 2024 - Present</p>
                             <h4 className="card-title">Fullstack Developer & Field Technician</h4>
                             <p className="text-brand-accent font-medium">LSI Leading Technologies INC.</p>
-                            <ul className="text-subtext mt-3 text-sm list-disc list-inside space-y-1 text-left">
+                            <ul className="text-subtext mt-3 text-sm list-disc list-inside space-y-1">
                                 <li>Leading the development of the new, modern corporate website for LSI.</li>
                                 <li>Installing and maintaining high-tech Uninterruptible Power Supply (UPS) systems for major clients.</li>
                                 <li>Bridging software development with hands-on technical fieldwork across the Philippines.</li>
@@ -325,10 +402,10 @@ const Experience = () => (
                             <p className="text-sm text-subtext mb-1">2020 - 2024</p>
                             <h4 className="card-title">BS in Computer Engineering</h4>
                             <p className="font-medium text-subtext">Samar State University</p>
-                            <ul className="text-subtext mt-3 text-sm list-disc list-inside space-y-1 text-left">
-                                <li>Graduated as a Dean's Lister, demonstrating consistent academic excellence.</li>
+                            <ul className="text-subtext mt-3 text-sm list-disc list-inside space-y-1">
+                                <li>Demonstrated strong work ethic and competitiveness, consistently exploring beyond curriculum requirements.</li>
                                 <li>Specialized in software development, embedded systems, and computer architecture.</li>
-                                <li>Led a capstone project on an IoT-based automated plant monitoring system.</li>
+                                <li>Co-developed the "SmartPen" thesis project, focusing on the hardware implementation and microcontroller programming to bring the IoT system to life.</li>
                             </ul>
                         </div>
                     </div>
@@ -622,10 +699,16 @@ const AIChat = () => {
         - Passion: Building intuitive, high-performance web applications and embedded systems.
         - Philosophy: 1) User-Centric Design (intuitive, accessible interfaces). 2) Scalable Architecture (robust, maintainable code).
         
+        Skills & Technologies:
+        - Frontend: HTML5, CSS3, JavaScript, React, Vite, Tailwind CSS, Next.js
+        - Backend: Node.js, MySQL
+        - Other: C++, IoT (ESP32, Arduino), Figma, AI Tools (like Gemini API)
+
         Services Offered:
         - Web Development: React, Node.js, Next.js.
         - UI/UX Design: Wireframing in Figma to implementation.
         - IoT & Embedded Systems: ESP32 and Arduino development.
+        - Computer Services: Technical support including computer repair, maintenance, OS formatting, and MS Office assistance.
 
         Experience:
         1. LSI Leading Technologies INC. (June 2024 - Present): Fullstack Developer & Field Technician.
@@ -635,10 +718,10 @@ const AIChat = () => {
            - Diagnosed hardware/software issues, assembled custom PCs, and provided client support.
 
         Education:
-        - Samar State University (2020 - 2024): BS in Computer Engineering (Dean's Lister).
+        - Samar State University (2020 - 2024): BS in Computer Engineering.
+          - Known for a strong work ethic, being competitive, and exploring beyond curriculum requirements.
           - Specialized in software development, embedded systems, and computer architecture.
-          - Led a capstone project on an IoT-based automated plant monitoring system.
-        - Quintin Quijano Sr. Agricultural School (2018-2020): Computer System Servicing NCII.
+          - Co-developed the "SmartPen" thesis project, focusing on the hardware implementation and microcontroller programming.
 
         Projects:
         1. SmartPen (Undergraduate Thesis): An IoT system to automate fish feeding in marine pens by monitoring water quality (pH), temperature, and sea currents. Features an Android app for remote control and data visualization via Firebase. It is solar-powered. A summary and download link for the manuscript are available on the 'Credentials' page.
@@ -650,9 +733,9 @@ const AIChat = () => {
     `;
     
     const suggestionPrompts = [
-        "Tell me about the SmartPen project",
+        "What technologies does Arvin use?",
         "What is his current role?",
-        "Where can I find his thesis?",
+        "Tell me about his thesis project.",
     ];
 
     useEffect(() => {
@@ -854,14 +937,14 @@ export default function App() {
 
     const renderPage = () => {
         switch (activePage) {
-            case 'home': return <Hero />;
+            case 'home': return <Hero setActivePage={setActivePage} />;
             case 'about': return <About />;
             case 'services': return <Services />;
             case 'experience': return <Experience />;
             case 'projects': return <Projects />;
             case 'credentials': return <Credentials />;
             case 'contact': return <Contact />;
-            default: return <Hero />;
+            default: return <Hero setActivePage={setActivePage} />;
         }
     };
 
@@ -915,7 +998,7 @@ const StyleInjector = () => (
             background: linear-gradient(-45deg, #ffffff, #e6f7ff, #d1eaff, #ffffff);
         }
         
-        .light-mode .project-card, .light-mode .timeline-card, .light-mode .tech-item, .light-mode .philosophy-card, .light-mode .service-card, .light-mode .credential-card {
+        .light-mode .project-card, .light-mode .timeline-card, .light-mode .philosophy-card, .light-mode .service-card, .light-mode .credential-card, .light-mode .tech-item {
             box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.07), 0 2px 4px -2px rgb(0 0 0 / 0.07);
         }
         
@@ -925,13 +1008,16 @@ const StyleInjector = () => (
             background-size: 400% 400%; animation: gradientAnimation 15s ease infinite;
         }
 
+        .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease-out, transform 0.8s ease-out; }
+        .reveal.visible { opacity: 1; transform: translateY(0); }
+
         .app-layout { display: flex; }
         .content-area {
             flex-grow: 1; height: 100vh; overflow-y: auto; background-color: var(--bg);
             transition: background-color 0.3s ease; padding-left: 0;
         }
         @media (min-width: 768px) { .content-area { padding-left: 16rem; } }
-        .page-content { max-width: 1100px; margin: 0 auto; padding: 0 1.5rem; animation: fadeIn 0.6s ease-out; }
+        .page-content { max-width: 1100px; margin: 0 auto; padding: 1.5rem; animation: fadeIn 0.6s ease-out; }
 
         .font-heading { font-family: 'Orbitron', sans-serif; text-shadow: 0 0 8px var(--brand-accent-glow); color: var(--main-text); }
         .text-brand-accent { color: var(--brand-accent); text-shadow: 0 0 8px var(--brand-accent-glow); }
@@ -955,57 +1041,60 @@ const StyleInjector = () => (
         
         @keyframes tilt { 0%, 100% { transform: rotate(0deg); } 25% { transform: rotate(-1deg); } 75% { transform: rotate(1deg); } }
         .animate-tilt { animation: tilt 10s infinite linear; }
-
-        .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease-out, transform 0.8s ease-out; }
-        .reveal.visible { opacity: 1; transform: translateY(0); }
         
-        .philosophy-card { background-color: var(--card); padding: 1.5rem; border-radius: 0.5rem; border: 1px solid var(--main-border); transition: all .3s ease; }
-        .philosophy-card:hover { border-color: var(--brand-accent); transform: translateY(-3px); }
-
-        .service-card { background-color: var(--card); padding: 2rem; border-radius: 0.75rem; border: 1px solid var(--main-border); transition: all .3s ease; text-align: center; }
-        .service-card:hover { border-color: var(--brand-accent); transform: translateY(-5px); box-shadow: 0 8px 30px rgba(8, 247, 254, 0.1); }
+        .philosophy-card, .service-card {
+            background-color: var(--card); border: 1px solid var(--main-border); border-radius: 0.75rem;
+            padding: 1.5rem; transition: all 0.3s ease; text-align: center;
+        }
+        .philosophy-card:hover, .service-card:hover {
+            transform: translateY(-5px); border-color: var(--brand-accent);
+        }
 
         .timeline-line { background-color: var(--main-border); box-shadow: 0 0 8px var(--brand-accent-glow); }
         .timeline-dot { position: absolute; top: 0.25rem; left: 0; transform: translateX(-50%); width: 1.25rem; height: 1.25rem; border-radius: 9999px; border: 4px solid var(--bg); box-shadow: 0 0 10px var(--brand-accent-glow); }
         .timeline-dot.work { background-color: var(--brand-accent); }
         .timeline-dot.education { background-color: var(--main-text); }
         .timeline-card { background-color: var(--card); padding: 1.5rem; border-radius: 0.5rem; border: 1px solid var(--main-border); transition: all .3s ease; }
+        .timeline-card ul { text-align: justify; }
         .timeline-card:hover { border-color: var(--brand-accent); box-shadow: 0 0 20px rgba(8, 247, 254, 0.15); transform: translateY(-5px); }
+        .card-title { font-size: 1.25rem; font-family: 'Orbitron', sans-serif; font-weight: bold; color: var(--main-text); }
         @media (min-width: 768px) {
-            .timeline-item:nth-child(odd) .timeline-content { margin-left: 50%; padding-left: 2rem; }
-            .timeline-item:nth-child(even) .timeline-content { margin-right: 50%; padding-right: 2rem; text-align: right; }
-            .timeline-item:nth-child(n) .timeline-content { width: 50%; padding-left: 2rem; padding-right: 0; text-align: left; }
-            .timeline-item:nth-child(even) .timeline-content { margin-left: 0; }
+            .timeline-item .timeline-content { position: relative; width: calc(50% - 2rem); }
+            .timeline-item:nth-child(odd) .timeline-content { left: 0; text-align: right; }
+            .timeline-item:nth-child(even) .timeline-content { left: calc(50% + 2rem); text-align: left; }
             .timeline-dot { left: 50%; }
         }
-        .card-title { font-size: 1.25rem; font-family: 'Orbitron', sans-serif; font-weight: bold; color: var(--main-text); }
-        
 
+        /* Tech Item */
+       .tech-item { display: flex; align-items: center; gap: 0.75rem; background-color: var(--card); padding: 0.75rem; border-radius: 0.5rem; border: 1px solid var(--main-border); transition: all 0.3s; color: var(--main-text); }
+       .tech-item:hover { border-color: var(--brand-accent); transform: translateY(-3px); box-shadow: 0 4px 20px rgba(8, 247, 254, 0.1);}
+
+        /* Project Card */
         .project-card { background-color: var(--card); border: 1px solid var(--main-border); border-radius: 0.75rem; overflow: hidden; transition: all 0.3s ease; display: flex; flex-direction: column; }
-        .project-card:hover { transform: translateY(-8px); border-color: var(--brand-accent); box-shadow: 0 8px 30px rgba(8, 247, 254, 0.1); }
-        .project-link { 
-            color: var(--subtext); 
-            font-weight: 600; 
-            transition: all 0.3s ease; 
-            display: inline-flex; 
-            align-items: center;
-            font-size: 0.875rem;
-        }
-        .project-link:hover { 
-            color: var(--brand-accent);
-            transform: translateY(-2px);
-        }
-        .project-link i {
-            transition: transform 0.3s ease;
-        }
-        .project-link:hover i {
-            transform: scale(1.1);
-        }
-        .project-card h3 { color: var(--main-text); }
+        .project-card:hover { transform: translateY(-8px); border-color: var(--brand-accent); }
         .tag { font-size: 0.75rem; font-weight: 600; padding: 0.25rem 0.75rem; border-radius: 9999px; }
         .dark-mode .tag { background-color: var(--brand-accent)/20; color: var(--brand-accent); }
         .light-mode .tag { background-color: var(--brand-accent); color: #fff; }
+        .project-link { color: var(--subtext); font-weight: 600; transition: color 0.3s ease; display: inline-flex; align-items: center; }
+        .project-link:hover { color: var(--brand-accent); }
+        
+        /* Carousel Styles */
+        .carousel-container { position: relative; width: 100%; aspect-ratio: 16/9; max-width: 800px; margin: auto; overflow: hidden; border-radius: 0.75rem; border: 1px solid var(--main-border); box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
+        .carousel-inner { width: 100%; height: 100%; }
+        .slide { position: absolute; inset: 0; opacity: 0; transition: opacity 0.8s ease-in-out; cursor: pointer; }
+        .slide.active { opacity: 1; }
+        .slide-image { width: 100%; height: 100%; object-fit: cover; }
+        .slide-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 50%); }
+        .slide-caption { position: absolute; bottom: 0; left: 0; right: 0; padding: 1.5rem; color: white; text-align: left; }
+        .carousel-arrow { position: absolute; top: 50%; transform: translateY(-50%); background-color: rgba(0,0,0,0.4); color: white; border: none; border-radius: 50%; width: 2.5rem; height: 2.5rem; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: background-color 0.2s; z-index: 10;}
+        .carousel-arrow:hover { background-color: rgba(0,0,0,0.7); }
+        .carousel-arrow.left { left: 1rem; }
+        .carousel-arrow.right { right: 1rem; }
+        .carousel-dots { position: absolute; bottom: 1rem; left: 50%; transform: translateX(-50%); display: flex; gap: 0.5rem; z-index: 10; }
+        .dot { width: 0.75rem; height: 0.75rem; border-radius: 50%; background-color: rgba(255,255,255,0.4); border: none; cursor: pointer; transition: background-color 0.2s; }
+        .dot.active { background-color: white; }
 
+        /* Contact Form */
         .contact-label { display: block; margin-bottom: 0.5rem; font-size: 0.875rem; color: var(--subtext); }
         .contact-input { width: 100%; background-color: var(--card); border: 1px solid var(--main-border); border-radius: 0.5rem; padding: 0.75rem; color: var(--main-text); transition: border-color 0.3s; }
         .contact-input:focus { outline: none; border-color: var(--brand-accent); box-shadow: 0 0 0 2px var(--brand-accent-glow); }
@@ -1167,7 +1256,4 @@ const StyleInjector = () => (
     `}
     </style>
 );
-
-
-
 
