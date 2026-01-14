@@ -221,7 +221,7 @@ const Hero = ({ setActivePage }) => {
             cancelAnimationFrame(animationFrameId);
             window.removeEventListener('resize', handleResize);
         }
-    }, [theme]);
+    }, [theme]) ; 
 
     return (
         <section id="home" className="min-h-full flex flex-col items-center justify-center relative p-6 overflow-hidden">
@@ -732,11 +732,11 @@ const AIChat = () => {
         - The 'Credentials' page contains his documents organized into categories: Academic & Research (Thesis), Professional Development (Certificate of Employment, OJT Completion, Seminar Certificates), and Organizational Involvement.
     `;
     
-    const suggestionPrompts = [
+    const suggestionPrompts = React.useMemo(() => [
         "What technologies does Arvin use?",
         "What is his current role?",
         "Tell me about his thesis project.",
-    ];
+    ], []);
 
     useEffect(() => {
         if(isOpen && messages.length === 0) {
@@ -746,7 +746,7 @@ const AIChat = () => {
                  suggestions: suggestionPrompts 
              }]);
         }
-    }, [isOpen]);
+    }, [isOpen, messages.length, suggestionPrompts]);
 
     useEffect(() => {
         if (chatBodyRef.current) {
