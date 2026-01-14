@@ -810,7 +810,7 @@ const About = () => {
     { name: "C++", icon: "cuttlefish" },
     { name: "Microcontroller", icon: "microchip" },
 
-    { name: "Canvas", icon: "square-full" },
+    { name: "Canva", icon: "square-full" },
     { name: "Vite", icon: "vite" },
 
     { name: "AI Tools", icon: "robot" },
