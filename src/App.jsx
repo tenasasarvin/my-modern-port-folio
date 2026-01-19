@@ -1,15 +1,7 @@
-import React, {
-  useState,
-  useEffect,
-  useRef,
-  useContext,
-  createContext,
-} from "react";
+import React, {useState,useEffect,useRef,useContext,createContext,} from "react";
 
 /** * MODERN PORTFOLIO - ARVIN TENASAS
-
  * Features:
-
  * - Top Navigation (Sticky + Glassmorphism)
 
  * - Mobile Responsive Menu
@@ -402,15 +394,10 @@ const Navigation = ({ activeSection, setActiveSection }) => {
 
   const navLinks = [
     { id: "home", label: "Home", icon: HomeIcon },
-
     { id: "about", label: "About", icon: UserIcon },
-
     { id: "services", label: "Services", icon: LayersIcon },
-
     { id: "experience", label: "Experience", icon: BriefcaseIcon },
-
     { id: "projects", label: "Projects", icon: CodeIcon },
-
     { id: "contact", label: "Contact", icon: MailIcon },
   ];
 
@@ -427,131 +414,111 @@ const Navigation = ({ activeSection, setActiveSection }) => {
   };
 
   return (
-    <nav
-      className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
-        isScrolled
-          ? "bg-white/80 dark:bg-neutral-900/80 backdrop-blur-md shadow-lg py-3"
-          : "bg-transparent py-5"
-      }`}
-    >
-      <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
-        {/* Logo */}
-
-        <div
-          className="text-2xl font-bold tracking-tighter cursor-pointer flex items-center gap-2"
-          onClick={() => scrollToSection("home")}
+         <nav
+            className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
+                isScrolled
+                    ? "bg-white/80 dark:bg-neutral-900/80 backdrop-blur-md shadow-lg py-3"
+                    : "bg-transparent py-5"
+            }`}
         >
-          <span className="text-cyan-500">&lt;</span>
+            {/* FIXED: Changed mx-0 to mx-auto to center content */}
+            <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
+                
+                {/* Logo */}
+                <div 
+                    className="cursor-pointer flex items-center" 
+                    onClick={() => scrollToSection('home')}
+                >
+                    <img 
+                        src={theme === 'dark' ? "/logo-dark.svg" : "/logo-light.svg"} 
+                        alt="Arvin Tenasas" 
+                        // UPDATED: Increased height to h-20/md:h-24 and added negative margin -my-4
+                        // This allows the logo to overflow visually without pushing the header height
+                        className="w-auto h-20 md:h-24 object-contain -my-4"
+                        onError={(e) => {
+                            // Fallback if image fails to load in preview
+                            e.target.onerror = null; 
+                            e.target.src = "https://placehold.co/150x50/0A0A0A/08F7FE?text=LOGO";
+                        }}
+                    />
+                </div>
 
-          <span className={theme === "dark" ? "text-white" : "text-gray-900"}>
-            arvintenasas
-          </span>
+                {/* Desktop Menu */}
+                <div className="hidden md:flex items-center space-x-2">
+                    {navLinks.map((link) => (
+                        <button
+                            key={link.id}
+                            onClick={() => scrollToSection(link.id)}
+                            className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 
+                                ${activeSection === link.id 
+                                    ? 'bg-cyan-500/10 text-cyan-600 dark:text-cyan-400' 
+                                    : 'text-gray-600 dark:text-gray-300 hover:text-cyan-500 hover:bg-gray-100 dark:hover:bg-neutral-800'
+                                }`}
+                        >
+                            {link.label}
+                        </button>
+                    ))}
+                    <div className="w-px h-6 bg-gray-200 dark:bg-neutral-700 mx-2"></div>
+                    <button onClick={toggleTheme} className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-neutral-800 transition-colors">
+                        {theme === 'dark' ? <SunIcon className="w-5 h-5" /> : <MoonIcon className="w-5 h-5" />}
+                    </button>
+                </div>
 
-          <span className="text-cyan-500">/&gt;</span>
-        </div>
+                {/* Mobile Menu Toggle */}
+                <div className="md:hidden flex items-center gap-4">
+                    {/* Theme Toggle removed from here and placed inside dropdown */}
+                    <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
+                        {isMobileMenuOpen ? <XIcon className="w-6 h-6" /> : <MenuIcon className="w-6 h-6" />}
+                    </button>
+                </div>
+            </div>
 
-        {/* Desktop Menu */}
-
-        <div className="hidden md:flex items-center space-x-8">
-          {navLinks.map((link) => (
-            <button
-              key={link.id}
-              onClick={() => scrollToSection(link.id)}
-              className={`text-sm font-medium transition-colors duration-200 hover:text-cyan-500 ${
-                activeSection === link.id
-                  ? "text-cyan-500"
-                  : "text-gray-600 dark:text-gray-300"
-              }`}
-            >
-              {link.label}
-            </button>
-          ))}
-
-          <button
-            onClick={toggleTheme}
-            className="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-neutral-800 transition-colors"
-          >
-            {theme === "dark" ? (
-              <SunIcon className="w-5 h-5" />
-            ) : (
-              <MoonIcon className="w-5 h-5" />
+            {/* Mobile Dropdown */}
+            {isMobileMenuOpen && (
+                <div className="absolute top-full left-0 w-full bg-white dark:bg-neutral-900 shadow-xl border-t dark:border-neutral-800 p-4 flex flex-col gap-2 md:hidden animate-fadeInUp">
+                    {navLinks.map((link) => (
+                        <button
+                            key={link.id}
+                            onClick={() => scrollToSection(link.id)}
+                            className={`flex items-center gap-3 p-3 rounded-lg transition-colors text-left
+                                ${activeSection === link.id 
+                                    ? 'bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 font-bold' 
+                                    : 'hover:bg-gray-100 dark:hover:bg-neutral-800 text-gray-700 dark:text-gray-300'
+                                }`}
+                        >
+                            <link.icon className="w-5 h-5" />
+                            <span>{link.label}</span>
+                        </button>
+                    ))}
+                    
+                    {/* Theme Toggle moved inside Dropdown */}
+                    <div className="h-px bg-gray-200 dark:bg-neutral-800 my-1"></div>
+                    <button
+                        onClick={toggleTheme}
+                        className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-100 dark:hover:bg-neutral-800 transition-colors text-left text-gray-700 dark:text-gray-300"
+                    >
+                        {theme === 'dark' ? <SunIcon className="w-5 h-5" /> : <MoonIcon className="w-5 h-5" />}
+                        <span>{theme === 'dark' ? 'Switch to Light' : 'Switch to Dark'}</span>
+                    </button>
+                </div>
             )}
-          </button>
-        </div>
-
-        {/* Mobile Menu Toggle */}
-
-        <div className="md:hidden flex items-center gap-4">
-          <button
-            onClick={toggleTheme}
-            className="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-neutral-800 transition-colors"
-          >
-            {theme === "dark" ? (
-              <SunIcon className="w-5 h-5" />
-            ) : (
-              <MoonIcon className="w-5 h-5" />
-            )}
-          </button>
-
-          <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
-            {isMobileMenuOpen ? (
-              <XIcon className="w-6 h-6" />
-            ) : (
-              <MenuIcon className="w-6 h-6" />
-            )}
-          </button>
-        </div>
-      </div>
-
-      {/* Mobile Dropdown */}
-
-      {isMobileMenuOpen && (
-        <div className="absolute top-full left-0 w-full bg-white dark:bg-neutral-900 shadow-xl border-t dark:border-neutral-800 p-4 flex flex-col gap-4 md:hidden">
-          {navLinks.map((link) => (
-            <button
-              key={link.id}
-              onClick={() => scrollToSection(link.id)}
-              className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-100 dark:hover:bg-neutral-800 transition-colors text-left"
-            >
-              <link.icon className="w-5 h-5 text-cyan-500" />
-
-              <span
-                className={
-                  activeSection === link.id
-                    ? "text-cyan-500 font-bold"
-                    : "text-gray-700 dark:text-gray-300"
-                }
-              >
-                {link.label}
-              </span>
-            </button>
-          ))}
-        </div>
-      )}
-    </nav>
+        </nav>
   );
 };
 
 const Hero = () => {
   const [text, setText] = useState("");
-
   const [titleIndex, setTitleIndex] = useState(0);
-
   const [isDeleting, setIsDeleting] = useState(false);
-
   const canvasRef = useRef(null);
-
   const { theme } = useTheme();
 
   // Typewriter Effect
 
   useEffect(() => {
     const currentTitle = HERO_TITLES[titleIndex];
-
     const typingSpeed = 100;
-
     const deletingSpeed = 50;
-
     const delayBeforeDelete = 2000;
 
     const handleTyping = () => {
@@ -582,11 +549,8 @@ const Hero = () => {
 
   useEffect(() => {
     const canvas = canvasRef.current;
-
     if (!canvas) return;
-
     const ctx = canvas.getContext("2d");
-
     let animationFrameId;
 
     const resizeCanvas = () => {
@@ -598,19 +562,14 @@ const Hero = () => {
     resizeCanvas();
 
     const particles = [];
-
     const particleCount = 60;
 
     for (let i = 0; i < particleCount; i++) {
       particles.push({
         x: Math.random() * canvas.width,
-
         y: Math.random() * canvas.height,
-
         radius: Math.random() * 2,
-
         vx: (Math.random() - 0.5) * 0.5,
-
         vy: (Math.random() - 0.5) * 0.5,
       });
     }
@@ -623,17 +582,11 @@ const Hero = () => {
 
       particles.forEach((p) => {
         p.x += p.vx;
-
         p.y += p.vy;
-
         if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
-
         if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
-
         ctx.beginPath();
-
         ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-
         ctx.fill();
       });
 
@@ -647,33 +600,24 @@ const Hero = () => {
       for (let i = 0; i < particles.length; i++) {
         for (let j = i; j < particles.length; j++) {
           const dx = particles[i].x - particles[j].x;
-
           const dy = particles[i].y - particles[j].y;
-
           const distance = Math.sqrt(dx * dx + dy * dy);
 
           if (distance < 150) {
             ctx.beginPath();
-
             ctx.moveTo(particles[i].x, particles[i].y);
-
             ctx.lineTo(particles[j].x, particles[j].y);
-
             ctx.stroke();
           }
         }
       }
-
       animationFrameId = requestAnimationFrame(animate);
     };
 
     animate();
-
     window.addEventListener("resize", resizeCanvas);
-
     return () => {
       cancelAnimationFrame(animationFrameId);
-
       window.removeEventListener("resize", resizeCanvas);
     };
   }, [theme]);
@@ -891,9 +835,7 @@ const ServiceCard = ({ icon, title, desc }) => {
           <IconComponent className="w-8 h-8 text-cyan-600 group-hover:text-white transition-colors duration-300" />
         ) : null}
       </div>
-
       <h3 className="text-xl font-bold mb-3">{title}</h3>
-
       <p className="text-gray-600 dark:text-gray-400 leading-relaxed">{desc}</p>
     </div>
   );
@@ -934,17 +876,13 @@ const ExperienceItem = ({ date, title, company, desc, type }) => (
         type === "work" ? "bg-cyan-500" : "bg-purple-500"
       }`}
     ></div>
-
     <span className="text-sm font-mono text-gray-500 dark:text-gray-400 mb-2 block">
       {date}
     </span>
-
     <h4 className="text-xl font-bold text-gray-900 dark:text-white">{title}</h4>
-
     <span className="text-cyan-600 dark:text-cyan-400 font-medium text-sm mb-3 block">
       {company}
     </span>
-
     <p className="text-gray-600 dark:text-gray-400">{desc}</p>
   </div>
 );
@@ -1026,40 +964,28 @@ const Projects = () => {
   const projectData = [
     {
       id: 1,
-
       imgSrc: ASSETS.projectImageUrl1,
-
       title: "SmartPen IoT System",
-
       description:
-        "An automated fish feeding system using ESP32, measuring pH and temperature to optimize aquaculture. Features an Android app for real-time controls.",
-
-      tags: ["IoT", "C++", "Firebase", "Android"],
+        "This project integrates three interconnected systems for aquaculture management. The first system is an offshore device installed in fish pens, equipped with sensors connected to an Arduino UNO R3 (ATmega328P) for monitoring environmental conditions such as pH and temperature. Communication between the offshore device and the home-based unit is handled via LoRa, enabling reliable long-distance data transmission. The second system is a home-based ESP32 unit that receives sensor data, uploads it to Firebase, and ensures seamless cloud integration. The third system is a mobile application that not only displays real-time data but also provides feeding controls—users can manually dispense feed at chosen times or schedule automatic feeding. Together, these systems create a smart aquaculture solution that optimizes fish health and feeding efficiency.",
+      tags: ["IoT", "C++", "Firebase", "Android", "ESP32", "Arduino", "Flutterflow"],
     },
 
     {
       id: 2,
-
       imgSrc: ASSETS.projectImageUrl2,
-
       title: "LSI Corporate Web",
-
       description:
         "A complete modernization of LSI's digital presence using React and Tailwind. Improved SEO, load times, and mobile responsiveness.",
-
       tags: ["React", "Vite", "Tailwind", "UI/UX"],
     },
 
     {
       id: 3,
-
       imgSrc: ASSETS.projectImageUrl3,
-
       title: "AI Portfolio",
-
       description:
         "A personal portfolio featuring a custom-trained LLM integration to answer recruiter questions about my background.",
-
       tags: ["React", "Gemini API", "AI"],
     },
   ];
@@ -1316,9 +1242,7 @@ const Contact = () => {
             }`}
           >
             {formStatus === "idle" && "Send Message"}
-
             {formStatus === "sending" && "Sending..."}
-
             {formStatus === "sent" && "Message Sent!"}
           </button>
         </form>
@@ -1340,9 +1264,7 @@ const Footer = () => (
 
 const App = () => {
   const [activeSection, setActiveSection] = useState("home");
-
   const mainRef = useRef(null);
-
   useScrollReveal(mainRef);
 
   return (
@@ -1355,20 +1277,13 @@ const App = () => {
 
         <main ref={mainRef}>
           <Hero />
-
           <About />
-
           <Experience />
-
           <Services />
-
           <Projects />
-
           <Credentials />
-
           <Contact />
         </main>
-
         <Footer />
       </div>
 
@@ -1377,57 +1292,29 @@ const App = () => {
       <style>{`
 
                 @keyframes fadeInUp {
-
                     from { opacity: 0; transform: translate3d(0, 40px, 0); }
-
                     to { opacity: 1; transform: translate3d(0, 0, 0); }
-
                 }
-
                 .animate-fadeInUp {
-
                     animation: fadeInUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
-
                 }
-
-               
-
                 /* Custom Scrollbar */
-
                 ::-webkit-scrollbar {
-
                     width: 8px;
-
                 }
-
                 ::-webkit-scrollbar-track {
-
                     background: transparent;
-
                 }
-
                 ::-webkit-scrollbar-thumb {
-
                     background: #555;
-
                     border-radius: 4px;
-
                 }
-
                 ::-webkit-scrollbar-thumb:hover {
-
                     background: #08F7FE;
-
                 }
-
-
-
                 html {
-
                     scroll-behavior: smooth;
-
                 }
-
             `}</style>
     </ThemeProvider>
   );
