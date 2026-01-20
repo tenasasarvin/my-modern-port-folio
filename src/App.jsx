@@ -231,9 +231,6 @@ const Navigation = ({ activeSection }) => {
           <div className="w-28 h-auto bg-transparent flex items-center justify-center ">
             <img src="/logo-texts.png" alt="arvin.dev" />
           </div>
-          {/* <span className="font-bold text-xl tracking-tight hidden sm:block">
-            arvin<span className="text-orange-500">.dev</span>
-          </span> */}
         </div>
 
         {/* Desktop Menu */}
@@ -436,7 +433,7 @@ const Hero = () => {
 
       <div className="relative z-10 text-center px-6 max-w-4xl mx-auto">
         <div className="mb-8 inline-block">
-          <div className="relative group cursor-default">
+          <div className="relative group cursor-default mt-11">
             <div className="absolute -inset-1 bg-gradient-to-r from-orange-500 to-amber-500 rounded-lg blur opacity-20 group-hover:opacity-40 transition duration-500"></div>
             <span className="relative px-4 py-2 rounded-lg border border-gray-200 dark:border-neutral-700 bg-white/80 dark:bg-neutral-800/80 backdrop-blur text-sm font-mono flex flex-wrap items-center justify-center gap-2 shadow-xl">
               <span className="text-purple-600 dark:text-purple-400">const</span>
@@ -481,7 +478,7 @@ const Hero = () => {
           </button>
 
           <a
-            href="/Updated_Resume_Arvin_Tenasas.pdf"
+            href="/Updated Resume.pdf"
             download
             className="px-8 py-3 rounded-lg border border-gray-300 dark:border-neutral-700 hover:bg-gray-100 dark:hover:bg-neutral-800 transition-all flex items-center justify-center gap-2 w-full sm:w-auto"
           >
@@ -504,7 +501,7 @@ const Hero = () => {
         </div>
       </div>
 
-      <div className="absolute bottom-10 animate-bounce">
+      <div className="absolute bottom-1 animate-bounce">
         <ChevronRight className="w-6 h-6 rotate-90 opacity-50" />
       </div>
     </section>
