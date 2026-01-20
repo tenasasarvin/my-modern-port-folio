@@ -1,5 +1,58 @@
 import React, { useState, useEffect, useRef, useContext, createContext } from "react";
-import { Home, User, Layers, Briefcase, Code, Mail, Sun, Moon, Menu, X, ChevronRight, Download, Github, Linkedin, Facebook, Wrench, ExternalLink } from "lucide-react";
+
+// --- ICONS (Inline definitions to remove external dependencies) ---
+
+const Home = (props) => (
+  <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+);
+const User = (props) => (
+  <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+);
+const Layers = (props) => (
+  <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+);
+const Briefcase = (props) => (
+  <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="20" height="14" x="2" y="7" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+);
+const Code = (props) => (
+  <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+);
+const Mail = (props) => (
+  <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+);
+const Sun = (props) => (
+  <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
+);
+const Moon = (props) => (
+  <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+);
+const Menu = (props) => (
+  <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+);
+const X = (props) => (
+  <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+);
+const ChevronRight = (props) => (
+  <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+);
+const Download = (props) => (
+  <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
+);
+const Github = (props) => (
+  <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
+);
+const Linkedin = (props) => (
+  <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
+);
+const Facebook = (props) => (
+  <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+);
+const Wrench = (props) => (
+  <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+);
+const ExternalLink = (props) => (
+  <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" x2="21" y1="14" y2="3"/></svg>
+);
 
 // --- THEME CONTEXT ---
 
@@ -175,12 +228,12 @@ const Navigation = ({ activeSection }) => {
           className="cursor-pointer flex items-center gap-2 group"
           onClick={() => scrollToSection("home")}
         >
-          <div className="w-10 h-10 bg-gradient-to-br from-orange-500 to-amber-500 rounded-lg flex items-center justify-center text-white font-bold text-xl shadow-lg group-hover:shadow-orange-500/50 transition-all">
-            AT
+          <div className="w-28 h-auto bg-transparent flex items-center justify-center ">
+            <img src="/logo-texts.png" alt="arvin.dev" />
           </div>
-          <span className="font-bold text-xl tracking-tight hidden sm:block">
-            Arvin<span className="text-orange-500">.dev</span>
-          </span>
+          {/* <span className="font-bold text-xl tracking-tight hidden sm:block">
+            arvin<span className="text-orange-500">.dev</span>
+          </span> */}
         </div>
 
         {/* Desktop Menu */}
@@ -438,14 +491,14 @@ const Hero = () => {
         </div>
 
         <div className="mt-12 flex justify-center gap-8">
-          {socialLinks.map(({ Icon, href, label }) => (
+          {socialLinks.map(({ Icon: icon, href, label }) => (
             <a
               key={label}
               href={href}
               aria-label={label}
               className="text-gray-400 hover:text-orange-500 transition-colors transform hover:-translate-y-1"
             >
-              <Icon size={24} />
+              {React.createElement(icon, { size: 24 })}
             </a>
           ))}
         </div>
@@ -522,39 +575,42 @@ const About = () => {
 };
 
 const Services = () => {
-  const ServiceCard = ({ Icon, title, desc }) => (
-    <div className="p-8 rounded-2xl bg-white dark:bg-neutral-800 hover:bg-gray-50 dark:hover:bg-neutral-700 transition-all duration-300 border border-gray-100 dark:border-neutral-700 hover:-translate-y-2 shadow-sm hover:shadow-xl group">
-      <div className="w-14 h-14 rounded-lg bg-orange-500/10 flex items-center justify-center mb-6 group-hover:bg-orange-500 transition-colors duration-300">
-        <Icon className="w-8 h-8 text-orange-600 dark:text-orange-500 group-hover:text-white transition-colors duration-300" />
+  const ServiceCard = ({ icon, title, desc }) => {
+    const Icon = icon;
+    return (
+      <div className="p-8 rounded-2xl bg-white dark:bg-neutral-800 hover:bg-gray-50 dark:hover:bg-neutral-700 transition-all duration-300 border border-gray-100 dark:border-neutral-700 hover:-translate-y-2 shadow-sm hover:shadow-xl group">
+        <div className="w-14 h-14 rounded-lg bg-orange-500/10 flex items-center justify-center mb-6 group-hover:bg-orange-500 transition-colors duration-300">
+          <Icon className="w-8 h-8 text-orange-600 dark:text-orange-500 group-hover:text-white transition-colors duration-300" />
+        </div>
+        <h3 className="text-xl font-bold mb-3 text-gray-900 dark:text-white">
+          {title}
+        </h3>
+        <p className="text-gray-600 dark:text-gray-400 leading-relaxed">{desc}</p>
       </div>
-      <h3 className="text-xl font-bold mb-3 text-gray-900 dark:text-white">
-        {title}
-      </h3>
-      <p className="text-gray-600 dark:text-gray-400 leading-relaxed">{desc}</p>
-    </div>
-  );
+    );
+  };
 
   return (
     <SectionWrapper id="services" className="bg-white dark:bg-neutral-900">
       <SectionHeader title="My Expertise" subtitle="What I Do" />
       <div className="grid md:grid-cols-2 gap-8">
         <ServiceCard
-          Icon={Code}
+          icon={Code}
           title="Web Development"
           desc="Building responsive, high-performance websites and single-page applications using React, Node.js, and Modern CSS."
         />
         <ServiceCard
-          Icon={Layers}
+          icon={Layers}
           title="UI/UX Design"
           desc="Designing intuitive interfaces with a focus on user experience, ensuring accessibility and visual consistency."
         />
         <ServiceCard
-          Icon={Briefcase}
+          icon={Briefcase}
           title="IoT Solutions"
           desc="Developing smart connected devices and control systems using ESP32/Arduino bridged with cloud databases."
         />
         <ServiceCard
-          Icon={Wrench}
+          icon={Wrench}
           title="Technical Support"
           desc="Diagnosing and fixing hardware/software issues, system upgrades, and maintenance for optimal performance."
         />
