@@ -228,7 +228,7 @@ const Navigation = ({ activeSection }) => {
           className="cursor-pointer flex items-center gap-2 group"
           onClick={() => scrollToSection("home")}
         >
-          <div className="w-28 h-auto bg-transparent flex items-center justify-center ">
+          <div className="w-28 h-auto bg-transparent flex items-center justify-center">
             <img src="/logo-texts.png" alt="arvin.dev" />
           </div>
           {/* <span className="font-bold text-xl tracking-tight hidden sm:block">
