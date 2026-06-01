@@ -763,12 +763,17 @@ const Navigation = ({ activeSection }) => {
           className="cursor-pointer flex items-center justify-center shrink-0"
           onClick={() => scrollToSection("home")}
         >
+<<<<<<< HEAD
           <div className="w-20 md:w-24 h-auto bg-transparent flex items-center justify-center">
             <img
               src="/logo-texts.png"
               alt="arvin.dev"
               className="object-contain"
             />
+=======
+          <div className="w-28 h-auto bg-transparent flex items-center justify-center">
+            <img src="/logo-texts.png" alt="arvin.dev" />
+>>>>>>> caa6e4aaeed5db246d4dba8a59ba90208b07eaf0
           </div>
         </div>
 
