@@ -758,22 +758,17 @@ const Navigation = ({ activeSection }) => {
             : "bg-white/50 dark:bg-neutral-900/50 border-transparent shadow-sm"
         } backdrop-blur-md border`}
       >
-        {/* Logo Text/Image - Smaller on mobile */}
+        {/* Logo Text/Image */}
         <div
           className="cursor-pointer flex items-center justify-center shrink-0"
           onClick={() => scrollToSection("home")}
         >
-<<<<<<< HEAD
           <div className="w-20 md:w-24 h-auto bg-transparent flex items-center justify-center">
             <img
               src="/logo-texts.png"
               alt="arvin.dev"
               className="object-contain"
             />
-=======
-          <div className="w-28 h-auto bg-transparent flex items-center justify-center">
-            <img src="/logo-texts.png" alt="arvin.dev" />
->>>>>>> caa6e4aaeed5db246d4dba8a59ba90208b07eaf0
           </div>
         </div>
 
@@ -813,7 +808,7 @@ const Navigation = ({ activeSection }) => {
           </button>
         </div>
 
-        {/* Mobile Menu Toggle - Smaller icons */}
+        {/* Mobile Menu Toggle */}
         <div className="md:hidden flex items-center gap-2">
           <div className="w-px h-4 bg-gray-300 dark:bg-neutral-700"></div>
           <button
@@ -839,7 +834,7 @@ const Navigation = ({ activeSection }) => {
         </div>
       </div>
 
-      {/* Floating Mobile Dropdown - Tighter padding */}
+      {/* Floating Mobile Dropdown */}
       {isMobileMenuOpen && (
         <div className="absolute top-[calc(100%+0.75rem)] left-4 right-4 bg-white/95 dark:bg-neutral-900/95 backdrop-blur-xl shadow-2xl border border-gray-100 dark:border-neutral-800 rounded-2xl p-3 flex flex-col gap-1.5 md:hidden animate-fadeInUp">
           {navLinks.map((link) => (
