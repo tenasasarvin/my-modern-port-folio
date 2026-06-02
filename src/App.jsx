@@ -565,6 +565,73 @@ const WordPressIcon = (props) => (
   </svg>
 );
 
+const Lightbulb = (props) => (
+  <svg
+    {...props}
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1.3.5 2.6 1.5 3.5.8.8 1.3 1.5 1.5 2.5" />
+    <path d="M9 18h6" />
+    <path d="M10 22h4" />
+  </svg>
+);
+const ChevronLeft = (props) => (
+  <svg
+    {...props}
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <path d="m15 18-6-6 6-6" />
+  </svg>
+);
+
+const MapPin = (props) => (
+  <svg
+    {...props}
+    xmlns="http://www.w3.org/2000/svg"
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
+    <circle cx="12" cy="10" r="3" />
+  </svg>
+);
+
+const Send = (props) => (
+  <svg
+    {...props}
+    xmlns="http://www.w3.org/2000/svg"
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <path d="m22 2-7 20-4-9-9-4Z" />
+    <path d="M22 2 11 13" />
+  </svg>
+);
+
 // --- THEME CONTEXT ---
 
 const ThemeContext = createContext();
@@ -606,36 +673,49 @@ const HERO_TITLES = [
   { text: "Problem Solver", color: "text-violet-400" },
 ];
 
+// --- UPDATED PROJECTS DATA ---
 const PROJECTS_DATA = [
   {
     id: 1,
-    title: "SmartPen IoT System",
-    category: "IoT & Embedded",
+    title: "LSI Corporate Portal",
+    subtitle: "Legacy WordPress Modernization",
+    category: "Full-Stack Web",
+    role: "Lead Developer",
     description:
-      "A real-time handwriting digitization system using ESP32 and React.",
-    tags: ["C++", "React", "Firebase", "ESP32"],
-    image: "https://placehold.co/600x400/171717/F97316?text=SmartPen+IoT",
-    link: "#",
+      "Modernized a legacy WordPress architecture into a high-performance web application. Built a custom full-stack solution utilizing Node.js, Next.js, and a robust MySQL database to streamline corporate workflows.",
+    tags: ["Next.js", "React.js", "Node.js", "MySQL", "Tailwind"],
+    image:
+      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=800", // Placeholder: Modern dashboard vibe
+    demoLink: "#",
+    githubLink: "#",
   },
   {
     id: 2,
-    title: "LSI Corporate Portal",
-    category: "Web Development",
+    title: "BALAY Management",
+    subtitle: "Dual-Portal Property Platform",
+    category: "Web & Mobile App",
+    role: "Sole Developer",
     description:
-      "Modern corporate website with inventory tracking and client portals.",
-    tags: ["Next.js", "Tailwind", "MySQL"],
-    image: "https://placehold.co/600x400/171717/3B82F6?text=LSI+Website",
-    link: "#",
+      "Engineered a comprehensive dual-portal management system. Developed dedicated, secure interfaces for both landlords and tenants to seamlessly handle property data, communication, and real-time operations.",
+    tags: ["React Native", "Expo", "Supabase", "UI/UX"],
+    image:
+      "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&q=80&w=800", // Placeholder: Mobile app / Real estate tech vibe
+    demoLink: "#",
+    githubLink: "#",
   },
   {
     id: 3,
-    title: "AI Portfolio Generator",
-    category: "AI Integration",
+    title: "Offshore IoT Fish Feeder",
+    subtitle: "Remote Aquaculture Automation",
+    category: "Hardware & IoT",
+    role: "Lead Engineer",
     description:
-      "Generates portfolio websites based on user prompts using Gemini API.",
-    tags: ["React", "Node.js", "AI"],
-    image: "https://placehold.co/600x400/171717/A855F7?text=AI+Portfolio",
-    link: "#",
+      "Developed a 3-tier remote offshore aquaculture system. Bridged physical sensors and microcontrollers with a remote relay device to sync real-time automated feeding data to Firebase, accessible via a custom FlutterFlow app.",
+    tags: ["Microcontrollers", "FlutterFlow", "Firebase", "Sensors"],
+    image:
+      "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&q=80&w=800", // Placeholder: Ocean/Tech or IoT hardware vibe
+    demoLink: "#",
+    githubLink: "#",
   },
 ];
 
@@ -979,19 +1059,20 @@ const Hero = () => {
   return (
     <section
       id="home"
-      className="min-h-screen relative pt-20 pb-10 flex items-center justify-center overflow-hidden bg-white dark:bg-neutral-900"
+      // Removed excessive padding to mathematically center the content vertically
+      className="min-h-[100svh] relative flex items-center justify-center overflow-hidden bg-white dark:bg-neutral-900 py-20"
     >
       <canvas
         ref={canvasRef}
         className="absolute inset-0 z-0 pointer-events-none"
       />
 
-      <div className="relative z-10 w-full max-w-4xl mx-auto px-6 flex flex-col items-center text-center">
-        {/* Const Developer Badge */}
-        <div className="mb-6 inline-block mt-4 md:mt-0">
+      <div className="relative z-10 w-full max-w-5xl mx-auto px-6 flex flex-col items-center text-center">
+        {/* Const Developer Badge - Scales down on laptop (lg), up on desktop (xl) */}
+        <div className="mb-4 md:mb-6 inline-block">
           <div className="relative group cursor-default">
             <div className="absolute -inset-1 bg-gradient-to-r from-orange-500 to-amber-500 rounded-lg blur opacity-20 group-hover:opacity-40 transition duration-500"></div>
-            <span className="relative px-3 py-1.5 md:px-4 md:py-2 rounded-lg border border-gray-200 dark:border-neutral-700 bg-white/80 dark:bg-neutral-800/80 backdrop-blur text-xs md:text-sm font-mono flex flex-wrap items-center justify-center gap-1.5 md:gap-2 shadow-sm">
+            <span className="relative px-3 py-1.5 md:px-4 md:py-2 lg:px-3 lg:py-1.5 xl:px-4 xl:py-2 rounded-lg border border-gray-200 dark:border-neutral-700 bg-white/80 dark:bg-neutral-800/80 backdrop-blur text-xs md:text-sm lg:text-xs xl:text-sm font-mono flex flex-wrap items-center justify-center gap-1.5 md:gap-2 shadow-sm transition-all">
               <span className="text-purple-600 dark:text-purple-400">
                 const
               </span>
@@ -1007,37 +1088,37 @@ const Hero = () => {
           </div>
         </div>
 
-        {/* Main Header */}
-        <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight mb-4 md:mb-6 leading-[1.15] md:leading-[1.1]">
-          Crafting Digital <br className="hidden sm:block" />
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-amber-500">
+        {/* Main Header - Forces single line on Laptop (lg), Stacked on Mobile & Desktop (xl) */}
+        <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-5xl xl:text-6xl 2xl:text-7xl font-extrabold tracking-tight mb-4 md:mb-6 lg:mb-4 xl:mb-6 leading-[1.15] md:leading-[1.1] transition-all">
+          <span className="block lg:inline xl:block">Crafting Digital</span>{" "}
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-amber-500 block lg:inline xl:block">
             Experiences
           </span>
         </h1>
 
-        {/* Typewriter text */}
-        <div className="h-6 md:h-8 mb-6 font-mono text-base sm:text-lg md:text-2xl flex items-center justify-center gap-2 w-full">
+        {/* Typewriter text - Responsive sizing */}
+        <div className="h-6 md:h-8 lg:h-6 xl:h-8 mb-4 md:mb-6 lg:mb-4 xl:mb-6 font-mono text-base sm:text-lg md:text-2xl lg:text-xl xl:text-2xl flex items-center justify-center gap-2 w-full transition-all">
           <span className="text-orange-500 font-bold">&gt;</span>
           <span className={HERO_TITLES[titleIndex].color}>{text}</span>
           <span className="animate-pulse text-orange-500">|</span>
         </div>
 
-        {/* Paragraph */}
-        <p className="text-sm sm:text-base md:text-lg text-gray-600 dark:text-neutral-400 mb-8 md:mb-10 max-w-2xl mx-auto leading-relaxed px-4 md:px-0">
+        {/* Paragraph - Scales down on laptop, up on desktop */}
+        <p className="text-sm sm:text-base md:text-lg lg:text-base xl:text-lg text-gray-600 dark:text-neutral-400 mb-6 md:mb-8 lg:mb-6 xl:mb-8 max-w-2xl xl:max-w-3xl mx-auto leading-relaxed px-4 md:px-0 transition-all">
           A Computer Engineer and Full-Stack Web Developer in the Philippines,
           passionate about creating intuitive web applications and developing
           embedded IoT systems.
         </p>
 
-        {/* Action Buttons - Side-by-side app layout */}
-        <div className="flex flex-row items-center justify-center gap-3 sm:gap-4">
+        {/* Action Buttons - Side-by-side app layout, responsive sizing */}
+        <div className="flex flex-row items-center justify-center gap-3 sm:gap-4 lg:gap-3 xl:gap-4">
           <button
             onClick={() =>
               document
                 .getElementById("projects")
                 ?.scrollIntoView({ behavior: "smooth" })
             }
-            className="px-5 py-2.5 sm:px-6 sm:py-3 md:px-8 md:py-3.5 rounded-xl bg-orange-500 hover:bg-orange-600 text-white text-xs sm:text-sm md:text-base font-semibold transition-all hover:-translate-y-1 shadow-[0_0_15px_rgba(249,115,22,0.3)] hover:shadow-[0_0_25px_rgba(249,115,22,0.4)] whitespace-nowrap"
+            className="px-5 py-2.5 sm:px-6 sm:py-3 lg:px-5 lg:py-2.5 xl:px-8 xl:py-3.5 rounded-xl bg-orange-500 hover:bg-orange-600 text-white text-xs sm:text-sm lg:text-xs xl:text-base font-semibold transition-all hover:-translate-y-1 shadow-[0_0_15px_rgba(249,115,22,0.3)] hover:shadow-[0_0_25px_rgba(249,115,22,0.4)] whitespace-nowrap"
           >
             View My Work
           </button>
@@ -1045,24 +1126,24 @@ const Hero = () => {
           <a
             href="/Updated Resume.pdf"
             download
-            className="px-4 py-2.5 sm:px-6 sm:py-3 md:px-8 md:py-3.5 rounded-xl bg-white dark:bg-neutral-800 border border-gray-200 dark:border-neutral-700 hover:bg-gray-50 dark:hover:bg-neutral-700 text-gray-900 dark:text-white text-xs sm:text-sm md:text-base font-medium transition-all hover:-translate-y-1 shadow-sm flex items-center justify-center gap-1.5 md:gap-2 whitespace-nowrap"
+            className="px-4 py-2.5 sm:px-6 sm:py-3 lg:px-5 lg:py-2.5 xl:px-8 xl:py-3.5 rounded-xl bg-white dark:bg-neutral-800 border border-gray-200 dark:border-neutral-700 hover:bg-gray-50 dark:hover:bg-neutral-700 text-gray-900 dark:text-white text-xs sm:text-sm lg:text-xs xl:text-base font-medium transition-all hover:-translate-y-1 shadow-sm flex items-center justify-center gap-1.5 md:gap-2 whitespace-nowrap"
           >
-            <Download className="w-3.5 h-3.5 sm:w-4 sm:h-4 md:w-5 md:h-5 shrink-0" />
+            <Download className="w-3.5 h-3.5 sm:w-4 sm:h-4 lg:w-3.5 lg:h-3.5 xl:w-5 xl:h-5 shrink-0" />
             Download CV
           </a>
         </div>
 
-        {/* Social Icons */}
-        <div className="mt-10 md:mt-12 flex items-center justify-center gap-4 md:gap-6">
+        {/* Social Icons - Scales spacing and padding */}
+        <div className="mt-8 md:mt-10 lg:mt-8 xl:mt-12 flex items-center justify-center gap-4 md:gap-6 lg:gap-4 xl:gap-6 transition-all">
           {socialLinks.map(({ Icon: icon, href, label }) => (
             <a
               key={label}
               href={href}
               aria-label={label}
-              className="p-2 md:p-3 rounded-full bg-gray-50 dark:bg-neutral-800 border border-gray-200 dark:border-neutral-700 text-gray-500 dark:text-gray-400 hover:text-orange-500 hover:border-orange-500/50 transition-all transform hover:-translate-y-1 shadow-sm"
+              className="p-2 md:p-3 lg:p-2.5 xl:p-3 rounded-full bg-gray-50 dark:bg-neutral-800 border border-gray-200 dark:border-neutral-700 text-gray-500 dark:text-gray-400 hover:text-orange-500 hover:border-orange-500/50 transition-all transform hover:-translate-y-1 shadow-sm"
             >
               {React.createElement(icon, {
-                className: "w-4 h-4 md:w-5 md:h-5",
+                className: "w-4 h-4 md:w-5 md:h-5 lg:w-4 lg:h-4 xl:w-5 xl:h-5",
               })}
             </a>
           ))}
@@ -1076,15 +1157,13 @@ const Hero = () => {
             .getElementById("about")
             ?.scrollIntoView({ behavior: "smooth" })
         }
-        className="absolute bottom-8 md:bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3 cursor-pointer group"
+        className="absolute bottom-6 md:bottom-8 lg:bottom-6 xl:bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 cursor-pointer group z-20"
       >
-        <span className="text-[10px] md:text-xs tracking-[0.2em] uppercase font-semibold text-gray-400 dark:text-neutral-500 group-hover:text-orange-500 transition-colors duration-300">
+        <span className="text-[10px] md:text-xs lg:text-[10px] xl:text-xs tracking-[0.2em] uppercase font-semibold text-gray-400 dark:text-neutral-500 group-hover:text-orange-500 transition-colors duration-300">
           Scroll
         </span>
-
-        {/* Animated Mouse/Pill Shape */}
-        <div className="w-5 h-8 md:w-6 md:h-10 border-2 border-gray-400 dark:border-neutral-500 group-hover:border-orange-500 rounded-full flex justify-center p-1 transition-colors duration-300">
-          <div className="w-1 h-2 md:w-1 md:h-2.5 bg-gray-400 dark:bg-neutral-500 group-hover:bg-orange-500 rounded-full animate-bounce transition-colors duration-300"></div>
+        <div className="w-5 h-8 md:w-6 md:h-10 lg:w-5 lg:h-8 xl:w-6 xl:h-10 border-2 border-gray-400 dark:border-neutral-500 group-hover:border-orange-500 rounded-full flex justify-center p-1 transition-colors duration-300">
+          <div className="w-1 h-2 md:w-1 md:h-2.5 lg:h-2 xl:h-2.5 bg-gray-400 dark:bg-neutral-500 group-hover:bg-orange-500 rounded-full animate-bounce transition-colors duration-300"></div>
         </div>
       </div>
     </section>
@@ -1449,123 +1528,322 @@ const Experience = () => {
   );
 };
 
+// --- APP-STYLE ACCORDION PROJECTS COMPONENT ---
 const Projects = () => {
-  const ProjectCard = ({ project }) => (
-    <div className="group rounded-2xl bg-white dark:bg-neutral-800 border border-gray-200 dark:border-neutral-700 overflow-hidden hover:shadow-2xl hover:shadow-orange-500/10 transition-all duration-300 hover:-translate-y-1">
-      <div className="relative h-48 overflow-hidden">
-        <div className="absolute inset-0 bg-black/20 group-hover:bg-black/0 transition-colors z-10"></div>
-        <img
-          src={project.image}
-          alt={project.title}
-          className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"
-        />
-        <div className="absolute top-4 right-4 z-20">
-          <span className="px-3 py-1 bg-black/50 backdrop-blur-md text-white text-xs font-medium rounded-full border border-white/10">
-            {project.category}
-          </span>
-        </div>
-      </div>
-      <div className="p-6">
-        <h3 className="text-xl font-bold mb-2 group-hover:text-orange-500 transition-colors">
-          {project.title}
-        </h3>
-        <p className="text-gray-600 dark:text-gray-400 text-sm mb-4 line-clamp-2">
-          {project.description}
-        </p>
-        <div className="flex flex-wrap gap-2 mb-6">
-          {project.tags.map((tag) => (
-            <span
-              key={tag}
-              className="px-2 py-1 text-xs font-mono rounded bg-gray-100 dark:bg-neutral-700 text-gray-600 dark:text-gray-300"
-            >
-              #{tag}
-            </span>
-          ))}
-        </div>
-        <a
-          href={project.link}
-          className="inline-flex items-center gap-2 text-sm font-semibold text-orange-600 dark:text-orange-500 hover:text-orange-700 dark:hover:text-orange-400 transition-colors"
-        >
-          View Project <ExternalLink size={14} />
-        </a>
-      </div>
-    </div>
-  );
+  const [activeIndex, setActiveIndex] = useState(1); // Start with the middle project expanded
 
   return (
     <SectionWrapper id="projects" className="bg-white dark:bg-neutral-900">
+      {/* Standardized Header Section */}
       <SectionHeader title="Featured Works" subtitle="Portfolio" />
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {PROJECTS_DATA.map((project) => (
-          <ProjectCard key={project.id} project={project} />
-        ))}
+
+      {/* Accordion Carousel Container */}
+      {/* Compact app-like height: scales from 450px (mobile) to 600px (desktop) */}
+      <div className="flex flex-col md:flex-row gap-2 sm:gap-3 md:gap-4 h-[450px] sm:h-[500px] md:h-[550px] lg:h-[600px] w-full px-3 sm:px-0 mx-auto max-w-5xl">
+        {PROJECTS_DATA.map((project, index) => {
+          const isActive = index === activeIndex;
+          const isLeft = index < activeIndex;
+
+          return (
+            <div
+              key={project.id}
+              onClick={() => setActiveIndex(index)}
+              className={`relative rounded-2xl overflow-hidden cursor-pointer transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] group border border-gray-200 dark:border-neutral-800 shadow-sm
+                ${
+                  isActive
+                    ? "flex-1 md:flex-[2.5] lg:flex-[3] shadow-xl shadow-orange-500/10"
+                    : "h-[60px] sm:h-[70px] md:h-auto md:flex-[0.6] lg:flex-[0.7] shrink-0 opacity-85 hover:opacity-100"
+                }
+              `}
+            >
+              {/* Background Image */}
+              <div className="absolute inset-0 z-0">
+                <img
+                  src={project.image}
+                  alt={project.title}
+                  className={`w-full h-full object-cover transition-transform duration-1000 ${isActive ? "scale-100" : "scale-105 group-hover:scale-100"}`}
+                />
+              </div>
+
+              {/* Gradient Overlays for Readability */}
+              <div
+                className={`absolute inset-0 z-10 transition-opacity duration-700 ${
+                  isActive
+                    ? "bg-gradient-to-t from-black/95 via-black/70 to-black/10"
+                    : "bg-black/50 group-hover:bg-black/30"
+                }`}
+              ></div>
+
+              {/* --- INACTIVE STATE UI (Arrow Buttons) --- */}
+              {!isActive && (
+                <div className="absolute inset-0 flex items-center justify-center z-20">
+                  <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white/10 dark:bg-black/30 backdrop-blur-md border border-white/20 flex items-center justify-center text-white transition-all transform group-hover:scale-110 group-hover:bg-orange-500 group-hover:border-orange-500 shadow-md">
+                    {/* Directional Arrows based on position relative to active card */}
+                    {isLeft ? (
+                      <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5" />
+                    ) : (
+                      <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5" />
+                    )}
+                  </div>
+                </div>
+              )}
+
+              {/* --- ACTIVE STATE UI (Full Content) --- */}
+              <div
+                className={`absolute inset-0 z-20 flex flex-col justify-end p-4 sm:p-5 md:p-6 lg:p-8 transition-all duration-500 delay-100 ${
+                  isActive
+                    ? "opacity-100 translate-y-0"
+                    : "opacity-0 translate-y-4 pointer-events-none"
+                }`}
+              >
+                {/* Floating Category Pill */}
+                <div className="mb-auto mt-1 self-start hidden sm:block">
+                  <span className="px-3 py-1.5 bg-white/10 backdrop-blur-md text-white text-[10px] md:text-xs font-bold uppercase tracking-widest rounded-full border border-white/20">
+                    {project.category}
+                  </span>
+                </div>
+
+                {/* Main Content Area */}
+                <div className="max-w-2xl w-full">
+                  <h3 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-extrabold text-white mb-1 md:mb-1.5 leading-tight drop-shadow-md line-clamp-1">
+                    {project.title}
+                  </h3>
+
+                  <p className="text-xs sm:text-sm md:text-base font-semibold text-orange-400 mb-2.5 md:mb-3 drop-shadow-sm line-clamp-1">
+                    {project.subtitle}
+                  </p>
+
+                  <p className="text-[11px] sm:text-xs md:text-sm text-gray-300 mb-4 md:mb-5 leading-relaxed line-clamp-2 md:line-clamp-3 lg:line-clamp-none">
+                    {project.description}
+                  </p>
+
+                  {/* Tech Stack Tags - Tighter spacing for app feel */}
+                  <div className="flex flex-wrap gap-1.5 sm:gap-2 mb-4 md:mb-6">
+                    {project.tags.map((tag) => (
+                      <span
+                        key={tag}
+                        className="px-2 py-1 sm:px-2.5 sm:py-1.5 text-[9px] sm:text-[10px] md:text-xs font-mono font-medium rounded-md bg-black/40 border border-white/10 text-gray-300 backdrop-blur-sm"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+
+                  {/* Action Buttons - Scaled down for mobile */}
+                  <div className="flex flex-row items-center gap-2 sm:gap-3">
+                    <a
+                      href={project.demoLink}
+                      className="flex-1 sm:flex-none flex items-center justify-center gap-1.5 sm:gap-2 px-3 py-2 sm:px-4 sm:py-2.5 md:px-5 md:py-3 bg-orange-500 hover:bg-orange-600 text-white text-[10px] sm:text-xs md:text-sm font-bold rounded-lg sm:rounded-xl transition-all shadow-[0_0_15px_rgba(249,115,22,0.3)] hover:-translate-y-0.5 active:scale-95"
+                    >
+                      Live Demo{" "}
+                      <ExternalLink className="w-3 h-3 sm:w-3.5 sm:h-3.5 md:w-4 md:h-4" />
+                    </a>
+
+                    <a
+                      href={project.githubLink}
+                      className="flex-1 sm:flex-none flex items-center justify-center gap-1.5 sm:gap-2 px-3 py-2 sm:px-4 sm:py-2.5 md:px-5 md:py-3 bg-white/10 hover:bg-white/20 text-white border border-white/20 text-[10px] sm:text-xs md:text-sm font-bold rounded-lg sm:rounded-xl transition-all backdrop-blur-md hover:-translate-y-0.5 active:scale-95"
+                    >
+                      <Github className="w-3 h-3 sm:w-3.5 sm:h-3.5 md:w-4 md:h-4" />{" "}
+                      Code
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          );
+        })}
       </div>
     </SectionWrapper>
   );
 };
 
 const Contact = () => {
-  return (
-    <SectionWrapper id="contact" className="bg-gray-50 dark:bg-neutral-900/50">
-      <div className="bg-white dark:bg-neutral-800 rounded-3xl p-8 md:p-16 border border-gray-200 dark:border-neutral-700 shadow-xl overflow-hidden relative">
-        {/* Decorative Background Elements */}
-        <div className="absolute top-0 right-0 w-64 h-64 bg-orange-500/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3"></div>
-        <div className="absolute bottom-0 left-0 w-64 h-64 bg-blue-500/10 rounded-full blur-3xl translate-y-1/2 -translate-x-1/3"></div>
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    message: "",
+  });
 
-        <div className="relative z-10 text-center max-w-2xl mx-auto">
-          <h2 className="text-orange-500 font-bold tracking-widest text-sm uppercase mb-3">
-            Get In Touch
-          </h2>
-          <h3 className="text-3xl md:text-5xl font-bold mb-6">
-            Let's Build Something Amazing Together
-          </h3>
-          <p className="text-gray-600 dark:text-gray-300 text-lg mb-10 leading-relaxed">
-            I'm currently looking for new opportunities. Whether you have a
-            question, a project idea, or just want to say hi, I'll try my best
-            to get back to you!
-          </p>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <a
-              href="mailto:arvintenasas@example.com"
-              className="px-8 py-4 rounded-xl bg-orange-500 hover:bg-orange-600 text-white font-bold text-lg shadow-lg hover:shadow-orange-500/30 transition-all hover:-translate-y-1 flex items-center gap-2 w-full sm:w-auto justify-center"
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // This securely constructs an email template and opens the user's default mail client
+    const emailTo = "arvintenasas@example.com"; // Replace with your actual email
+    const subject = encodeURIComponent(
+      `New Portfolio Contact from ${formData.name}`,
+    );
+    const body = encodeURIComponent(
+      `Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`,
+    );
+    window.location.href = `mailto:${emailTo}?subject=${subject}&body=${body}`;
+  };
+
+  return (
+    <SectionWrapper id="contact" className="bg-gray-50 dark:bg-neutral-950/50">
+      <SectionHeader title="Let's Connect" subtitle="Contact" />
+
+      <div className="max-w-5xl mx-auto px-2 sm:px-0">
+        <div className="bg-white dark:bg-neutral-900 rounded-3xl sm:rounded-[2.5rem] border border-gray-200 dark:border-neutral-800 shadow-xl overflow-hidden flex flex-col lg:flex-row relative">
+          {/* Subtle Background Glows */}
+          <div className="absolute top-0 right-0 w-64 h-64 bg-orange-500/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3 pointer-events-none"></div>
+          <div className="absolute bottom-0 left-0 w-64 h-64 bg-blue-500/10 rounded-full blur-3xl translate-y-1/2 -translate-x-1/3 pointer-events-none"></div>
+
+          {/* Left Column: Pitch & Info */}
+          <div className="flex-1 p-6 sm:p-10 md:p-12 z-10 flex flex-col justify-between">
+            <div>
+              <h3 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-gray-900 dark:text-white mb-3 sm:mb-4 leading-tight">
+                Ready to build something{" "}
+                <span className="text-orange-500">extraordinary?</span>
+              </h3>
+              <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400 mb-8 sm:mb-10 leading-relaxed">
+                Whether you're looking for a dedicated full-stack developer to
+                join your team, need a freelance expert to modernize your
+                infrastructure, or just want to chat about IoT hardware—I'm
+                ready to help.
+              </p>
+
+              {/* App-style Info Cards */}
+              <div className="flex flex-col gap-3 sm:gap-4 mb-8">
+                <a
+                  href="mailto:arvintenasas@example.com"
+                  className="flex items-center gap-4 p-3 sm:p-4 rounded-2xl bg-gray-50 dark:bg-neutral-800/50 border border-gray-100 dark:border-neutral-800 hover:border-orange-500/30 transition-colors group"
+                >
+                  <div className="w-10 h-10 rounded-xl bg-orange-500/10 text-orange-500 flex items-center justify-center shrink-0 group-hover:bg-orange-500 group-hover:text-white transition-colors">
+                    <Mail className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <p className="text-[10px] sm:text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-0.5">
+                      Email Me
+                    </p>
+                    <p className="text-xs sm:text-sm font-semibold text-gray-900 dark:text-white">
+                      arvintenasas@example.com
+                    </p>
+                  </div>
+                </a>
+
+                <div className="flex items-center gap-4 p-3 sm:p-4 rounded-2xl bg-gray-50 dark:bg-neutral-800/50 border border-gray-100 dark:border-neutral-800">
+                  <div className="w-10 h-10 rounded-xl bg-blue-500/10 text-blue-500 flex items-center justify-center shrink-0">
+                    <MapPin className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <p className="text-[10px] sm:text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-0.5">
+                      Location
+                    </p>
+                    <p className="text-xs sm:text-sm font-semibold text-gray-900 dark:text-white">
+                      Manila, Philippines
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Social Links Row */}
+            <div className="flex items-center gap-3 sm:gap-4">
+              {[
+                { Icon: Linkedin, href: "https://linkedin.com" },
+                { Icon: Github, href: "https://github.com" },
+                { Icon: Facebook, href: "https://facebook.com" },
+              ].map((social, i) => (
+                <a
+                  key={i}
+                  href={social.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-10 h-10 rounded-full bg-gray-100 dark:bg-neutral-800 flex items-center justify-center text-gray-600 dark:text-gray-400 hover:bg-orange-500 hover:text-white transition-all transform hover:-translate-y-1"
+                >
+                  <social.Icon className="w-4 h-4 sm:w-5 sm:h-5" />
+                </a>
+              ))}
+            </div>
+          </div>
+
+          {/* Right Column: Contact Form */}
+          <div className="flex-[1.2] bg-gray-50 dark:bg-neutral-800/50 p-6 sm:p-10 md:p-12 z-10 border-t lg:border-t-0 lg:border-l border-gray-200 dark:border-neutral-800">
+            <form
+              onSubmit={handleSubmit}
+              className="flex flex-col gap-4 sm:gap-5 h-full justify-center"
             >
-              <Mail className="w-5 h-5" />
-              Say Hello
-            </a>
-            <a
-              href="https://linkedin.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="px-8 py-4 rounded-xl bg-white dark:bg-neutral-700 text-gray-900 dark:text-white border border-gray-200 dark:border-neutral-600 font-bold text-lg hover:bg-gray-50 dark:hover:bg-neutral-600 transition-all hover:-translate-y-1 flex items-center gap-2 w-full sm:w-auto justify-center"
-            >
-              <Linkedin className="w-5 h-5" />
-              Connect
-            </a>
+              <div className="flex flex-col gap-1.5">
+                <label
+                  htmlFor="name"
+                  className="text-xs sm:text-sm font-bold text-gray-700 dark:text-gray-300 ml-1"
+                >
+                  Full Name
+                </label>
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleChange}
+                  required
+                  placeholder="John Doe"
+                  className="w-full px-4 py-3 sm:py-3.5 rounded-xl bg-white dark:bg-neutral-900 border border-gray-200 dark:border-neutral-700 text-sm text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-orange-500/50 transition-all placeholder:text-gray-400"
+                />
+              </div>
+
+              <div className="flex flex-col gap-1.5">
+                <label
+                  htmlFor="email"
+                  className="text-xs sm:text-sm font-bold text-gray-700 dark:text-gray-300 ml-1"
+                >
+                  Email Address
+                </label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  required
+                  placeholder="john@example.com"
+                  className="w-full px-4 py-3 sm:py-3.5 rounded-xl bg-white dark:bg-neutral-900 border border-gray-200 dark:border-neutral-700 text-sm text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-orange-500/50 transition-all placeholder:text-gray-400"
+                />
+              </div>
+
+              <div className="flex flex-col gap-1.5 flex-grow">
+                <label
+                  htmlFor="message"
+                  className="text-xs sm:text-sm font-bold text-gray-700 dark:text-gray-300 ml-1"
+                >
+                  Message
+                </label>
+                <textarea
+                  id="message"
+                  name="message"
+                  value={formData.message}
+                  onChange={handleChange}
+                  required
+                  placeholder="Tell me about your project or opportunity..."
+                  rows="4"
+                  className="w-full px-4 py-3 sm:py-3.5 rounded-xl bg-white dark:bg-neutral-900 border border-gray-200 dark:border-neutral-700 text-sm text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-orange-500/50 transition-all resize-none placeholder:text-gray-400 flex-grow"
+                ></textarea>
+              </div>
+
+              <button
+                type="submit"
+                className="w-full mt-2 flex items-center justify-center gap-2 px-6 py-3.5 sm:py-4 bg-orange-500 hover:bg-orange-600 text-white text-sm sm:text-base font-bold rounded-xl transition-all shadow-[0_0_20px_rgba(249,115,22,0.3)] active:scale-[0.98]"
+              >
+                Send Message <Send className="w-4 h-4" />
+              </button>
+            </form>
           </div>
         </div>
       </div>
 
-      <footer className="mt-24 text-center text-gray-500 dark:text-gray-500 text-sm font-mono">
-        <div className="flex justify-center gap-6 mb-8">
-          {[Github, Linkedin, Facebook, Mail].map((Icon, i) => (
-            <a
-              key={i}
-              href="#"
-              className="hover:text-orange-500 transition-colors"
-            >
-              <Icon size={20} />
-            </a>
-          ))}
-        </div>
+      {/* Footer detached from the card for a cleaner app layout */}
+      <footer className="mt-16 sm:mt-24 text-center text-gray-500 dark:text-gray-500 text-[10px] sm:text-xs font-mono px-4">
         <p>
-          &copy; {new Date().getFullYear()} Arvin Tenasas. Built with React &
-          Tailwind.
+          &copy; {new Date().getFullYear()} Arvin Tenasas. Designed & Built with
+          React.
         </p>
       </footer>
     </SectionWrapper>
   );
 };
-
 // --- APP ROOT ---
 
 const App = () => {
