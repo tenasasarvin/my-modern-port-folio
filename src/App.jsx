@@ -677,16 +677,16 @@ const HERO_TITLES = [
 const PROJECTS_DATA = [
   {
     id: 1,
-    title: "LSI Corporate Portal",
-    subtitle: "Legacy WordPress Modernization",
-    category: "Full-Stack Web",
-    role: "Lead Developer",
+    title: "arvin.dev Portfolio",
+    subtitle: "Interactive React Application",
+    category: "Frontend Web",
+    role: "Sole Developer",
     description:
-      "Modernized a legacy WordPress architecture into a high-performance web application. Built a custom full-stack solution utilizing Node.js, Next.js, and a robust MySQL database to streamline corporate workflows.",
-    tags: ["Next.js", "React.js", "Node.js", "MySQL", "Tailwind"],
+      "Designed and developed a highly interactive, native-app-like personal portfolio. Engineered with React, Tailwind CSS, and custom intersection observers for seamless scroll animations and responsive accordion galleries.",
+    tags: ["React", "Tailwind CSS", "Vite", "UI/UX"],
     image:
-      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=800", // Placeholder: Modern dashboard vibe
-    demoLink: "#",
+      "https://images.unsplash.com/photo-1507721999472-8ed4421c4af2?auto=format&fit=crop&q=80&w=800", // Placeholder: Clean UI/Code aesthetic
+    demoLink: "#home", // Links back to the top of the page
     githubLink: "#",
   },
   {
@@ -705,12 +705,26 @@ const PROJECTS_DATA = [
   },
   {
     id: 3,
-    title: "Offshore IoT Fish Feeder",
-    subtitle: "Remote Aquaculture Automation",
+    title: "LSI Corporate Portal",
+    subtitle: "Legacy WordPress Modernization",
+    category: "Full-Stack Web",
+    role: "Lead Developer",
+    description:
+      "Modernized a legacy WordPress architecture into a high-performance web application. Built a custom full-stack solution utilizing Node.js, Next.js, and a robust MySQL database to streamline corporate workflows.",
+    tags: ["Next.js", "React.js", "Node.js", "MySQL"],
+    image:
+      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=800", // Placeholder: Modern dashboard vibe
+    demoLink: "#",
+    githubLink: "#",
+  },
+  {
+    id: 4,
+    title: "SmartPen: IoT Fish Feeder",
+    subtitle: "Remote Aquaculture Automation (Capstone)",
     category: "Hardware & IoT",
     role: "Lead Engineer",
     description:
-      "Developed a 3-tier remote offshore aquaculture system. Bridged physical sensors and microcontrollers with a remote relay device to sync real-time automated feeding data to Firebase, accessible via a custom FlutterFlow app.",
+      "Developed a 3-tier remote offshore aquaculture capstone system. Bridged physical sensors and microcontrollers with a remote relay device to sync real-time automated feeding data to Firebase, accessible via a custom FlutterFlow app.",
     tags: ["Microcontrollers", "FlutterFlow", "Firebase", "Sensors"],
     image:
       "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&q=80&w=800", // Placeholder: Ocean/Tech or IoT hardware vibe
@@ -1530,7 +1544,7 @@ const Experience = () => {
 
 // --- APP-STYLE ACCORDION PROJECTS COMPONENT ---
 const Projects = () => {
-  const [activeIndex, setActiveIndex] = useState(1); // Start with the middle project expanded
+  const [activeIndex, setActiveIndex] = useState(1); // Defaults to expanding BALAY initially for layout balance
 
   return (
     <SectionWrapper id="projects" className="bg-white dark:bg-neutral-900">
@@ -1552,7 +1566,7 @@ const Projects = () => {
                 ${
                   isActive
                     ? "flex-1 md:flex-[2.5] lg:flex-[3] shadow-xl shadow-orange-500/10"
-                    : "h-[60px] sm:h-[70px] md:h-auto md:flex-[0.6] lg:flex-[0.7] shrink-0 opacity-85 hover:opacity-100"
+                    : "h-[50px] sm:h-[60px] md:h-auto md:flex-[0.5] lg:flex-[0.6] shrink-0 opacity-85 hover:opacity-100"
                 }
               `}
             >
