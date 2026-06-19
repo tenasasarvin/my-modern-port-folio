@@ -8,6 +8,103 @@ import React, {
 
 // --- ICONS (Inline definitions to remove external dependencies) ---
 
+// --- Hardcoded SVG Icons ---
+const GithubIcon = ({ className }) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    className={className}
+  >
+    <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.02c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
+  </svg>
+);
+
+const LinkedinIcon = ({ className }) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    className={className}
+  >
+    <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+    <rect width="4" height="12" x="2" y="9" />
+    <circle cx="4" cy="4" r="2" />
+  </svg>
+);
+
+const FacebookIcon = ({ className }) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    className={className}
+  >
+    <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
+  </svg>
+);
+
+const MailIcon = ({ className }) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    className={className}
+  >
+    <rect width="20" height="16" x="2" y="4" rx="2" />
+    <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+  </svg>
+);
+
+const DownloadIcon = ({ className }) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    className={className}
+  >
+    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+    <polyline points="7 10 12 15 17 10" />
+    <line x1="12" x2="12" y1="15" y2="3" />
+  </svg>
+);
+
+const BriefcaseIcon = ({ className }) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    className={className}
+  >
+    <rect width="20" height="14" x="2" y="7" rx="2" ry="2" />
+    <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
+  </svg>
+);
+
 const Home = (props) => (
   <svg
     {...props}
@@ -269,6 +366,22 @@ const Facebook = (props) => (
     strokeLinejoin="round"
   >
     <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
+  </svg>
+);
+const GraduationCapIcon = ({ className }) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    className={className}
+  >
+    <path d="M21.42 10.922a2 2 0 0 0-.019-3.838L12.83 4.34a2 2 0 0 0-1.66 0L2.6 7.08a2 2 0 0 0 0 3.84l8.57 3.649c.533.227 1.137.227 1.67 0z" />
+    <path d="M22 10v6" />
+    <path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5" />
   </svg>
 );
 const Wrench = (props) => (
@@ -671,6 +784,8 @@ const HERO_TITLES = [
   { text: "UI/UX Designer", color: "text-rose-400" },
   { text: "IoT Enthusiast", color: "text-emerald-400" },
   { text: "Problem Solver", color: "text-violet-400" },
+  { text: "Tech Repair & Care", color: "text-yellow-400" },
+  { text: "OS & Software Installer", color: "text-cyan-400" },
 ];
 
 // --- UPDATED PROJECTS DATA ---
@@ -824,9 +939,8 @@ const Navigation = ({ activeSection }) => {
 
   const navLinks = [
     { id: "home", label: "Home", icon: Home },
-    { id: "about", label: "About", icon: User },
+    { id: "about", label: "About", icon: User }, // Replaces "About" and "Experience"
     { id: "services", label: "Services", icon: Layers },
-    { id: "experience", label: "Experience", icon: Briefcase },
     { id: "projects", label: "Projects", icon: Code },
     { id: "contact", label: "Contact", icon: Mail },
   ];
@@ -964,6 +1078,7 @@ const Hero = () => {
   const canvasRef = useRef(null);
   const { theme } = useTheme();
 
+  // --- Animation Hooks ---
   useEffect(() => {
     const currentTitle = HERO_TITLES[titleIndex].text;
     const typingSpeed = 100;
@@ -989,7 +1104,6 @@ const Hero = () => {
       handleTyping,
       isDeleting ? deletingSpeed : typingSpeed,
     );
-
     return () => clearTimeout(timer);
   }, [text, isDeleting, titleIndex]);
 
@@ -1064,103 +1178,262 @@ const Hero = () => {
   }, [theme]);
 
   const socialLinks = [
-    { Icon: Github, href: "https://github.com", label: "GitHub" },
-    { Icon: Linkedin, href: "https://linkedin.com", label: "LinkedIn" },
-    { Icon: Facebook, href: "https://facebook.com", label: "Facebook" },
-    { Icon: Mail, href: "mailto:your.email@example.com", label: "Email" },
+    {
+      Icon: GithubIcon,
+      href: "https://github.com/tenasasarvin",
+      label: "GitHub",
+    },
+    {
+      Icon: LinkedinIcon,
+      href: "https://www.linkedin.com/in/arvin-d-tenasas-1ba6082b8/",
+      label: "LinkedIn",
+    },
+    {
+      Icon: FacebookIcon,
+      href: "https://www.facebook.com/share/19GxD5xYNq/",
+      label: "Facebook",
+    },
+    { Icon: MailIcon, href: "mailto:arvintenasas29@gmail.com", label: "Email" },
   ];
+
+  // --- UI Layout Pieces ---
+
+  // Main Text Header (Continuous Animated Gradient)
+  const headerContent = (
+    <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-5xl xl:text-7xl font-extrabold tracking-tight leading-[1.15] md:leading-[1.1] transition-all text-center lg:text-left w-full">
+      <span className="block xl:block text-transparent bg-clip-text bg-gradient-to-r from-gray-900 via-gray-600 to-gray-900 dark:from-white dark:via-gray-300 dark:to-white animate-gradient-text">
+        Crafting Digital
+      </span>{" "}
+      <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-500 via-amber-400 to-orange-500 animate-gradient-text block xl:block">
+        Experiences
+      </span>
+    </h1>
+  );
+
+  // Paragraph Summary (Darkened for Light Mode Legibility)
+  const paragraphContent = (
+    <p className="text-sm sm:text-base md:text-lg text-gray-700 dark:text-neutral-300 max-w-2xl xl:max-w-3xl mx-auto lg:mx-0 leading-relaxed text-center lg:text-justify transition-colors duration-300">
+      Computer Engineer skilled in full-stack web development, IoT solutions,
+      and IT infrastructure. Proven ability to architect scalable software and
+      execute end-to-end hardware, network, and UPS troubleshooting. Strong
+      problem-solver and system analyst, effective both independently and within
+      collaborative team environments.
+    </p>
+  );
+
+  // Action Buttons (Continuous Gradient Pulse on Primary Button)
+  const buttonsContent = (
+    <div className="flex flex-row items-center justify-center lg:justify-start gap-3 sm:gap-4 w-full">
+      <button
+        onClick={() =>
+          document
+            .getElementById("projects")
+            ?.scrollIntoView({ behavior: "smooth" })
+        }
+        className="group relative px-5 py-2.5 sm:px-6 sm:py-3 rounded-xl bg-gradient-to-r from-orange-500 via-amber-500 to-orange-500 animate-gradient-bg text-white text-xs sm:text-sm xl:text-base font-semibold transition-all duration-300 hover:-translate-y-1 shadow-[0_0_15px_rgba(249,115,22,0.4)] hover:shadow-[0_0_25px_rgba(249,115,22,0.6)] active:scale-95 overflow-hidden flex items-center justify-center gap-2"
+      >
+        <BriefcaseIcon className="w-4 h-4 sm:w-5 sm:h-5 shrink-0 relative z-10" />
+        <span className="relative z-10 whitespace-nowrap">View My Work</span>
+      </button>
+
+      <a
+        href="/updated-resume-arvin.pdf"
+        download
+        className="group px-4 py-2.5 sm:px-6 sm:py-3 rounded-xl bg-white dark:bg-neutral-800 border border-gray-200 dark:border-neutral-700 hover:bg-gray-50 dark:hover:bg-neutral-700 text-gray-900 dark:text-white text-xs sm:text-sm xl:text-base font-medium transition-all duration-300 hover:-translate-y-1 hover:shadow-lg active:scale-95 flex items-center justify-center gap-2 whitespace-nowrap"
+      >
+        <DownloadIcon className="w-4 h-4 sm:w-5 sm:h-5 shrink-0 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:text-orange-500" />
+        Download CV
+      </a>
+    </div>
+  );
+
+  // Social Links (Continuous Floating + Magnetic Glow)
+  const socialsContent = (
+    <div className="flex items-center justify-center lg:justify-start gap-4 md:gap-6 transition-all w-full animate-float">
+      {socialLinks.map(({ Icon: icon, href, label }) => (
+        <a
+          key={label}
+          href={href}
+          aria-label={label}
+          className="group p-2 md:p-3 rounded-full bg-white dark:bg-neutral-800 border border-gray-200 dark:border-neutral-700 text-gray-600 dark:text-gray-400 hover:text-orange-500 hover:border-orange-500 hover:bg-orange-50/50 dark:hover:bg-orange-500/10 transition-all duration-300 transform hover:-translate-y-1.5 hover:shadow-[0_0_15px_rgba(249,115,22,0.2)] active:scale-95"
+        >
+          {React.createElement(icon, {
+            className:
+              "w-4 h-4 md:w-5 md:h-5 transition-transform duration-300 group-hover:scale-110",
+          })}
+        </a>
+      ))}
+    </div>
+  );
+
+  // Unified Mobile Container (Theme-Aware Freelance Badge)
+  const mobileCodeContainer = (
+    <div className="relative w-full lg:hidden flex flex-col items-center gap-2 bg-white/80 dark:bg-neutral-800/80 backdrop-blur-md border border-gray-200/60 dark:border-neutral-700/50 rounded-2xl p-4 pt-8 shadow-sm">
+      {/* Theme-Aware Mobile Freelance Badge */}
+      <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-white dark:bg-black border border-gray-200 dark:border-white/10 px-3 py-1 rounded-full flex items-center gap-1.5 shadow-md dark:shadow-lg">
+        <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></span>
+        <span className="text-[10px] font-bold text-gray-800 dark:text-white tracking-wider">
+          OPEN FOR WORK/FREELANCE
+        </span>
+      </div>
+
+      <div className="font-mono text-xs sm:text-sm flex flex-wrap items-center justify-center gap-1.5">
+        <span className="text-purple-600 dark:text-purple-400 font-semibold">
+          const
+        </span>
+        <span className="text-blue-600 dark:text-blue-400 font-semibold">
+          developer
+        </span>
+        <span className="text-gray-500 dark:text-neutral-400 font-semibold">
+          =
+        </span>
+        <span className="text-orange-600 dark:text-orange-500 font-semibold">
+          "Hello World! I am Arvin"
+        </span>
+        <span className="text-gray-500 dark:text-neutral-400 font-semibold">
+          ;
+        </span>
+      </div>
+      <div className="h-6 font-mono text-sm sm:text-base flex items-center justify-center gap-2 w-full">
+        <span className="text-orange-500 font-bold">&gt;</span>
+        <span className={`${HERO_TITLES[titleIndex].color}`}>{text}</span>
+        <span className="animate-pulse text-orange-500 font-bold">|</span>
+      </div>
+    </div>
+  );
+
+  // Desktop Profile Overlaid Display (Theme-Aware Badge)
+  const profileDesktopContent = (
+    <div className="relative group w-full max-w-[400px] xl:max-w-[440px] aspect-square rounded-3xl z-10 mx-auto lg:mx-0 cursor-pointer">
+      {/* Animated Glow effect behind the profile */}
+      <div className="absolute -inset-2 bg-gradient-to-r from-orange-500 via-purple-500 to-amber-500 rounded-3xl blur-lg opacity-30 group-hover:opacity-60 transition duration-700 group-hover:duration-200"></div>
+
+      {/* Image & Overlay Container */}
+      <div className="relative w-full h-full rounded-3xl overflow-hidden shadow-2xl border border-gray-200 dark:border-white/20 bg-gray-100 dark:bg-neutral-900 transition-transform duration-500 group-hover:scale-[1.02]">
+        <img
+          src="/profile2.jpg"
+          alt="Arvin Profile"
+          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+        />
+
+        {/* Hover 'Open for Freelance' Tag (Theme-Aware & Floating) */}
+        <div className="absolute top-4 left-4 z-20 pointer-events-none opacity-0 group-hover:opacity-100 transition-all duration-500 group-hover:-translate-y-1 translate-y-2 animate-float">
+          <div className="bg-white/95 dark:bg-black/80 backdrop-blur-md border border-gray-200 dark:border-white/10 px-3 py-1.5 rounded-full flex items-center gap-2 shadow-xl">
+            <span className="w-2 h-2 rounded-full bg-green-500 shadow-[0_0_8px_rgba(34,197,94,0.8)] animate-pulse"></span>
+            <span className="text-[10px] xl:text-xs font-bold text-gray-800 dark:text-white tracking-wide">
+              OPEN FOR WORK/FREELANCE
+            </span>
+          </div>
+        </div>
+
+        {/* Floating Content: Glass Container for Badge & Typewriter */}
+        <div className="absolute bottom-4 left-4 right-4 p-4 xl:p-5 rounded-2xl bg-white/80 dark:bg-black/60 backdrop-blur-md border border-gray-200 dark:border-white/10 shadow-xl flex flex-col gap-2 transform transition-all duration-500 group-hover:-translate-y-2 group-hover:bg-white/95 dark:group-hover:bg-black/80">
+          {/* Aligned Badge Text */}
+          <div className="font-mono text-[11px] xl:text-xs flex flex-wrap items-center gap-1.5 drop-shadow-sm dark:drop-shadow-md">
+            <span className="text-purple-600 dark:text-purple-400 font-bold">
+              const
+            </span>
+            <span className="text-blue-600 dark:text-blue-400 font-bold">
+              developer
+            </span>
+            <span className="text-gray-500 dark:text-gray-300 font-bold">
+              =
+            </span>
+            <span className="text-orange-600 dark:text-orange-400 font-bold">
+              "Hello World! I am Arvin"
+            </span>
+            <span className="text-gray-500 dark:text-gray-300 font-bold">
+              ;
+            </span>
+          </div>
+
+          {/* Typewriter Text */}
+          <div className="font-mono text-sm xl:text-base flex items-center gap-2 drop-shadow-sm dark:drop-shadow-md">
+            <span className="text-orange-500 font-bold">&gt;</span>
+            <span
+              className={`${HERO_TITLES[titleIndex].color} font-semibold tracking-wide`}
+            >
+              {text}
+            </span>
+            <span className="animate-pulse text-orange-500 font-bold">|</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 
   return (
     <section
       id="home"
-      // Removed excessive padding to mathematically center the content vertically
-      className="min-h-[100svh] relative flex items-center justify-center overflow-hidden bg-white dark:bg-neutral-900 py-20"
+      className="min-h-[100svh] relative flex items-center justify-center overflow-hidden bg-gray-50 dark:bg-neutral-900 py-20 lg:py-0"
     >
+      {/* Custom CSS for Continuous Animations */}
+      <style>{`
+        @keyframes gradient-pan {
+          0% { background-position: 0% 50%; }
+          50% { background-position: 100% 50%; }
+          100% { background-position: 0% 50%; }
+        }
+        .animate-gradient-text {
+          background-size: 200% auto;
+          animation: gradient-pan 4s linear infinite;
+        }
+        .animate-gradient-bg {
+          background-size: 200% 200%;
+          animation: gradient-pan 3s ease infinite;
+        }
+        @keyframes float {
+          0% { transform: translateY(0px); }
+          50% { transform: translateY(-8px); }
+          100% { transform: translateY(0px); }
+        }
+        .animate-float {
+          animation: float 4s ease-in-out infinite;
+        }
+      `}</style>
+
+      {/* Background Canvas */}
       <canvas
         ref={canvasRef}
         className="absolute inset-0 z-0 pointer-events-none"
       />
 
-      <div className="relative z-10 w-full max-w-5xl mx-auto px-6 flex flex-col items-center text-center">
-        {/* Const Developer Badge - Scales down on laptop (lg), up on desktop (xl) */}
-        <div className="mb-4 md:mb-6 inline-block">
-          <div className="relative group cursor-default">
-            <div className="absolute -inset-1 bg-gradient-to-r from-orange-500 to-amber-500 rounded-lg blur opacity-20 group-hover:opacity-40 transition duration-500"></div>
-            <span className="relative px-3 py-1.5 md:px-4 md:py-2 lg:px-3 lg:py-1.5 xl:px-4 xl:py-2 rounded-lg border border-gray-200 dark:border-neutral-700 bg-white/80 dark:bg-neutral-800/80 backdrop-blur text-xs md:text-sm lg:text-xs xl:text-sm font-mono flex flex-wrap items-center justify-center gap-1.5 md:gap-2 shadow-sm transition-all">
-              <span className="text-purple-600 dark:text-purple-400">
-                const
-              </span>
-              <span className="text-blue-600 dark:text-blue-400">
-                developer
-              </span>
-              <span className="text-gray-500 dark:text-neutral-400">=</span>
-              <span className="text-orange-600 dark:text-orange-500 font-semibold">
-                "Hello World! I am Arvin"
-              </span>
-              <span className="text-gray-500 dark:text-neutral-400">;</span>
-            </span>
+      {/* Mobile Profile Background Image Layout (Versatile Light/Dark Visibility) */}
+      <div className="absolute inset-0 z-[1] lg:hidden pointer-events-none">
+        <img
+          src="/profile2.jpg"
+          alt="Profile Background"
+          className="w-full h-full object-cover opacity-85 dark:opacity-50 transition-opacity duration-300"
+        />
+        {/* Single sophisticated gradient overlay for text contrast */}
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-white/50 to-white dark:via-neutral-900/70 dark:to-neutral-900" />
+      </div>
+
+      {/* Main Container Layering */}
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-6">
+        {/* 1. MOBILE LAYOUT (< lg Screens) */}
+        <div className="flex flex-col items-center gap-6 lg:hidden w-full mt-4">
+          {mobileCodeContainer}
+          {headerContent}
+          {paragraphContent}
+          {buttonsContent}
+          <div className="mt-4">{socialsContent}</div>
+        </div>
+
+        {/* 2. DESKTOP LAYOUT (>= lg Screens) */}
+        <div className="hidden lg:grid grid-cols-12 gap-10 xl:gap-16 items-center w-full min-h-[70vh]">
+          {/* Left Column (Image & Overlay Content) - Spans 5 cols */}
+          <div className="col-span-5 flex justify-center lg:justify-start xl:justify-center w-full">
+            {profileDesktopContent}
           </div>
-        </div>
 
-        {/* Main Header - Forces single line on Laptop (lg), Stacked on Mobile & Desktop (xl) */}
-        <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-5xl xl:text-6xl 2xl:text-7xl font-extrabold tracking-tight mb-4 md:mb-6 lg:mb-4 xl:mb-6 leading-[1.15] md:leading-[1.1] transition-all">
-          <span className="block lg:inline xl:block">Crafting Digital</span>{" "}
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-amber-500 block lg:inline xl:block">
-            Experiences
-          </span>
-        </h1>
-
-        {/* Typewriter text - Responsive sizing */}
-        <div className="h-6 md:h-8 lg:h-6 xl:h-8 mb-4 md:mb-6 lg:mb-4 xl:mb-6 font-mono text-base sm:text-lg md:text-2xl lg:text-xl xl:text-2xl flex items-center justify-center gap-2 w-full transition-all">
-          <span className="text-orange-500 font-bold">&gt;</span>
-          <span className={HERO_TITLES[titleIndex].color}>{text}</span>
-          <span className="animate-pulse text-orange-500">|</span>
-        </div>
-
-        {/* Paragraph - Scales down on laptop, up on desktop */}
-        <p className="text-sm sm:text-base md:text-lg lg:text-base xl:text-lg text-gray-600 dark:text-neutral-400 mb-6 md:mb-8 lg:mb-6 xl:mb-8 max-w-2xl xl:max-w-3xl mx-auto leading-relaxed px-4 md:px-0 transition-all">
-          A Computer Engineer and Full-Stack Web Developer in the Philippines,
-          passionate about creating intuitive web applications and developing
-          embedded IoT systems.
-        </p>
-
-        {/* Action Buttons - Side-by-side app layout, responsive sizing */}
-        <div className="flex flex-row items-center justify-center gap-3 sm:gap-4 lg:gap-3 xl:gap-4">
-          <button
-            onClick={() =>
-              document
-                .getElementById("projects")
-                ?.scrollIntoView({ behavior: "smooth" })
-            }
-            className="px-5 py-2.5 sm:px-6 sm:py-3 lg:px-5 lg:py-2.5 xl:px-8 xl:py-3.5 rounded-xl bg-orange-500 hover:bg-orange-600 text-white text-xs sm:text-sm lg:text-xs xl:text-base font-semibold transition-all hover:-translate-y-1 shadow-[0_0_15px_rgba(249,115,22,0.3)] hover:shadow-[0_0_25px_rgba(249,115,22,0.4)] whitespace-nowrap"
-          >
-            View My Work
-          </button>
-
-          <a
-            href="/Updated Resume.pdf"
-            download
-            className="px-4 py-2.5 sm:px-6 sm:py-3 lg:px-5 lg:py-2.5 xl:px-8 xl:py-3.5 rounded-xl bg-white dark:bg-neutral-800 border border-gray-200 dark:border-neutral-700 hover:bg-gray-50 dark:hover:bg-neutral-700 text-gray-900 dark:text-white text-xs sm:text-sm lg:text-xs xl:text-base font-medium transition-all hover:-translate-y-1 shadow-sm flex items-center justify-center gap-1.5 md:gap-2 whitespace-nowrap"
-          >
-            <Download className="w-3.5 h-3.5 sm:w-4 sm:h-4 lg:w-3.5 lg:h-3.5 xl:w-5 xl:h-5 shrink-0" />
-            Download CV
-          </a>
-        </div>
-
-        {/* Social Icons - Scales spacing and padding */}
-        <div className="mt-8 md:mt-10 lg:mt-8 xl:mt-12 flex items-center justify-center gap-4 md:gap-6 lg:gap-4 xl:gap-6 transition-all">
-          {socialLinks.map(({ Icon: icon, href, label }) => (
-            <a
-              key={label}
-              href={href}
-              aria-label={label}
-              className="p-2 md:p-3 lg:p-2.5 xl:p-3 rounded-full bg-gray-50 dark:bg-neutral-800 border border-gray-200 dark:border-neutral-700 text-gray-500 dark:text-gray-400 hover:text-orange-500 hover:border-orange-500/50 transition-all transform hover:-translate-y-1 shadow-sm"
-            >
-              {React.createElement(icon, {
-                className: "w-4 h-4 md:w-5 md:h-5 lg:w-4 lg:h-4 xl:w-5 xl:h-5",
-              })}
-            </a>
-          ))}
+          {/* Right Column (Text Info & Actions) - Spans 7 cols */}
+          <div className="col-span-7 flex flex-col items-start gap-6 xl:gap-8 w-full">
+            {headerContent}
+            {paragraphContent}
+            {buttonsContent}
+            {socialsContent}
+          </div>
         </div>
       </div>
 
@@ -1173,11 +1446,11 @@ const Hero = () => {
         }
         className="absolute bottom-6 md:bottom-8 lg:bottom-6 xl:bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 cursor-pointer group z-20"
       >
-        <span className="text-[10px] md:text-xs lg:text-[10px] xl:text-xs tracking-[0.2em] uppercase font-semibold text-gray-400 dark:text-neutral-500 group-hover:text-orange-500 transition-colors duration-300">
+        <span className="text-[10px] md:text-xs tracking-[0.2em] uppercase font-semibold text-gray-400 dark:text-neutral-500 group-hover:text-orange-500 transition-colors duration-300">
           Scroll
         </span>
-        <div className="w-5 h-8 md:w-6 md:h-10 lg:w-5 lg:h-8 xl:w-6 xl:h-10 border-2 border-gray-400 dark:border-neutral-500 group-hover:border-orange-500 rounded-full flex justify-center p-1 transition-colors duration-300">
-          <div className="w-1 h-2 md:w-1 md:h-2.5 lg:h-2 xl:h-2.5 bg-gray-400 dark:bg-neutral-500 group-hover:bg-orange-500 rounded-full animate-bounce transition-colors duration-300"></div>
+        <div className="w-5 h-8 md:w-6 md:h-10 border-2 border-gray-400 dark:border-neutral-500 group-hover:border-orange-500 rounded-full flex justify-center p-1 transition-colors duration-300">
+          <div className="w-1 h-2 md:w-1 md:h-2.5 bg-gray-400 dark:bg-neutral-500 group-hover:bg-orange-500 rounded-full animate-bounce transition-colors duration-300"></div>
         </div>
       </div>
     </section>
@@ -1185,114 +1458,303 @@ const Hero = () => {
 };
 
 const About = () => {
-  // Brand colors mapped to official SVGs
-  const techStack = [
+  // Categorized technologies for a cleaner, more organized UI
+  const techCategories = [
     {
-      name: "HTML5",
-      color: "text-orange-600 dark:text-orange-500",
-      Icon: Html5Icon,
-    },
-    { name: "CSS3", color: "text-blue-500", Icon: Css3Icon },
-    { name: "JavaScript", color: "text-yellow-500", Icon: JsIcon },
-    {
-      name: "React",
-      color: "text-cyan-400 dark:text-cyan-400",
-      Icon: ReactIcon,
-    },
-    {
-      name: "Tailwind",
-      color: "text-sky-500 dark:text-sky-400",
-      Icon: TailwindIcon,
-    },
-    {
-      name: "Node.js",
-      color: "text-green-600 dark:text-green-500",
-      Icon: NodeJsIcon,
-    },
-    { name: "Next.js", color: "text-black dark:text-white", Icon: NextJsIcon },
-    {
-      name: "MySQL",
-      color: "text-blue-500 dark:text-blue-400",
-      Icon: Database,
-    }, // Re-using standard database icon for MySQL
-    {
-      name: "Vite",
-      color: "text-purple-500 dark:text-purple-400",
-      Icon: ViteIcon,
-    },
-    {
-      name: "Supabase",
-      color: "text-emerald-500 dark:text-emerald-400",
-      Icon: SupabaseIcon,
-    },
-    { name: "GitHub", color: "text-gray-800 dark:text-white", Icon: Github },
-    { name: "C++", color: "text-blue-700 dark:text-blue-500", Icon: CppIcon },
-    {
-      name: "Microcontroller",
-      color: "text-emerald-600 dark:text-emerald-500",
-      Icon: Cpu,
+      title: "Frontend & Design",
+      skills: [
+        {
+          name: "React",
+          color: "text-cyan-400 dark:text-cyan-400",
+          Icon: ReactIcon,
+        },
+        {
+          name: "Next.js",
+          color: "text-black dark:text-white",
+          Icon: NextJsIcon,
+        },
+        {
+          name: "Tailwind CSS",
+          color: "text-sky-500 dark:text-sky-400",
+          Icon: TailwindIcon,
+        },
+        {
+          name: "Vite",
+          color: "text-purple-500 dark:text-purple-400",
+          Icon: ViteIcon,
+        },
+        {
+          name: "HTML5",
+          color: "text-orange-600 dark:text-orange-500",
+          Icon: Html5Icon,
+        },
+        { name: "CSS3", color: "text-blue-500", Icon: Css3Icon },
+        { name: "JavaScript", color: "text-yellow-500", Icon: JsIcon },
+      ],
     },
     {
-      name: "WordPress",
-      color: "text-blue-700 dark:text-blue-500",
-      Icon: WordPressIcon,
+      title: "Backend & Database",
+      skills: [
+        {
+          name: "Node.js",
+          color: "text-green-600 dark:text-green-500",
+          Icon: NodeJsIcon,
+        },
+        {
+          name: "Next.js API",
+          color: "text-black dark:text-white",
+          Icon: NextJsIcon,
+        },
+        {
+          name: "Supabase",
+          color: "text-emerald-500 dark:text-emerald-400",
+          Icon: SupabaseIcon,
+        },
+        {
+          name: "MySQL",
+          color: "text-blue-500 dark:text-blue-400",
+          Icon: Database,
+        },
+      ],
+    },
+    {
+      title: "Hardware & Infrastructure",
+      skills: [
+        {
+          name: "C++",
+          color: "text-blue-700 dark:text-blue-500",
+          Icon: CppIcon,
+        },
+        {
+          name: "ESP32 / Arduino",
+          color: "text-emerald-600 dark:text-emerald-500",
+          Icon: Cpu,
+        },
+        {
+          name: "IoT Systems",
+          color: "text-gray-800 dark:text-gray-300",
+          Icon: Server,
+        },
+      ],
+    },
+    {
+      title: "IT Support & Services",
+      skills: [
+        {
+          name: "Windows OS / MS Office",
+          color: "text-blue-500",
+          Icon: Wrench,
+        },
+        { name: "Hardware Repair", color: "text-orange-500", Icon: Layers },
+        { name: "Network Config", color: "text-green-500", Icon: Terminal },
+      ],
     },
   ];
 
-  return (
-    <SectionWrapper id="about" className="bg-gray-50 dark:bg-neutral-900/50">
-      <SectionHeader title="Who I Am" subtitle="Introduction" />
+  // Reusable mini timeline component
+  const TimelineItem = ({ date, title, company, desc, bullets, isCurrent }) => (
+    <div className="relative pl-6 md:pl-8 pb-8 md:pb-10 border-l-2 border-gray-200 dark:border-neutral-700/50 last:border-0 last:pb-0 group">
+      {/* Timeline Dot */}
+      <div
+        className={`absolute -left-[9px] top-1.5 w-4 h-4 rounded-full border-4 border-gray-50 dark:border-neutral-800 z-10 transition-colors duration-300 ${
+          isCurrent
+            ? "bg-orange-500 shadow-[0_0_10px_rgba(249,115,22,0.8)] animate-pulse"
+            : "bg-gray-300 dark:bg-neutral-600 group-hover:bg-orange-400"
+        }`}
+      ></div>
 
-      <div className="flex flex-col lg:flex-row items-center gap-10 md:gap-12 lg:gap-16">
-        {/* Left: Image Section */}
-        <div className="w-full sm:w-2/3 md:w-1/2 lg:w-2/5 reveal">
-          <div className="relative group max-w-[240px] sm:max-w-xs md:max-w-sm mx-auto lg:ml-auto">
-            <div className="absolute -inset-2 bg-gradient-to-r from-orange-500 to-amber-500 rounded-2xl blur opacity-25 group-hover:opacity-75 transition duration-500"></div>
-            <img
-              src={ASSETS.profileImageUrl}
-              alt="Arvin Profile"
-              className="relative w-full rounded-2xl shadow-xl md:shadow-2xl object-cover grayscale group-hover:grayscale-0 transition duration-500 border border-gray-200 dark:border-neutral-800"
-            />
-          </div>
+      {/* Content */}
+      <div className="flex flex-col gap-1 mb-2">
+        <h4 className="text-base md:text-lg font-bold text-gray-900 dark:text-white leading-tight">
+          {title}
+        </h4>
+        <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
+          <span className="text-orange-600 dark:text-orange-500 font-semibold text-sm">
+            {company}
+          </span>
+          <span className="hidden sm:block text-gray-300 dark:text-neutral-600">
+            •
+          </span>
+          <span className="text-xs md:text-sm font-mono font-medium text-gray-500 dark:text-gray-400 bg-white dark:bg-neutral-900 px-2 py-0.5 rounded-md w-fit border border-gray-100 dark:border-neutral-800">
+            {date}
+          </span>
         </div>
+      </div>
 
-        {/* Right: Content Section */}
-        <div className="w-full lg:w-3/5 reveal text-center lg:text-left flex flex-col items-center lg:items-start">
-          <h4 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-4 md:mb-6 text-gray-900 dark:text-white leading-tight">
-            Bridging <span className="text-orange-500">Hardware</span> &{" "}
-            <span className="text-blue-500">Software</span>
-          </h4>
+      <p className="text-sm text-gray-600 dark:text-gray-400 mb-3 leading-relaxed">
+        {desc}
+      </p>
 
-          <p className="text-sm sm:text-base md:text-lg lg:text-base xl:text-lg text-gray-600 dark:text-neutral-400 mb-8 md:mb-10 max-w-2xl leading-relaxed px-2 sm:px-0">
-            I'm a Computer Engineering graduate with a relentless curiosity for
-            how things work. From designing responsive front-end interfaces to
-            programming low-level microcontrollers, I'm driven by the challenge
-            of solving complex problems.
-          </p>
+      <ul className="flex flex-col gap-1.5">
+        {bullets.map((bullet, idx) => (
+          <li
+            key={idx}
+            className="flex items-start gap-2 text-xs sm:text-sm text-gray-600 dark:text-gray-400"
+          >
+            <span className="text-orange-500/50 mt-0.5 shrink-0">✦</span>
+            <span className="leading-snug">{bullet}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
 
-          {/* Tech Arsenal Card */}
-          <div className="bg-white dark:bg-neutral-800 p-5 md:p-6 lg:p-8 rounded-2xl border border-gray-200 dark:border-neutral-700 shadow-sm w-full">
-            <h5 className="font-semibold mb-4 md:mb-5 text-xs md:text-sm text-gray-500 dark:text-gray-400 uppercase tracking-widest text-center lg:text-left">
-              Tech Arsenal
-            </h5>
+  return (
+    <SectionWrapper id="about" className="bg-gray-50 dark:bg-neutral-950/50">
+      <SectionHeader title="My Background" subtitle="About & Experience" />
 
-            {/* Tech Pills Container */}
-            <div className="flex flex-wrap justify-center lg:justify-start gap-2 sm:gap-2.5 md:gap-3">
-              {techStack.map((tech) => (
-                <div
-                  key={tech.name}
-                  className="flex items-center gap-1.5 md:gap-2 px-2.5 py-1.5 md:px-3 md:py-1.5 rounded-full bg-gray-50 dark:bg-neutral-900 border border-gray-200 dark:border-neutral-700 text-xs md:text-sm font-medium transition-transform hover:-translate-y-0.5 hover:shadow-sm"
-                >
-                  {/* Render the specific SVG mapped in the array, applying its brand color */}
-                  <tech.Icon
-                    className={`w-3.5 h-3.5 md:w-4 md:h-4 shrink-0 ${tech.color}`}
-                  />
-                  <span className="whitespace-nowrap text-gray-700 dark:text-gray-200">
-                    {tech.name}
+      <div className="max-w-6xl mx-auto px-2 sm:px-0">
+        <div className="bg-white dark:bg-neutral-900 rounded-3xl sm:rounded-[2.5rem] border border-gray-200 dark:border-neutral-800 shadow-xl overflow-hidden flex flex-col lg:flex-row relative">
+          {/* Subtle Background Glows matching the Contact section */}
+          <div className="absolute top-0 left-0 w-64 h-64 bg-orange-500/10 rounded-full blur-3xl -translate-y-1/2 -translate-x-1/3 pointer-events-none"></div>
+          <div className="absolute bottom-0 right-0 w-64 h-64 bg-blue-500/10 rounded-full blur-3xl translate-y-1/2 translate-x-1/3 pointer-events-none"></div>
+
+          {/* Left Column: Structured Profile & Tech Arsenal */}
+          <div className="flex-[0.9] p-6 sm:p-10 md:p-12 z-10 flex flex-col gap-8">
+            {/* Quick Summary Header */}
+            <div>
+              <div className="flex items-end gap-3 mb-4">
+                <h3 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-gray-900 dark:text-white leading-tight">
+                  Who I <span className="text-orange-500">Am</span>
+                </h3>
+              </div>
+
+              {/* Role Badges */}
+              <div className="flex flex-wrap gap-2 mb-6">
+                {[
+                  "Computer Engineer",
+                  "Software Developer",
+                  "IT Administrator",
+                  "Field Technician",
+                  "IT Support",
+                ].map((role, i) => (
+                  <span
+                    key={i}
+                    className="px-3 py-1.5 bg-gray-100 dark:bg-neutral-800/80 text-gray-700 dark:text-gray-300 text-xs font-bold uppercase tracking-wider rounded-lg border border-gray-200 dark:border-neutral-700"
+                  >
+                    {role}
                   </span>
-                </div>
-              ))}
+                ))}
+              </div>
+
+              {/* Personal Bio */}
+              <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400 leading-relaxed italic border-l-4 border-orange-500 pl-4 bg-orange-50/50 dark:bg-orange-500/5 py-2 pr-2 rounded-r-xl">
+                "Bridging the gap between digital code and physical
+                infrastructure. When I'm not deep into software development,
+                optimizing systems, or repairing devices, you'll most likely
+                find me catching up on some much-needed sleep."
+              </p>
             </div>
+
+            {/* Categorized Tech Arsenal */}
+            <div>
+              <h5 className="font-bold mb-6 text-sm text-gray-900 dark:text-white uppercase tracking-widest flex items-center gap-2 border-b border-gray-100 dark:border-neutral-800 pb-3">
+                <Code className="w-5 h-5 text-orange-500" /> Technical Arsenal
+              </h5>
+
+              <div className="flex flex-col gap-6">
+                {techCategories.map((category) => (
+                  <div key={category.title}>
+                    <h6 className="text-[10px] sm:text-xs font-bold text-gray-500 dark:text-gray-500 uppercase tracking-widest mb-3">
+                      {category.title}
+                    </h6>
+                    <div className="flex flex-wrap gap-2 sm:gap-2.5">
+                      {category.skills.map((tech) => (
+                        <div
+                          key={tech.name}
+                          className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-gray-50 dark:bg-neutral-800/50 border border-gray-200 dark:border-neutral-700 hover:border-orange-500/30 transition-all group cursor-default"
+                        >
+                          <tech.Icon
+                            className={`w-3.5 h-3.5 shrink-0 transition-transform group-hover:scale-110 ${tech.color}`}
+                          />
+                          <span className="text-xs font-semibold text-gray-700 dark:text-gray-200">
+                            {tech.name}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Right Column: Work Experience & Education Timeline */}
+          <div className="flex-[1.1] bg-gray-50 dark:bg-neutral-800/50 p-6 sm:p-10 md:p-12 z-10 border-t lg:border-t-0 lg:border-l border-gray-200 dark:border-neutral-800">
+            {/* Work Experience Header */}
+            <div className="flex items-center gap-3 mb-8">
+              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-orange-500/10 text-orange-500 flex items-center justify-center shrink-0">
+                <BriefcaseIcon className="w-5 h-5 sm:w-6 sm:h-6" />
+              </div>
+              <h4 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white">
+                Work Experience
+              </h4>
+            </div>
+
+            <div className="mb-12">
+              <TimelineItem
+                isCurrent={true}
+                date="March 2025 - June 2026"
+                title="Full-Stack Web Developer / Field Tech"
+                company="LSI Leading Technologies Inc."
+                desc="Developed modern web applications and executed UPS/Network infrastructure configuration."
+                bullets={[
+                  "Developed modern web applications featuring API integration and database management.",
+                  "Performed system analysis, debugging, and software performance optimization.",
+                  "Executed UPS installation, configuration, and repair for in-house and field operations.",
+                  "Collaborated with cross-functional teams to deliver scalable software and hardware solutions.",
+                ]}
+              />
+
+              <TimelineItem
+                isCurrent={false}
+                date="August 2024 - January 2025"
+                title="IT Administrator"
+                company="Great Odysseus Security Agency, Inc."
+                desc="Managed network infrastructure, hardware maintenance, and technical liaison operations."
+                bullets={[
+                  "Managed network infrastructure and configured firewall policies to secure system access.",
+                  "Troubleshot and maintained office hardware, including desktop PCs, laptops, and printers.",
+                  "Served as the technical liaison with external developers to coordinate system requirements.",
+                  "Assisted with essential administrative operations, including processing checks and bank transfers.",
+                ]}
+              />
+
+              <TimelineItem
+                isCurrent={false}
+                date="Feb 2024 - May 2024"
+                title="Technical Support Intern"
+                company="Bits N' Bytes Computer Shop"
+                desc="Gained foundational hands-on experience in consumer electronics repair and system building."
+                bullets={[
+                  "Diagnosed complex hardware and software issues for retail clients.",
+                  "Assembled and optimized custom PC builds tailored to user budgets.",
+                ]}
+              />
+            </div>
+
+            {/* Education Header */}
+            <div className="flex items-center gap-3 mb-8 mt-12 border-t border-gray-200 dark:border-neutral-700/50 pt-10">
+              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-orange-500/10 text-orange-500 flex items-center justify-center shrink-0">
+                <GraduationCapIcon className="w-5 h-5 sm:w-6 sm:h-6" />
+              </div>
+              <h4 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white">
+                Education
+              </h4>
+            </div>
+
+            <TimelineItem
+              isCurrent={false}
+              date="June 2020 - June 2024"
+              title="BS in Computer Engineering"
+              company="Samar State University"
+              desc="Developed a strong engineering mindset, merging low-level electronics with high-level software development."
+              bullets={[
+                "Lead Developer for the 'SmartPen' IoT handwriting digitization thesis.",
+                "Mastered core fundamentals in C++, embedded systems, and circuitry.",
+                "Graduated with practical skills bridging IoT devices to web databases.",
+              ]}
+            />
           </div>
         </div>
       </div>
@@ -1374,174 +1836,7 @@ const Services = () => {
   );
 };
 
-const Experience = () => {
-  const ExperienceItem = ({
-    date,
-    title,
-    company,
-    desc,
-    bullets,
-    logoUrl,
-    isCurrent,
-  }) => (
-    <div className="relative pl-8 md:pl-12 pb-10 md:pb-12 border-l-2 border-gray-200 dark:border-neutral-800 last:border-0 last:pb-0 group reveal">
-      {/* Animated Timeline Dot */}
-      <div
-        className={`absolute -left-[9px] md:-left-[11px] top-6 w-4 h-4 md:w-5 md:h-5 rounded-full border-4 border-gray-50 dark:border-neutral-900 z-10 transition-colors duration-300 ${
-          isCurrent
-            ? "bg-orange-500 shadow-[0_0_10px_rgba(249,115,22,0.8)] animate-pulse"
-            : "bg-gray-300 dark:bg-neutral-600 group-hover:bg-orange-400"
-        }`}
-      ></div>
-
-      {/* Experience Card */}
-      <div className="bg-white dark:bg-neutral-800 p-4 sm:p-6 md:p-8 rounded-2xl md:rounded-3xl border border-gray-100 dark:border-neutral-700 shadow-sm hover:shadow-xl transition-all duration-300 transform group-hover:-translate-y-1 overflow-hidden relative">
-        {/* Subtle background glow on hover */}
-        <div className="absolute -inset-2 bg-gradient-to-br from-orange-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-0"></div>
-
-        {/* Locked Flex Row: Logo always on the left, Content on the right */}
-        <div className="relative z-10 flex flex-row gap-4 sm:gap-5 md:gap-6">
-          {/* Company/School Logo Box */}
-          <div className="shrink-0 mt-1">
-            <div className="w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 rounded-xl bg-gray-50 dark:bg-neutral-900 border border-gray-200 dark:border-neutral-700 shadow-sm flex items-center justify-center overflow-hidden transition-transform group-hover:scale-105 duration-300">
-              <img
-                src={logoUrl}
-                alt={`${company} logo`}
-                className="w-full h-full object-cover"
-              />
-            </div>
-          </div>
-
-          {/* Content */}
-          <div className="flex-1 min-w-0">
-            {/* Title & Date Wrapper */}
-            <div className="flex flex-col xl:flex-row xl:items-center justify-between gap-2 xl:gap-4 mb-1 md:mb-2">
-              <h4 className="text-base sm:text-lg md:text-xl font-bold text-gray-900 dark:text-white leading-tight">
-                {title}
-              </h4>
-
-              {/* Date Badge */}
-              <span
-                className={`inline-flex w-fit items-center px-2.5 py-1 rounded-full text-[10px] md:text-xs font-mono font-semibold whitespace-nowrap ${
-                  isCurrent
-                    ? "bg-orange-500/10 text-orange-600 dark:text-orange-400 border border-orange-500/20"
-                    : "bg-gray-100 dark:bg-neutral-700 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-neutral-600"
-                }`}
-              >
-                {date}
-              </span>
-            </div>
-
-            {/* Company Name & Online Indicator */}
-            <div className="text-orange-600 dark:text-orange-500 font-semibold text-xs sm:text-sm md:text-base mb-3 flex items-center gap-2">
-              {company}
-              {isCurrent && (
-                <span className="flex h-2 w-2 rounded-full bg-green-500 animate-pulse"></span>
-              )}
-            </div>
-
-            <p className="text-xs sm:text-sm md:text-base text-gray-600 dark:text-gray-400 mb-4 leading-relaxed">
-              {desc}
-            </p>
-
-            {/* Impact Bullets */}
-            <ul className="grid grid-cols-1 xl:grid-cols-2 gap-x-4 gap-y-2.5">
-              {bullets.map((bullet, idx) => (
-                <li
-                  key={idx}
-                  className="flex items-start gap-2 text-xs sm:text-sm text-gray-600 dark:text-gray-400 group/bullet"
-                >
-                  <span className="text-orange-500/50 mt-0.5 shrink-0 group-hover/bullet:text-orange-500 transition-colors">
-                    ✦
-                  </span>
-                  <span className="leading-snug">{bullet}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-
-  return (
-    <SectionWrapper
-      id="experience"
-      className="bg-gray-50 dark:bg-neutral-900/30"
-    >
-      <SectionHeader title="Career Journey" subtitle="Resume" />
-
-      <div className="max-w-4xl mx-auto px-2 sm:px-0">
-        {/* Current: Freelance */}
-        <ExperienceItem
-          isCurrent={true}
-          date="June 1, 2026 - Present"
-          title="Freelance Full-Stack Developer & IT Specialist"
-          company="Self-Employed"
-          desc="Transitioned into full-time freelancing to provide dedicated, end-to-end web solutions and localized IT support for independent clients and growing businesses."
-          // Placeholder for your personal brand logo
-          logoUrl="https://placehold.co/200x200/F97316/FFFFFF?text=AT&font=orbitron"
-          bullets={[
-            "Designing and deploying custom web applications using React & Next.js.",
-            "Providing hardware diagnostics, PC building, and technical repair services.",
-            "Consulting on UI/UX best practices and system architecture.",
-            "Managing independent client relationships and project lifecycles.",
-          ]}
-        />
-
-        {/* Past: LSI */}
-        <ExperienceItem
-          isCurrent={false}
-          date="June 2024 - May 29, 2026"
-          title="Fullstack Developer & Field Technician"
-          company="LSI Leading Technologies INC."
-          desc="Served a dual role bridging software engineering and hardware infrastructure, developing modern web tools while ensuring physical systems operated flawlessly."
-          // Placeholder for LSI Logo
-          logoUrl="https://placehold.co/200x200/171717/F97316?text=LSI&font=orbitron"
-          bullets={[
-            "Spearheaded the development of the new corporate website portal.",
-            "Managed field installations and troubleshooting of commercial UPS systems.",
-            "Integrated inventory tracking and client data management solutions.",
-            "Authored technical documentation for software and electrical systems.",
-          ]}
-        />
-
-        {/* Past: Intern */}
-        <ExperienceItem
-          isCurrent={false}
-          date="Feb 2024 - May 2024"
-          title="Technical Support Intern"
-          company="Bits N' Bytes Computer Shop"
-          desc="Gained foundational hands-on experience in consumer electronics repair, system building, and direct customer tech support."
-          // Placeholder for BNB Logo
-          logoUrl="https://placehold.co/200x200/2563EB/FFFFFF?text=BnB&font=orbitron"
-          bullets={[
-            "Diagnosed complex hardware and software issues for retail clients.",
-            "Assembled and optimized custom PC builds tailored to user budgets.",
-            "Performed routine maintenance, OS installations, and data recovery.",
-          ]}
-        />
-
-        {/* Past: Education */}
-        <ExperienceItem
-          isCurrent={false}
-          date="2020 - 2024"
-          title="BS in Computer Engineering"
-          company="Samar State University"
-          desc="Developed a strong engineering mindset, merging low-level electronics with high-level software development."
-          // Placeholder for SSU Logo
-          logoUrl="https://placehold.co/200x200/EAB308/FFFFFF?text=SSU&font=orbitron"
-          bullets={[
-            "Lead Developer for the 'SmartPen' IoT handwriting digitization thesis.",
-            "Mastered core fundamentals in C++, embedded systems, and circuitry.",
-            "Graduated with practical skills bridging IoT devices to web databases.",
-          ]}
-        />
-      </div>
-    </SectionWrapper>
-  );
-};
-
+//
 // --- APP-STYLE ACCORDION PROJECTS COMPONENT ---
 const Projects = () => {
   const [activeIndex, setActiveIndex] = useState(1); // Defaults to expanding BALAY initially for layout balance
@@ -1685,7 +1980,7 @@ const Contact = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     // This securely constructs an email template and opens the user's default mail client
-    const emailTo = "arvintenasas@example.com"; // Replace with your actual email
+    const emailTo = "arvintenasas29@gmail.com"; // Replace with your actual email
     const subject = encodeURIComponent(
       `New Portfolio Contact from ${formData.name}`,
     );
@@ -1722,7 +2017,7 @@ const Contact = () => {
               {/* App-style Info Cards */}
               <div className="flex flex-col gap-3 sm:gap-4 mb-8">
                 <a
-                  href="mailto:arvintenasas@example.com"
+                  href="mailto:arvintenasas29@gmail.com"
                   className="flex items-center gap-4 p-3 sm:p-4 rounded-2xl bg-gray-50 dark:bg-neutral-800/50 border border-gray-100 dark:border-neutral-800 hover:border-orange-500/30 transition-colors group"
                 >
                   <div className="w-10 h-10 rounded-xl bg-orange-500/10 text-orange-500 flex items-center justify-center shrink-0 group-hover:bg-orange-500 group-hover:text-white transition-colors">
@@ -1733,7 +2028,7 @@ const Contact = () => {
                       Email Me
                     </p>
                     <p className="text-xs sm:text-sm font-semibold text-gray-900 dark:text-white">
-                      arvintenasas@example.com
+                      arvintenasas29@gmail.com
                     </p>
                   </div>
                 </a>
@@ -1757,9 +2052,15 @@ const Contact = () => {
             {/* Social Links Row */}
             <div className="flex items-center gap-3 sm:gap-4">
               {[
-                { Icon: Linkedin, href: "https://linkedin.com" },
-                { Icon: Github, href: "https://github.com" },
-                { Icon: Facebook, href: "https://facebook.com" },
+                {
+                  Icon: Linkedin,
+                  href: "https://www.linkedin.com/in/arvin-d-tenasas-1ba6082b8/",
+                },
+                { Icon: Github, href: "https://github.com/tenasasarvin" },
+                {
+                  Icon: Facebook,
+                  href: "https://www.facebook.com/share/19GxD5xYNq/",
+                },
               ].map((social, i) => (
                 <a
                   key={i}
@@ -1900,7 +2201,6 @@ const App = () => {
           <Hero />
           <About />
           <Services />
-          <Experience />
           <Projects />
           <Contact />
         </main>
