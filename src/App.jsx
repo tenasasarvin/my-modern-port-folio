@@ -487,7 +487,7 @@ const Wind = (props) => (
     strokeLinecap="round"
     strokeLinejoin="round"
   >
-    <path d="M17.7 7.7a2.5 2.5 0 1 1 1.8 4.3H2" />
+    <path d="M17.7 7.7a2.5 2.5v 0 1 1 1.8 4.3H2" />
     <path d="M9.6 4.6A2 2 0 1 1 11 8H2" />
     <path d="M12.6 19.4A2 2 0 1 0 14 16H2" />
   </svg>
@@ -792,6 +792,7 @@ const HERO_TITLES = [
 const PROJECTS_DATA = [
   {
     id: 1,
+    type: "personal", // Added for Tab Filtering
     title: "arvin.dev Portfolio",
     subtitle: "Interactive React Application",
     category: "Frontend Web",
@@ -800,12 +801,13 @@ const PROJECTS_DATA = [
       "Designed and developed a highly interactive, native-app-like personal portfolio. Engineered with React, Tailwind CSS, and custom intersection observers for seamless scroll animations and responsive accordion galleries.",
     tags: ["React", "Tailwind CSS", "Vite", "UI/UX"],
     image:
-      "https://images.unsplash.com/photo-1507721999472-8ed4421c4af2?auto=format&fit=crop&q=80&w=800", // Placeholder: Clean UI/Code aesthetic
-    demoLink: "#home", // Links back to the top of the page
+      "https://images.unsplash.com/photo-1507721999472-8ed4421c4af2?auto=format&fit=crop&q=80&w=800",
+    demoLink: "#home",
     githubLink: "#",
   },
   {
     id: 2,
+    type: "personal", // Added for Tab Filtering
     title: "BALAY Management",
     subtitle: "Dual-Portal Property Platform",
     category: "Web & Mobile App",
@@ -814,12 +816,13 @@ const PROJECTS_DATA = [
       "Engineered a comprehensive dual-portal management system. Developed dedicated, secure interfaces for both landlords and tenants to seamlessly handle property data, communication, and real-time operations.",
     tags: ["React Native", "Expo", "Supabase", "UI/UX"],
     image:
-      "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&q=80&w=800", // Placeholder: Mobile app / Real estate tech vibe
+      "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&q=80&w=800",
     demoLink: "#",
     githubLink: "#",
   },
   {
     id: 3,
+    type: "client", // Added for Tab Filtering
     title: "LSI Corporate Portal",
     subtitle: "Legacy WordPress Modernization",
     category: "Full-Stack Web",
@@ -828,12 +831,13 @@ const PROJECTS_DATA = [
       "Modernized a legacy WordPress architecture into a high-performance web application. Built a custom full-stack solution utilizing Node.js, Next.js, and a robust MySQL database to streamline corporate workflows.",
     tags: ["Next.js", "React.js", "Node.js", "MySQL"],
     image:
-      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=800", // Placeholder: Modern dashboard vibe
+      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=800",
     demoLink: "#",
     githubLink: "#",
   },
   {
     id: 4,
+    type: "personal", // Added for Tab Filtering
     title: "SmartPen: IoT Fish Feeder",
     subtitle: "Remote Aquaculture Automation (Capstone)",
     category: "Hardware & IoT",
@@ -842,7 +846,7 @@ const PROJECTS_DATA = [
       "Developed a 3-tier remote offshore aquaculture capstone system. Bridged physical sensors and microcontrollers with a remote relay device to sync real-time automated feeding data to Firebase, accessible via a custom FlutterFlow app.",
     tags: ["Microcontrollers", "FlutterFlow", "Firebase", "Sensors"],
     image:
-      "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&q=80&w=800", // Placeholder: Ocean/Tech or IoT hardware vibe
+      "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&q=80&w=800",
     demoLink: "#",
     githubLink: "#",
   },
@@ -1518,7 +1522,7 @@ const About = () => {
       ],
     },
     {
-      title: "Hardware & Infrastructure",
+      title: "Hardware & Infra",
       skills: [
         {
           name: "C++",
@@ -1540,134 +1544,165 @@ const About = () => {
     {
       title: "IT Support & Services",
       skills: [
-        {
-          name: "Windows OS / MS Office",
-          color: "text-blue-500",
-          Icon: Wrench,
-        },
+        { name: "Windows / MS Office", color: "text-blue-500", Icon: Wrench },
         { name: "Hardware Repair", color: "text-orange-500", Icon: Layers },
         { name: "Network Config", color: "text-green-500", Icon: Terminal },
       ],
     },
   ];
 
-  // Reusable mini timeline component
+  // Reusable premium timeline component
   const TimelineItem = ({ date, title, company, desc, bullets, isCurrent }) => (
-    <div className="relative pl-6 md:pl-8 pb-8 md:pb-10 border-l-2 border-gray-200 dark:border-neutral-700/50 last:border-0 last:pb-0 group">
-      {/* Timeline Dot */}
+    <div className="relative pl-8 md:pl-10 pb-12 border-l-2 border-gray-200 dark:border-neutral-800 last:border-0 last:pb-0 group">
+      {/* Timeline Dot with Pulse Effect for Current Role */}
       <div
-        className={`absolute -left-[9px] top-1.5 w-4 h-4 rounded-full border-4 border-gray-50 dark:border-neutral-800 z-10 transition-colors duration-300 ${
+        className={`absolute -left-[11px] top-1.5 w-5 h-5 rounded-full border-4 border-white dark:border-neutral-950 z-10 transition-colors duration-300 ${
           isCurrent
-            ? "bg-orange-500 shadow-[0_0_10px_rgba(249,115,22,0.8)] animate-pulse"
-            : "bg-gray-300 dark:bg-neutral-600 group-hover:bg-orange-400"
+            ? "bg-orange-500 shadow-[0_0_15px_rgba(249,115,22,0.6)] animate-pulse"
+            : "bg-gray-300 dark:bg-neutral-600 group-hover:bg-orange-400 group-hover:scale-110"
         }`}
       ></div>
 
       {/* Content */}
-      <div className="flex flex-col gap-1 mb-2">
-        <h4 className="text-base md:text-lg font-bold text-gray-900 dark:text-white leading-tight">
+      <div className="flex flex-col gap-1.5 mb-3">
+        <h4 className="text-lg md:text-xl font-bold text-gray-900 dark:text-white leading-tight">
           {title}
         </h4>
-        <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
-          <span className="text-orange-600 dark:text-orange-500 font-semibold text-sm">
+        <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3">
+          <span className="text-orange-600 dark:text-orange-500 font-semibold text-sm md:text-base">
             {company}
           </span>
           <span className="hidden sm:block text-gray-300 dark:text-neutral-600">
             •
           </span>
-          <span className="text-xs md:text-sm font-mono font-medium text-gray-500 dark:text-gray-400 bg-white dark:bg-neutral-900 px-2 py-0.5 rounded-md w-fit border border-gray-100 dark:border-neutral-800">
+          {/* Integrated Calendar Icon Here */}
+          <span className="flex items-center gap-1.5 text-xs md:text-sm font-mono font-medium text-gray-500 dark:text-gray-400 bg-gray-100 dark:bg-neutral-900/80 px-3 py-1 rounded-md w-fit border border-gray-200 dark:border-neutral-800">
+            <CalendarIcon className="w-3.5 h-3.5 shrink-0" />
             {date}
           </span>
         </div>
       </div>
 
-      <p className="text-sm text-gray-600 dark:text-gray-400 mb-3 leading-relaxed">
+      <p className="text-base text-gray-600 dark:text-gray-400 mb-4 leading-relaxed">
         {desc}
       </p>
 
-      <ul className="flex flex-col gap-1.5">
-        {bullets.map((bullet, idx) => (
-          <li
-            key={idx}
-            className="flex items-start gap-2 text-xs sm:text-sm text-gray-600 dark:text-gray-400"
-          >
-            <span className="text-orange-500/50 mt-0.5 shrink-0">✦</span>
-            <span className="leading-snug">{bullet}</span>
-          </li>
-        ))}
-      </ul>
+      {bullets && bullets.length > 0 && (
+        <ul className="flex flex-col gap-2">
+          {bullets.map((bullet, idx) => (
+            <li
+              key={idx}
+              className="flex items-start gap-3 text-sm md:text-base text-gray-600 dark:text-gray-400"
+            >
+              <span className="text-orange-500/60 mt-1 shrink-0 text-xs">
+                ✦
+              </span>
+              <span className="leading-relaxed">{bullet}</span>
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   );
 
   return (
-    <SectionWrapper id="about" className="bg-gray-50 dark:bg-neutral-950/50">
-      <SectionHeader title="My Background" subtitle="About & Experience" />
+    <SectionWrapper
+      id="about"
+      className="relative bg-gray-50 dark:bg-neutral-950 overflow-hidden"
+    >
+      {/* Section-Wide Background Glows */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        <div className="absolute top-[-10%] left-[-5%] w-[500px] h-[500px] bg-orange-500/10 dark:bg-orange-500/5 rounded-full blur-[120px]"></div>
+        <div className="absolute bottom-[-10%] right-[-5%] w-[500px] h-[500px] bg-blue-500/10 dark:bg-blue-500/5 rounded-full blur-[120px]"></div>
+      </div>
 
-      <div className="max-w-6xl mx-auto px-2 sm:px-0">
-        <div className="bg-white dark:bg-neutral-900 rounded-3xl sm:rounded-[2.5rem] border border-gray-200 dark:border-neutral-800 shadow-xl overflow-hidden flex flex-col lg:flex-row relative">
-          {/* Subtle Background Glows matching the Contact section */}
-          <div className="absolute top-0 left-0 w-64 h-64 bg-orange-500/10 rounded-full blur-3xl -translate-y-1/2 -translate-x-1/3 pointer-events-none"></div>
-          <div className="absolute bottom-0 right-0 w-64 h-64 bg-blue-500/10 rounded-full blur-3xl translate-y-1/2 translate-x-1/3 pointer-events-none"></div>
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <SectionHeader title="My Background" subtitle="About & Experience" />
 
-          {/* Left Column: Structured Profile & Tech Arsenal */}
-          <div className="flex-[0.9] p-6 sm:p-10 md:p-12 z-10 flex flex-col gap-8">
-            {/* Quick Summary Header */}
-            <div>
-              <div className="flex items-end gap-3 mb-4">
-                <h3 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-gray-900 dark:text-white leading-tight">
+        <div className="mt-12 md:mt-20 flex flex-col lg:flex-row gap-16 lg:gap-24">
+          {/* ========================================= */}
+          {/* LEFT COLUMN: Profile, Tech & Education    */}
+          {/* ========================================= */}
+          <div className="flex-1 lg:w-1/2 flex flex-col gap-16">
+            {/* 1. Summary Section */}
+            <div className="flex flex-col gap-6">
+              <div className="flex items-center gap-4 mb-2">
+                <h3 className="text-3xl md:text-4xl font-extrabold text-gray-900 dark:text-white tracking-tight">
                   Who I <span className="text-orange-500">Am</span>
                 </h3>
+                <div className="h-[2px] flex-1 max-w-[12rem] bg-gradient-to-r from-orange-500/50 to-transparent dark:from-orange-500/30 rounded-full mt-1 sm:mt-2"></div>
               </div>
 
-              {/* Role Badges */}
-              <div className="flex flex-wrap gap-2 mb-6">
-                {[
-                  "Computer Engineer",
-                  "Software Developer",
-                  "IT Administrator",
-                  "Field Technician",
-                  "IT Support",
-                ].map((role, i) => (
-                  <span
-                    key={i}
-                    className="px-3 py-1.5 bg-gray-100 dark:bg-neutral-800/80 text-gray-700 dark:text-gray-300 text-xs font-bold uppercase tracking-wider rounded-lg border border-gray-200 dark:border-neutral-700"
-                  >
-                    {role}
-                  </span>
-                ))}
-              </div>
+              {/* Connected Identity & Role Block */}
+              <div className="grid grid-cols-[auto_1fr] gap-x-6 gap-y-4 items-baseline pl-1 md:pl-2">
+                <div className="text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-neutral-500">
+                  Name
+                </div>
+                <div className="text-xl md:text-2xl font-bold text-gray-900 dark:text-white">
+                  Arvin D. Tenasas
+                </div>
 
-              {/* Personal Bio */}
-              <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400 leading-relaxed italic border-l-4 border-orange-500 pl-4 bg-orange-50/50 dark:bg-orange-500/5 py-2 pr-2 rounded-r-xl">
-                "Bridging the gap between digital code and physical
-                infrastructure. When I'm not deep into software development,
-                optimizing systems, or repairing devices, you'll most likely
-                find me catching up on some much-needed sleep."
-              </p>
+                <div className="text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-neutral-500 mt-1">
+                  Role
+                </div>
+                <div className="flex flex-wrap items-center gap-x-2.5 gap-y-1.5 text-sm md:text-base font-medium text-gray-700 dark:text-gray-300">
+                  {[
+                    "Computer Engineer",
+                    "Software Developer",
+                    "IT Administrator",
+                    "Field Technician",
+                    "IT Support",
+                  ].map((role, i, arr) => (
+                    <React.Fragment key={i}>
+                      <span className="hover:text-orange-500 dark:hover:text-orange-400 transition-colors duration-300 cursor-default">
+                        {role}
+                      </span>
+                      {i < arr.length - 1 && (
+                        <span className="text-orange-500/40 dark:text-orange-500/30 font-light select-none">
+                          |
+                        </span>
+                      )}
+                    </React.Fragment>
+                  ))}
+                </div>
+
+                <div className="text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-neutral-500 mt-1">
+                  Base
+                </div>
+                <div className="text-sm md:text-base font-medium text-gray-700 dark:text-gray-300">
+                  Philippines
+                </div>
+
+                <div className="text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-neutral-500 mt-2">
+                  Bio
+                </div>
+                <p className="text-sm md:text-base text-gray-600 dark:text-gray-400 leading-relaxed max-w-2xl mt-1.5">
+                  Evolving with technology, building solutions, and enjoying
+                  life’s simple flavors.
+                </p>
+              </div>
             </div>
 
-            {/* Categorized Tech Arsenal */}
+            {/* 2. Categorized Tech Arsenal */}
             <div>
-              <h5 className="font-bold mb-6 text-sm text-gray-900 dark:text-white uppercase tracking-widest flex items-center gap-2 border-b border-gray-100 dark:border-neutral-800 pb-3">
+              <h5 className="font-bold mb-8 text-sm md:text-base text-gray-900 dark:text-white uppercase tracking-widest flex items-center gap-3 border-b border-gray-200 dark:border-neutral-800 pb-4">
                 <Code className="w-5 h-5 text-orange-500" /> Technical Arsenal
               </h5>
 
-              <div className="flex flex-col gap-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-10 items-start">
                 {techCategories.map((category) => (
-                  <div key={category.title}>
-                    <h6 className="text-[10px] sm:text-xs font-bold text-gray-500 dark:text-gray-500 uppercase tracking-widest mb-3">
+                  <div key={category.title} className="flex flex-col gap-4">
+                    <h6 className="text-xs font-bold text-orange-500 dark:text-orange-400 uppercase tracking-widest">
                       {category.title}
                     </h6>
-                    <div className="flex flex-wrap gap-2 sm:gap-2.5">
+                    <div className="flex flex-wrap gap-2.5">
                       {category.skills.map((tech) => (
                         <div
                           key={tech.name}
-                          className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-gray-50 dark:bg-neutral-800/50 border border-gray-200 dark:border-neutral-700 hover:border-orange-500/30 transition-all group cursor-default"
+                          className="flex items-center gap-2 px-3 py-2 rounded-xl bg-gray-50/80 dark:bg-neutral-800/40 border border-gray-200/80 dark:border-neutral-700/50 backdrop-blur-sm shadow-sm hover:border-orange-500/50 hover:bg-orange-50/50 dark:hover:bg-orange-500/10 transition-all duration-300 group cursor-default"
                         >
-                          <tech.Icon
-                            className={`w-3.5 h-3.5 shrink-0 transition-transform group-hover:scale-110 ${tech.color}`}
-                          />
-                          <span className="text-xs font-semibold text-gray-700 dark:text-gray-200">
+                          <tech.Icon className="w-4 h-4 shrink-0 text-gray-500 dark:text-neutral-400 group-hover:text-orange-500 group-hover:scale-110 transition-all duration-300" />
+                          <span className="text-xs font-semibold text-gray-700 dark:text-gray-300 group-hover:text-orange-600 dark:group-hover:text-orange-400 transition-colors duration-300">
                             {tech.name}
                           </span>
                         </div>
@@ -1677,21 +1712,50 @@ const About = () => {
                 ))}
               </div>
             </div>
+
+            {/* 3. Education Section (Extracted properly to the bottom of the left column) */}
+            <div>
+              <div className="flex items-center gap-4 mb-10 mt-4">
+                <div className="w-12 h-12 rounded-2xl bg-orange-500/10 text-orange-500 flex items-center justify-center shrink-0 shadow-inner">
+                  <GraduationCapIcon className="w-6 h-6" />
+                </div>
+                <h4 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white">
+                  Education
+                </h4>
+              </div>
+
+              <div>
+                <TimelineItem
+                  isCurrent={false}
+                  date="June 2020 - June 2024"
+                  title="BS in Computer Engineering"
+                  company="Samar State University"
+                  desc="Developed a strong engineering mindset, merging low-level electronics with high-level software development."
+                  bullets={[
+                    "Lead Developer for the 'SmartPen' IoT handwriting digitization thesis.",
+                    "Mastered core fundamentals in C++, embedded systems, and circuitry.",
+                    "Graduated with practical skills bridging IoT devices to web databases.",
+                  ]}
+                />
+              </div>
+            </div>
           </div>
 
-          {/* Right Column: Work Experience & Education Timeline */}
-          <div className="flex-[1.1] bg-gray-50 dark:bg-neutral-800/50 p-6 sm:p-10 md:p-12 z-10 border-t lg:border-t-0 lg:border-l border-gray-200 dark:border-neutral-800">
+          {/* ========================================= */}
+          {/* RIGHT COLUMN: Work Experience Timeline    */}
+          {/* ========================================= */}
+          <div className="flex-1 lg:w-1/2 lg:pl-16 lg:border-l border-gray-200 dark:border-neutral-800 pt-8 lg:pt-0">
             {/* Work Experience Header */}
-            <div className="flex items-center gap-3 mb-8">
-              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-orange-500/10 text-orange-500 flex items-center justify-center shrink-0">
-                <BriefcaseIcon className="w-5 h-5 sm:w-6 sm:h-6" />
+            <div className="flex items-center gap-4 mb-10">
+              <div className="w-12 h-12 rounded-2xl bg-orange-500/10 text-orange-500 flex items-center justify-center shrink-0 shadow-inner">
+                <BriefcaseIcon className="w-6 h-6" />
               </div>
-              <h4 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white">
+              <h4 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white">
                 Work Experience
               </h4>
             </div>
 
-            <div className="mb-12">
+            <div className="mb-16">
               <TimelineItem
                 isCurrent={true}
                 date="March 2025 - June 2026"
@@ -1732,29 +1796,6 @@ const About = () => {
                 ]}
               />
             </div>
-
-            {/* Education Header */}
-            <div className="flex items-center gap-3 mb-8 mt-12 border-t border-gray-200 dark:border-neutral-700/50 pt-10">
-              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-orange-500/10 text-orange-500 flex items-center justify-center shrink-0">
-                <GraduationCapIcon className="w-5 h-5 sm:w-6 sm:h-6" />
-              </div>
-              <h4 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white">
-                Education
-              </h4>
-            </div>
-
-            <TimelineItem
-              isCurrent={false}
-              date="June 2020 - June 2024"
-              title="BS in Computer Engineering"
-              company="Samar State University"
-              desc="Developed a strong engineering mindset, merging low-level electronics with high-level software development."
-              bullets={[
-                "Lead Developer for the 'SmartPen' IoT handwriting digitization thesis.",
-                "Mastered core fundamentals in C++, embedded systems, and circuitry.",
-                "Graduated with practical skills bridging IoT devices to web databases.",
-              ]}
-            />
           </div>
         </div>
       </div>
@@ -1762,197 +1803,453 @@ const About = () => {
   );
 };
 
+// --- INLINE CALENDAR ICON FOR THE DATES ---
+const CalendarIcon = (props) => (
+  <svg
+    {...props}
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2.5"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+    <line x1="16" y1="2" x2="16" y2="6" />
+    <line x1="8" y1="2" x2="8" y2="6" />
+    <line x1="3" y1="10" x2="21" y2="10" />
+  </svg>
+);
 const Services = () => {
-  const ServiceCard = ({ icon, title, desc, bgImage }) => {
-    const Icon = icon;
-    return (
-      <div className="relative group overflow-hidden rounded-2xl md:rounded-3xl shadow-sm hover:shadow-xl transition-all duration-500 h-[260px] sm:h-[280px] md:h-[320px] lg:h-[340px] border border-gray-200 dark:border-neutral-800">
-        {/* Background Image */}
-        <div className="absolute inset-0 z-0">
-          <img
-            src={bgImage}
-            alt={title}
-            className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700 ease-out"
-          />
-        </div>
+  const servicesData = [
+    {
+      id: "01",
+      title: "Web Development & Design",
+      image:
+        "https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&q=80&w=1200",
+      icon: CodeIcon,
+      gridSpan: "md:col-span-12 lg:col-span-7",
+      desc: "Transforming ideas into high-performance digital experiences. I build scalable, SEO-optimized web applications and visually engaging landing pages designed to convert, prioritizing speed and flawless UI/UX across all devices.",
+      tags: [
+        "Web Dev",
+        "Redesign",
+        "Sales Funnels",
+        "UI/UX",
+        "SEO",
+        "Responsive",
+      ],
+      ctaText: "Start Web Project",
+    },
+    {
+      id: "02",
+      title: "IT Support & PC Repair",
+      image:
+        "https://images.unsplash.com/photo-1591799264318-7e6ef8ddb7ea?auto=format&fit=crop&q=80&w=1200",
+      icon: WrenchIcon,
+      gridSpan: "md:col-span-12 lg:col-span-5",
+      desc: "Comprehensive hardware maintenance and software configuration. From custom PC builds to complex troubleshooting, I ensure your systems run at peak performance.",
+      tags: ["FREE Diagnostics", "PC Assembly", "OS Install", "MS Office"],
+      ctaText: "Get IT Diagnostics",
+    },
+    {
+      id: "03",
+      title: "IoT Solutions & Prototyping",
+      image:
+        "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&q=80&w=1200",
+      icon: CpuIcon,
+      gridSpan: "md:col-span-12 lg:col-span-5",
+      desc: "Bridging the physical and digital worlds. I specialize in custom IoT prototypes, advanced sensor integration, and MCU board programming for smart automation.",
+      tags: ["Prototyping", "School Projects", "Sensors", "ESP32/Arduino"],
+      ctaText: "Discuss IoT Idea",
+    },
+    {
+      id: "04",
+      title: "Multimedia & Design",
+      image:
+        "https://images.unsplash.com/photo-1600132806370-bf17e65e942f?auto=format&fit=crop&q=80&w=1200",
+      icon: PaletteIcon,
+      gridSpan: "md:col-span-12 lg:col-span-7",
+      desc: "Elevating brand identity through compelling visual and audio storytelling. I create high-impact marketing videos, logos, flyers, and custom jingles tailored for businesses and events.",
+      tags: [
+        "Commercials",
+        "Logo Design",
+        "Flyers",
+        "Business Jingles",
+        "Brand Identity",
+      ],
+      ctaText: "Start Creative Project",
+    },
+  ];
 
-        {/* Dark Gradient Overlay for Text Readability */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/70 to-black/20 z-10 transition-opacity duration-300 group-hover:opacity-90"></div>
+  return (
+    <SectionWrapper
+      id="services"
+      className="bg-white dark:bg-[#050505] overflow-hidden"
+    >
+      <SectionHeader title="My Expertise" subtitle="Services" />
 
-        {/* Card Content - Bottom Aligned */}
-        <div className="relative z-20 h-full p-5 sm:p-6 md:p-8 flex flex-col justify-end text-left">
-          {/* Floating Icon */}
-          <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center mb-4 sm:mb-5 md:mb-6 text-orange-400 group-hover:bg-orange-500 group-hover:text-white group-hover:border-orange-500 transition-all duration-300 transform group-hover:-translate-y-1">
-            <Icon className="w-5 h-5 sm:w-6 sm:h-6" />
-          </div>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-12 md:mt-16">
+        {/* Bento Box Grid Layout - Increased heights to prevent CTA clipping */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 auto-rows-[420px] sm:auto-rows-[460px] lg:auto-rows-[460px] gap-4 md:gap-6">
+          {servicesData.map((service) => {
+            const Icon = service.icon;
 
-          <h3 className="text-xl sm:text-2xl md:text-3xl font-bold mb-2 sm:mb-3 text-white tracking-tight">
-            {title}
-          </h3>
+            return (
+              <div
+                key={service.id}
+                className={`relative group rounded-3xl overflow-hidden bg-gray-900 border border-gray-200 dark:border-neutral-800 shadow-lg hover:shadow-2xl transition-all duration-500 ${service.gridSpan}`}
+              >
+                {/* Base Background Image */}
+                <img
+                  src={service.image}
+                  alt={service.title}
+                  className="absolute inset-0 w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-[1000ms] ease-[cubic-bezier(0.25,1,0.5,1)] opacity-80"
+                />
 
-          <p className="text-sm sm:text-base text-gray-300 leading-relaxed line-clamp-3 sm:line-clamp-none">
-            {desc}
-          </p>
+                {/* Intelligent Gradient Overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent z-10 transition-colors duration-500 group-hover:from-black/95 group-hover:via-black/85 group-hover:to-black/70"></div>
+
+                {/* Content Container */}
+                <div className="absolute inset-0 z-20 flex flex-col p-6 md:p-8">
+                  {/* Top Bar: Number & Icon */}
+                  <div className="flex justify-between items-start">
+                    <span className="text-5xl md:text-6xl font-black text-white/40 drop-shadow-lg group-hover:text-orange-500 transition-colors duration-500 tracking-tighter">
+                      {service.id}
+                    </span>
+                    <div className="w-12 h-12 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-white group-hover:bg-orange-500 group-hover:text-white group-hover:border-orange-500 transition-all duration-300 shadow-xl">
+                      <Icon className="w-6 h-6" />
+                    </div>
+                  </div>
+
+                  {/* Bottom Bar: Title & Hover Expansion */}
+                  <div className="mt-auto">
+                    <h3 className="text-2xl md:text-3xl font-extrabold text-white tracking-tight drop-shadow-md transition-transform duration-300">
+                      {service.title}
+                    </h3>
+
+                    {/* Smooth Expandable Section using CSS Grid Animation */}
+                    <div className="grid grid-rows-[0fr] group-hover:grid-rows-[1fr] transition-[grid-template-rows] duration-500 ease-[cubic-bezier(0.4,0,0.2,1)]">
+                      <div className="overflow-hidden">
+                        {/* Hidden Content Box - Tightened gaps so it fits perfectly */}
+                        <div className="flex flex-col gap-3 pt-3 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">
+                          <p className="text-sm text-gray-300 leading-relaxed">
+                            {service.desc}
+                          </p>
+
+                          {/* Tech / Feature Tags */}
+                          <div className="flex flex-wrap gap-2">
+                            {service.tags.map((tag, idx) => {
+                              const isHighlight = tag.includes("FREE");
+                              return (
+                                <span
+                                  key={idx}
+                                  // Slimmed down padding to prevent multi-line wrapping issues
+                                  className={`px-2.5 py-1 text-[11px] font-bold rounded-md border backdrop-blur-sm ${
+                                    isHighlight
+                                      ? "bg-orange-500/90 text-white border-orange-500 shadow-[0_0_10px_rgba(249,115,22,0.5)]"
+                                      : "bg-white/10 text-gray-200 border-white/20"
+                                  }`}
+                                >
+                                  {tag}
+                                </span>
+                              );
+                            })}
+                          </div>
+
+                          {/* Action Button */}
+                          <div className="pt-1">
+                            <a
+                              href="#contact"
+                              className="group/btn inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-white hover:bg-orange-500 text-black hover:text-white font-bold text-sm transition-all duration-300 active:scale-95 w-fit"
+                            >
+                              {service.ctaText}
+                              <ArrowRightIcon className="w-4 h-4 transition-transform duration-300 group-hover/btn:translate-x-1" />
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    {/* End Expandable Section */}
+                  </div>
+                </div>
+              </div>
+            );
+          })}
         </div>
       </div>
-    );
+    </SectionWrapper>
+  );
+};
+
+// --- INLINE ICONS ---
+const ArrowRightIcon = (props) => (
+  <svg
+    {...props}
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2.5"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <path d="M5 12h14M12 5l7 7-7 7" />
+  </svg>
+);
+
+const CodeIcon = (props) => (
+  <svg
+    {...props}
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <polyline points="16 18 22 12 16 6" />
+    <polyline points="8 6 2 12 8 18" />
+  </svg>
+);
+
+const WrenchIcon = (props) => (
+  <svg
+    {...props}
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" />
+  </svg>
+);
+
+const CpuIcon = (props) => (
+  <svg
+    {...props}
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <rect width="16" height="16" x="4" y="4" rx="2" />
+    <path d="M9 9h6v6H9z" />
+    <path d="M9 1v3" />
+    <path d="M15 1v3" />
+    <path d="M9 20v3" />
+    <path d="M15 20v3" />
+    <path d="M20 9h3" />
+    <path d="M20 14h3" />
+    <path d="M1 9h3" />
+    <path d="M1 14h3" />
+  </svg>
+);
+
+const PaletteIcon = (props) => (
+  <svg
+    {...props}
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <circle cx="13.5" cy="6.5" r=".5" fill="currentColor" />
+    <circle cx="17.5" cy="10.5" r=".5" fill="currentColor" />
+    <circle cx="8.5" cy="7.5" r=".5" fill="currentColor" />
+    <circle cx="6.5" cy="12.5" r=".5" fill="currentColor" />
+    <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z" />
+  </svg>
+);
+
+const Projects = () => {
+  const [activeTab, setActiveTab] = useState("personal");
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  // Filter projects based on the active tab
+  const filteredProjects = PROJECTS_DATA.filter(
+    (project) => project.type === activeTab,
+  );
+
+  // Handle Tab Switch (Resets the accordion index so it doesn't break)
+  const handleTabSwitch = (tab) => {
+    setActiveTab(tab);
+    setActiveIndex(0);
+  };
+
+  // Keyboard accessibility handler for the accordion
+  const handleKeyDown = (e, index) => {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      setActiveIndex(index);
+    }
   };
 
   return (
-    <SectionWrapper id="services" className="bg-white dark:bg-neutral-900">
-      <SectionHeader title="My Expertise" subtitle="What I Do" />
+    <SectionWrapper
+      id="projects"
+      className="bg-white dark:bg-[#050505] overflow-hidden"
+    >
+      <SectionHeader title="Featured Works" subtitle="Projects" />
 
-      {/* Responsive Grid - 1 column on mobile, 2 on laptop */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 md:gap-8">
-        <ServiceCard
-          icon={Code}
-          title="Web Development"
-          desc="Building responsive, high-performance websites and single-page applications using React, Node.js, and Modern CSS."
-          bgImage="https://images.unsplash.com/photo-1555099962-4199c345e5dd?auto=format&fit=crop&q=80&w=800" // Coding/Programming setup
-        />
+      {/* --- PREMIUM TAB NAVIGATION --- */}
+      <div className="flex justify-center mt-8 mb-10 md:mb-14 px-4">
+        <div className="inline-flex items-center p-1.5 bg-gray-100 dark:bg-[#111111] rounded-full border border-gray-200 dark:border-neutral-800 shadow-inner">
+          <button
+            onClick={() => handleTabSwitch("personal")}
+            className={`flex items-center gap-2 px-6 py-3 rounded-full text-sm md:text-base font-bold transition-all duration-300 ${
+              activeTab === "personal"
+                ? "bg-orange-500 text-white shadow-[0_4px_15px_rgba(249,115,22,0.4)]"
+                : "text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-200 dark:hover:bg-neutral-800"
+            }`}
+          >
+            <UserIcon className="w-4 h-4 md:w-5 md:h-5" />
+            Personal Projects
+          </button>
 
-        <ServiceCard
-          icon={Layers}
-          title="UI/UX Design"
-          desc="Designing intuitive interfaces with a focus on user experience, ensuring accessibility and visual consistency."
-          bgImage="https://images.unsplash.com/photo-1561070791-2526d30994b5?auto=format&fit=crop&q=80&w=800" // Wireframing/Design process
-        />
-
-        <ServiceCard
-          icon={Briefcase}
-          title="IoT Solutions"
-          desc="Developing smart connected devices and control systems using ESP32/Arduino bridged with cloud databases."
-          bgImage="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&q=80&w=800" // Hardware/Circuit board
-        />
-
-        <ServiceCard
-          icon={Wrench}
-          title="IT Support & Repair"
-          desc="Diagnosing and resolving hardware/software issues, performing PC builds, and conducting routine system maintenance."
-          bgImage="https://images.unsplash.com/photo-1597872200969-2b65d56bd16b?auto=format&fit=crop&q=80&w=800" // Inside of a PC/Laptop repair
-        />
+          <button
+            onClick={() => handleTabSwitch("client")}
+            className={`flex items-center gap-2 px-6 py-3 rounded-full text-sm md:text-base font-bold transition-all duration-300 ${
+              activeTab === "client"
+                ? "bg-orange-500 text-white shadow-[0_4px_15px_rgba(249,115,22,0.4)]"
+                : "text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-200 dark:hover:bg-neutral-800"
+            }`}
+          >
+            <BriefcaseIcon className="w-4 h-4 md:w-5 md:h-5" />
+            Client Projects
+          </button>
+        </div>
       </div>
-    </SectionWrapper>
-  );
-};
 
-//
-// --- APP-STYLE ACCORDION PROJECTS COMPONENT ---
-const Projects = () => {
-  const [activeIndex, setActiveIndex] = useState(1); // Defaults to expanding BALAY initially for layout balance
-
-  return (
-    <SectionWrapper id="projects" className="bg-white dark:bg-neutral-900">
-      {/* Standardized Header Section */}
-      <SectionHeader title="Featured Works" subtitle="Portfolio" />
-
-      {/* Accordion Carousel Container */}
-      {/* Compact app-like height: scales from 450px (mobile) to 600px (desktop) */}
-      <div className="flex flex-col md:flex-row gap-2 sm:gap-3 md:gap-4 h-[450px] sm:h-[500px] md:h-[550px] lg:h-[600px] w-full px-3 sm:px-0 mx-auto max-w-5xl">
-        {PROJECTS_DATA.map((project, index) => {
+      {/* --- APP-STYLE ACCORDION CAROUSEL --- */}
+      <div className="flex flex-col md:flex-row gap-3 sm:gap-4 h-[500px] sm:h-[550px] lg:h-[600px] w-full px-4 sm:px-6 lg:px-8 mx-auto max-w-7xl">
+        {filteredProjects.map((project, index) => {
           const isActive = index === activeIndex;
-          const isLeft = index < activeIndex;
 
           return (
             <div
               key={project.id}
+              role="button"
+              tabIndex={0}
+              aria-expanded={isActive}
               onClick={() => setActiveIndex(index)}
-              className={`relative rounded-2xl overflow-hidden cursor-pointer transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] group border border-gray-200 dark:border-neutral-800 shadow-sm
+              onKeyDown={(e) => handleKeyDown(e, index)}
+              className={`relative rounded-3xl overflow-hidden cursor-pointer transition-all duration-[800ms] ease-[cubic-bezier(0.25,1,0.5,1)] group border border-gray-200 dark:border-neutral-800 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 dark:focus:ring-offset-[#050505]
                 ${
                   isActive
-                    ? "flex-1 md:flex-[2.5] lg:flex-[3] shadow-xl shadow-orange-500/10"
-                    : "h-[50px] sm:h-[60px] md:h-auto md:flex-[0.5] lg:flex-[0.6] shrink-0 opacity-85 hover:opacity-100"
+                    ? "flex-1 md:flex-[3] lg:flex-[3.5] shadow-2xl shadow-orange-500/10"
+                    : "h-[65px] sm:h-[75px] md:h-auto md:flex-[0.5] lg:flex-[0.6] shrink-0 opacity-90 hover:opacity-100"
                 }
               `}
             >
               {/* Background Image */}
-              <div className="absolute inset-0 z-0">
+              <div className="absolute inset-0 z-0 bg-gray-900">
                 <img
                   src={project.image}
                   alt={project.title}
-                  className={`w-full h-full object-cover transition-transform duration-1000 ${isActive ? "scale-100" : "scale-105 group-hover:scale-100"}`}
+                  className={`w-full h-full object-cover transition-transform duration-[1200ms] ease-out ${
+                    isActive
+                      ? "scale-100"
+                      : "scale-110 group-hover:scale-105 opacity-50"
+                  }`}
                 />
               </div>
 
-              {/* Gradient Overlays for Readability */}
+              {/* Intelligent Gradient Overlay */}
               <div
-                className={`absolute inset-0 z-10 transition-opacity duration-700 ${
+                className={`absolute inset-0 z-10 transition-colors duration-700 ${
                   isActive
-                    ? "bg-gradient-to-t from-black/95 via-black/70 to-black/10"
-                    : "bg-black/50 group-hover:bg-black/30"
+                    ? "bg-gradient-to-t from-black via-black/60 to-transparent"
+                    : "bg-black/60 group-hover:bg-black/40"
                 }`}
               ></div>
 
-              {/* --- INACTIVE STATE UI (Arrow Buttons) --- */}
-              {!isActive && (
-                <div className="absolute inset-0 flex items-center justify-center z-20">
-                  <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white/10 dark:bg-black/30 backdrop-blur-md border border-white/20 flex items-center justify-center text-white transition-all transform group-hover:scale-110 group-hover:bg-orange-500 group-hover:border-orange-500 shadow-md">
-                    {/* Directional Arrows based on position relative to active card */}
-                    {isLeft ? (
-                      <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5" />
-                    ) : (
-                      <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5" />
-                    )}
-                  </div>
-                </div>
-              )}
-
-              {/* --- ACTIVE STATE UI (Full Content) --- */}
+              {/* --- INACTIVE STATE UI (Rotated Labels) --- */}
               <div
-                className={`absolute inset-0 z-20 flex flex-col justify-end p-4 sm:p-5 md:p-6 lg:p-8 transition-all duration-500 delay-100 ${
-                  isActive
-                    ? "opacity-100 translate-y-0"
-                    : "opacity-0 translate-y-4 pointer-events-none"
+                className={`absolute inset-0 z-20 flex items-center justify-center transition-opacity duration-500 ${
+                  isActive ? "opacity-0 pointer-events-none" : "opacity-100"
                 }`}
               >
-                {/* Floating Category Pill */}
-                <div className="mb-auto mt-1 self-start hidden sm:block">
-                  <span className="px-3 py-1.5 bg-white/10 backdrop-blur-md text-white text-[10px] md:text-xs font-bold uppercase tracking-widest rounded-full border border-white/20">
-                    {project.category}
-                  </span>
-                </div>
+                {/* Desktop Vertical Text */}
+                <span className="hidden md:block -rotate-90 text-gray-300 font-bold tracking-[0.2em] uppercase whitespace-nowrap group-hover:text-orange-400 transition-colors duration-300 drop-shadow-md">
+                  {project.title}
+                </span>
+                {/* Mobile Horizontal Text */}
+                <span className="block md:hidden text-gray-200 font-bold tracking-widest uppercase text-sm group-hover:text-orange-400 transition-colors duration-300 px-4 truncate drop-shadow-md">
+                  {project.title}
+                </span>
+              </div>
 
-                {/* Main Content Area */}
-                <div className="max-w-2xl w-full">
-                  <h3 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-extrabold text-white mb-1 md:mb-1.5 leading-tight drop-shadow-md line-clamp-1">
+              {/* --- ACTIVE STATE UI (Premium Glassmorphic Content) --- */}
+              <div
+                className={`absolute inset-0 z-20 flex flex-col justify-end p-4 sm:p-6 lg:p-8 transition-all duration-700 delay-100 ${
+                  isActive
+                    ? "opacity-100 translate-y-0"
+                    : "opacity-0 translate-y-8 pointer-events-none"
+                }`}
+              >
+                {/* Glassmorphic Panel */}
+                <div className="relative max-w-3xl w-full bg-black/30 backdrop-blur-md border border-white/10 rounded-2xl p-5 md:p-6 shadow-2xl overflow-hidden transform translate-z-0">
+                  {/* Floating Category Pill */}
+                  <div className="mb-3 hidden sm:block">
+                    <span className="px-3 py-1.5 bg-orange-500/20 text-orange-400 border border-orange-500/30 text-[10px] md:text-xs font-bold uppercase tracking-widest rounded-full">
+                      {project.category}
+                    </span>
+                  </div>
+
+                  <h3 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-extrabold text-white mb-1.5 leading-tight tracking-tight drop-shadow-lg line-clamp-1">
                     {project.title}
                   </h3>
 
-                  <p className="text-xs sm:text-sm md:text-base font-semibold text-orange-400 mb-2.5 md:mb-3 drop-shadow-sm line-clamp-1">
+                  <p className="text-xs sm:text-sm md:text-base font-semibold text-orange-400 mb-3 drop-shadow-md line-clamp-1">
                     {project.subtitle}
                   </p>
 
-                  <p className="text-[11px] sm:text-xs md:text-sm text-gray-300 mb-4 md:mb-5 leading-relaxed line-clamp-2 md:line-clamp-3 lg:line-clamp-none">
+                  <p className="text-[11px] sm:text-xs md:text-sm lg:text-base text-gray-300 mb-5 leading-relaxed line-clamp-2 md:line-clamp-3">
                     {project.description}
                   </p>
 
-                  {/* Tech Stack Tags - Tighter spacing for app feel */}
-                  <div className="flex flex-wrap gap-1.5 sm:gap-2 mb-4 md:mb-6">
+                  {/* Tech Stack Tags */}
+                  <div className="flex flex-wrap gap-2 mb-6">
                     {project.tags.map((tag) => (
                       <span
                         key={tag}
-                        className="px-2 py-1 sm:px-2.5 sm:py-1.5 text-[9px] sm:text-[10px] md:text-xs font-mono font-medium rounded-md bg-black/40 border border-white/10 text-gray-300 backdrop-blur-sm"
+                        className="px-2.5 py-1 text-[10px] md:text-xs font-semibold rounded-md bg-white/10 border border-white/20 text-gray-200"
                       >
                         {tag}
                       </span>
                     ))}
                   </div>
 
-                  {/* Action Buttons - Scaled down for mobile */}
-                  <div className="flex flex-row items-center gap-2 sm:gap-3">
+                  {/* Action Buttons */}
+                  <div className="flex flex-row items-center gap-3">
                     <a
                       href={project.demoLink}
-                      className="flex-1 sm:flex-none flex items-center justify-center gap-1.5 sm:gap-2 px-3 py-2 sm:px-4 sm:py-2.5 md:px-5 md:py-3 bg-orange-500 hover:bg-orange-600 text-white text-[10px] sm:text-xs md:text-sm font-bold rounded-lg sm:rounded-xl transition-all shadow-[0_0_15px_rgba(249,115,22,0.3)] hover:-translate-y-0.5 active:scale-95"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex-1 sm:flex-none flex items-center justify-center gap-2 px-5 py-3 md:px-6 md:py-3.5 bg-orange-500 hover:bg-orange-600 text-white text-[11px] md:text-sm font-bold rounded-xl transition-all shadow-[0_4px_15px_rgba(249,115,22,0.4)] hover:-translate-y-0.5 active:scale-95"
                     >
-                      Live Demo{" "}
-                      <ExternalLink className="w-3 h-3 sm:w-3.5 sm:h-3.5 md:w-4 md:h-4" />
+                      Live Demo
+                      <ExternalLinkIcon className="w-3.5 h-3.5 md:w-4 md:h-4" />
                     </a>
 
                     <a
                       href={project.githubLink}
-                      className="flex-1 sm:flex-none flex items-center justify-center gap-1.5 sm:gap-2 px-3 py-2 sm:px-4 sm:py-2.5 md:px-5 md:py-3 bg-white/10 hover:bg-white/20 text-white border border-white/20 text-[10px] sm:text-xs md:text-sm font-bold rounded-lg sm:rounded-xl transition-all backdrop-blur-md hover:-translate-y-0.5 active:scale-95"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex-1 sm:flex-none flex items-center justify-center gap-2 px-5 py-3 md:px-6 md:py-3.5 bg-white/10 hover:bg-white/20 text-white border border-white/20 text-[11px] md:text-sm font-bold rounded-xl transition-all hover:-translate-y-0.5 active:scale-95"
                     >
-                      <Github className="w-3 h-3 sm:w-3.5 sm:h-3.5 md:w-4 md:h-4" />{" "}
+                      <GithubIcon className="w-3.5 h-3.5 md:w-4 md:h-4" />
                       Code
                     </a>
                   </div>
@@ -1965,6 +2262,40 @@ const Projects = () => {
     </SectionWrapper>
   );
 };
+
+// --- INLINE ICONS ---
+const UserIcon = (props) => (
+  <svg
+    {...props}
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+    <circle cx="12" cy="7" r="4" />
+  </svg>
+);
+
+const ExternalLinkIcon = (props) => (
+  <svg
+    {...props}
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2.5"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+    <polyline points="15 3 21 3 21 9" />
+    <line x1="10" y1="14" x2="21" y2="3" />
+  </svg>
+);
 
 const Contact = () => {
   const [formData, setFormData] = useState({
