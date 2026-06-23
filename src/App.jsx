@@ -792,22 +792,22 @@ const HERO_TITLES = [
 const PROJECTS_DATA = [
   {
     id: 1,
-    type: "personal", // Added for Tab Filtering
-    title: "arvin.dev Portfolio",
+    type: "personal",
+    title: "Arvin Tenasas - Personal Portfolio",
     subtitle: "Interactive React Application",
     category: "Frontend Web",
     role: "Sole Developer",
     description:
       "Designed and developed a highly interactive, native-app-like personal portfolio. Engineered with React, Tailwind CSS, and custom intersection observers for seamless scroll animations and responsive accordion galleries.",
     tags: ["React", "Tailwind CSS", "Vite", "UI/UX"],
-    image:
-      "https://images.unsplash.com/photo-1507721999472-8ed4421c4af2?auto=format&fit=crop&q=80&w=800",
-    demoLink: "#home",
-    githubLink: "#",
+    video: "/assets/portfolio-demo.mp4",
+    demoLink: "https://arvintenasas-portfolio.vercel.app/",
+    githubLink: "https://github.com/tenasasarvin/my-port-folio.git",
+    status: "Live",
   },
   {
     id: 2,
-    type: "personal", // Added for Tab Filtering
+    type: "personal",
     title: "BALAY Management",
     subtitle: "Dual-Portal Property Platform",
     category: "Web & Mobile App",
@@ -815,29 +815,33 @@ const PROJECTS_DATA = [
     description:
       "Engineered a comprehensive dual-portal management system. Developed dedicated, secure interfaces for both landlords and tenants to seamlessly handle property data, communication, and real-time operations.",
     tags: ["React Native", "Expo", "Supabase", "UI/UX"],
-    image:
-      "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&q=80&w=800",
-    demoLink: "#",
-    githubLink: "#",
+    video: "/assets/balay-demo.mp4",
+    demoLink: null, // Removed the live link since it's not deployed yet
+    githubLink: "https://github.com/tenasasarvin/balay.git",
+    status: "In Development",
+    statusNote:
+      "Currently in development. Source code is accessible for review.",
   },
   {
     id: 3,
-    type: "client", // Added for Tab Filtering
+    type: "client",
     title: "LSI Corporate Portal",
     subtitle: "Legacy WordPress Modernization",
     category: "Full-Stack Web",
     role: "Lead Developer",
     description:
-      "Modernized a legacy WordPress architecture into a high-performance web application. Built a custom full-stack solution utilizing Node.js, Next.js, and a robust MySQL database to streamline corporate workflows.",
+      "Modernized a legacy WordPress architecture into a high-performance web application. Built a custom full-stack solution utilizing Node.js, Next.js, and a robust MySQL database to streamline corporate workflows. Due to strict NDA and company policy, source code and live access are restricted.",
     tags: ["Next.js", "React.js", "Node.js", "MySQL"],
-    image:
-      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=800",
-    demoLink: "#",
-    githubLink: "#",
+    video: "/assets/lsi-demo.mp4",
+    demoLink: null, // Disabled due to NDA
+    githubLink: null, // Disabled due to NDA
+    status: "Confidential (NDA)",
+    statusNote:
+      "Source code & live link are strictly confidential under company NDA.",
   },
   {
     id: 4,
-    type: "personal", // Added for Tab Filtering
+    type: "personal",
     title: "SmartPen: IoT Fish Feeder",
     subtitle: "Remote Aquaculture Automation (Capstone)",
     category: "Hardware & IoT",
@@ -845,10 +849,12 @@ const PROJECTS_DATA = [
     description:
       "Developed a 3-tier remote offshore aquaculture capstone system. Bridged physical sensors and microcontrollers with a remote relay device to sync real-time automated feeding data to Firebase, accessible via a custom FlutterFlow app.",
     tags: ["Microcontrollers", "FlutterFlow", "Firebase", "Sensors"],
-    image:
-      "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&q=80&w=800",
-    demoLink: "#",
-    githubLink: "#",
+    video: "/assets/smartpen-demo.mp4",
+    demoLink: null, // Academic hardware project
+    githubLink: null, // Academic hardware project
+    status: "Academic Capstone",
+    statusNote:
+      "Proprietary hardware system. Showcased via video demonstration.",
   },
 ];
 
@@ -913,10 +919,88 @@ const SectionHeader = ({ title, subtitle }) => (
   </div>
 );
 
+const IconSvg = ({ children, className = "" }) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    className={className}
+  >
+    {children}
+  </svg>
+);
+
+const Icons = {
+  Home: ({ className }) => (
+    <IconSvg className={className}>
+      <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+      <polyline points="9 22 9 12 15 12 15 22" />
+    </IconSvg>
+  ),
+  User: ({ className }) => (
+    <IconSvg className={className}>
+      <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+      <circle cx="12" cy="7" r="4" />
+    </IconSvg>
+  ),
+  Layers: ({ className }) => (
+    <IconSvg className={className}>
+      <polygon points="12 2 2 7 12 12 22 7 12 2" />
+      <polyline points="2 17 12 22 22 17" />
+      <polyline points="2 12 12 17 22 12" />
+    </IconSvg>
+  ),
+  Code: ({ className }) => (
+    <IconSvg className={className}>
+      <polyline points="16 18 22 12 16 6" />
+      <polyline points="8 6 2 12 8 18" />
+    </IconSvg>
+  ),
+  Mail: ({ className }) => (
+    <IconSvg className={className}>
+      <rect width="20" height="16" x="2" y="4" rx="2" />
+      <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+    </IconSvg>
+  ),
+  Sun: ({ className }) => (
+    <IconSvg className={className}>
+      <circle cx="12" cy="12" r="4" />
+      <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" />
+    </IconSvg>
+  ),
+  Moon: ({ className }) => (
+    <IconSvg className={className}>
+      <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" />
+    </IconSvg>
+  ),
+  Menu: ({ className }) => (
+    <IconSvg className={className}>
+      <line x1="4" x2="20" y1="12" y2="12" />
+      <line x1="4" x2="20" y1="6" y2="6" />
+      <line x1="4" x2="20" y1="18" y2="18" />
+    </IconSvg>
+  ),
+  X: ({ className }) => (
+    <IconSvg className={className}>
+      <path d="M18 6 6 18" />
+      <path d="m6 6 12 12" />
+    </IconSvg>
+  ),
+};
+
+// ==========================================
+// 2. Navigation Component
+// ==========================================
 const Navigation = ({ activeSection }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
+
+  // Replace this with however you actually manage theme state in your app
   const { theme, toggleTheme } = useTheme();
 
   useEffect(() => {
@@ -942,11 +1026,10 @@ const Navigation = ({ activeSection }) => {
   }, []);
 
   const navLinks = [
-    { id: "home", label: "Home", icon: Home },
-    { id: "about", label: "About", icon: User }, // Replaces "About" and "Experience"
-    { id: "services", label: "Services", icon: Layers },
-    { id: "projects", label: "Projects", icon: Code },
-    { id: "contact", label: "Contact", icon: Mail },
+    // { id: "home", label: "Home", icon: Icons.Home },
+    { id: "about", label: "About Me", icon: Icons.User },
+    { id: "services", label: "My Services", icon: Icons.Layers },
+    { id: "projects", label: "My Projects", icon: Icons.Code },
   ];
 
   const scrollToSection = (id) => {
@@ -964,111 +1047,150 @@ const Navigation = ({ activeSection }) => {
       }`}
     >
       <div
-        className={`relative flex items-center justify-between w-full md:w-auto gap-4 md:gap-8 px-4 md:px-6 py-2 md:py-3 rounded-full transition-all duration-300 ${
+        className={`relative flex items-center justify-between w-full max-w-6xl gap-4 px-4 md:px-6 py-2 md:py-3 rounded-2xl transition-all duration-300 ${
           isScrolled
             ? "bg-white/70 dark:bg-neutral-900/70 shadow-lg border-gray-200/50 dark:border-neutral-700/50"
             : "bg-white/50 dark:bg-neutral-900/50 border-transparent shadow-sm"
         } backdrop-blur-md border`}
       >
-        {/* Logo Text/Image */}
-        <div
-          className="cursor-pointer flex items-center justify-center shrink-0"
-          onClick={() => scrollToSection("home")}
-        >
-          <div className="w-20 md:w-24 h-auto bg-transparent flex items-center justify-center">
-            <img
-              src="/logo-texts.png"
-              alt="arvin.dev"
-              className="object-contain"
-            />
+        {/* LEFT SIDE: Logo & Navigation Links */}
+        <div className="flex items-center gap-6 md:gap-10">
+          {/* Logo */}
+          <div
+            className="cursor-pointer flex items-center justify-center shrink-0"
+            onClick={() => scrollToSection("home")}
+          >
+            <div className="w-20 md:w-24 h-auto bg-transparent flex items-center justify-center">
+              <img
+                src="/logo-texts.png"
+                alt="arvin.dev"
+                className="object-contain"
+              />
+            </div>
+          </div>
+
+          {/* Desktop Nav Links */}
+          <div className="hidden md:flex items-center space-x-6">
+            {navLinks.map((link) => (
+              <button
+                key={link.id}
+                onClick={() => scrollToSection(link.id)}
+                className={`relative py-1 text-sm font-medium transition-colors duration-200 group
+                ${
+                  activeSection === link.id
+                    ? "text-orange-600 dark:text-orange-400"
+                    : "text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
+                }`}
+              >
+                {link.label}
+                <span
+                  className={`absolute left-0 -bottom-1 h-0.5 w-full bg-orange-500 rounded-full transition-transform duration-300 origin-left ${
+                    activeSection === link.id
+                      ? "scale-x-100"
+                      : "scale-x-0 group-hover:scale-x-100"
+                  }`}
+                ></span>
+              </button>
+            ))}
           </div>
         </div>
 
-        {/* Desktop Menu & Theme Toggle */}
-        <div className="hidden md:flex items-center space-x-6">
-          {navLinks.map((link) => (
+        {/* RIGHT SIDE: Expanded Theme Toggle, Contact Button & Mobile Menu */}
+        <div className="flex items-center gap-3 md:gap-4">
+          {/* Desktop Actions */}
+          <div className="hidden md:flex items-center gap-3">
+            {/* Orange Contact Button */}
             <button
-              key={link.id}
-              onClick={() => scrollToSection(link.id)}
-              className={`relative py-1 text-sm font-medium transition-colors duration-200 group
-              ${
-                activeSection === link.id
-                  ? "text-orange-600 dark:text-orange-400"
-                  : "text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
-              }`}
+              onClick={() => scrollToSection("contact")}
+              className="px-5 py-2 text-sm font-medium text-white bg-orange-500 border border-transparent rounded-full shadow-sm hover:bg-orange-600 transition-all duration-200"
             >
-              {link.label}
-              <span
-                className={`absolute left-0 -bottom-1 h-0.5 w-full bg-orange-500 rounded-full transition-transform duration-300 origin-left ${
-                  activeSection === link.id
-                    ? "scale-x-100"
-                    : "scale-x-0 group-hover:scale-x-100"
-                }`}
-              ></span>
+              Contact Me
             </button>
-          ))}
-          <div className="w-px h-5 bg-gray-300 dark:bg-neutral-700 mx-2"></div>
-          <button
-            onClick={toggleTheme}
-            className="p-1.5 rounded-full hover:bg-gray-200/50 dark:hover:bg-neutral-800/50 transition-colors text-gray-600 dark:text-gray-400"
-          >
-            {theme === "dark" ? (
-              <Sun className="w-4 h-4 md:w-5 md:h-5" />
-            ) : (
-              <Moon className="w-4 h-4 md:w-5 md:h-5" />
-            )}
-          </button>
-        </div>
+            {/* Expanded Dark/Light Theme Button */}
+            <button
+              onClick={toggleTheme}
+              className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-600 bg-gray-100/80 border border-transparent rounded-full hover:bg-gray-200 dark:text-gray-300 dark:bg-neutral-800/80 dark:hover:bg-neutral-700 transition-all duration-200"
+            >
+              {theme === "dark" ? (
+                <>
+                  <Icons.Sun className="w-4 h-4 text-orange-400" />
+                  <span>Light Theme</span>
+                </>
+              ) : (
+                <>
+                  <Icons.Moon className="w-4 h-4" />
+                  <span>Dark Theme</span>
+                </>
+              )}
+            </button>
+          </div>
 
-        {/* Mobile Menu Toggle */}
-        <div className="md:hidden flex items-center gap-2">
-          <div className="w-px h-4 bg-gray-300 dark:bg-neutral-700"></div>
-          <button
-            onClick={toggleTheme}
-            className="p-1.5 rounded-full text-gray-600 dark:text-gray-400 hover:text-orange-500 transition-colors"
-          >
-            {theme === "dark" ? (
-              <Sun className="w-4 h-4" />
-            ) : (
-              <Moon className="w-4 h-4" />
-            )}
-          </button>
-          <button
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="p-1.5 text-gray-600 dark:text-gray-400 hover:text-orange-500 transition-colors"
-          >
-            {isMobileMenuOpen ? (
-              <X className="w-5 h-5" />
-            ) : (
-              <Menu className="w-5 h-5" />
-            )}
-          </button>
+          {/* Mobile Menu & Small Theme Toggle */}
+          <div className="md:hidden flex items-center gap-1">
+            <button
+              onClick={toggleTheme}
+              className="p-2 rounded-full text-gray-600 dark:text-gray-400 hover:text-orange-500 transition-colors focus:outline-none"
+              aria-label="Toggle Theme"
+            >
+              {theme === "dark" ? (
+                <Icons.Sun className="w-5 h-5" />
+              ) : (
+                <Icons.Moon className="w-5 h-5" />
+              )}
+            </button>
+            <div className="w-px h-5 bg-gray-300 dark:bg-neutral-700 mx-1"></div>
+            <button
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              className="p-2 text-gray-600 dark:text-gray-400 hover:text-orange-500 transition-colors focus:outline-none"
+            >
+              {isMobileMenuOpen ? (
+                <Icons.X className="w-5 h-5" />
+              ) : (
+                <Icons.Menu className="w-5 h-5" />
+              )}
+            </button>
+          </div>
         </div>
       </div>
 
       {/* Floating Mobile Dropdown */}
       {isMobileMenuOpen && (
         <div className="absolute top-[calc(100%+0.75rem)] left-4 right-4 bg-white/95 dark:bg-neutral-900/95 backdrop-blur-xl shadow-2xl border border-gray-100 dark:border-neutral-800 rounded-2xl p-3 flex flex-col gap-1.5 md:hidden animate-fadeInUp">
-          {navLinks.map((link) => (
-            <button
-              key={link.id}
-              onClick={() => scrollToSection(link.id)}
-              className={`relative flex items-center gap-3 p-2.5 rounded-xl transition-colors text-left overflow-hidden group text-sm
-                ${
-                  activeSection === link.id
-                    ? "bg-orange-500/10 text-orange-600 dark:text-orange-400 font-bold"
-                    : "hover:bg-gray-50 dark:hover:bg-neutral-800/50 text-gray-700 dark:text-gray-300"
-                }`}
-            >
-              <link.icon
-                className={`w-4 h-4 ${activeSection === link.id ? "text-orange-500" : ""}`}
-              />
-              <span>{link.label}</span>
-              {activeSection === link.id && (
-                <span className="absolute left-0 top-0 bottom-0 w-1 bg-orange-500 rounded-r-full"></span>
-              )}
-            </button>
-          ))}
+          {navLinks.map((link) => {
+            const IconComponent = link.icon;
+            return (
+              <button
+                key={link.id}
+                onClick={() => scrollToSection(link.id)}
+                className={`relative flex items-center gap-3 p-2.5 rounded-xl transition-colors text-left overflow-hidden group text-sm
+                  ${
+                    activeSection === link.id
+                      ? "bg-orange-500/10 text-orange-600 dark:text-orange-400 font-bold"
+                      : "hover:bg-gray-50 dark:hover:bg-neutral-800/50 text-gray-700 dark:text-gray-300"
+                  }`}
+              >
+                <IconComponent
+                  className={`w-4 h-4 ${
+                    activeSection === link.id ? "text-orange-500" : ""
+                  }`}
+                />
+                <span>{link.label}</span>
+                {activeSection === link.id && (
+                  <span className="absolute left-0 top-0 bottom-0 w-1 bg-orange-500 rounded-r-full"></span>
+                )}
+              </button>
+            );
+          })}
+
+          <div className="h-px w-full bg-gray-100 dark:bg-neutral-800 my-1"></div>
+
+          <button
+            onClick={() => scrollToSection("contact")}
+            className="flex items-center gap-3 p-2.5 rounded-xl transition-colors text-left text-sm bg-orange-500/10 text-orange-600 dark:text-orange-400 font-medium hover:bg-orange-500/20"
+          >
+            <Icons.Mail className="w-4 h-4" />
+            <span>Contact Me</span>
+          </button>
         </div>
       )}
     </nav>
@@ -1202,9 +1324,9 @@ const Hero = () => {
 
   // --- UI Layout Pieces ---
 
-  // Main Text Header (Continuous Animated Gradient)
+  // Main Text Header
   const headerContent = (
-    <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-5xl xl:text-7xl font-extrabold tracking-tight leading-[1.15] md:leading-[1.1] transition-all text-center lg:text-left w-full">
+    <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-5xl xl:text-7xl font-extrabold tracking-tight leading-[1.15] md:leading-[1.1] transition-all text-center lg:text-left w-full px-2 lg:px-0">
       <span className="block xl:block text-transparent bg-clip-text bg-gradient-to-r from-gray-900 via-gray-600 to-gray-900 dark:from-white dark:via-gray-300 dark:to-white animate-gradient-text">
         Crafting Digital
       </span>{" "}
@@ -1214,9 +1336,9 @@ const Hero = () => {
     </h1>
   );
 
-  // Paragraph Summary (Darkened for Light Mode Legibility)
+  // Paragraph Summary
   const paragraphContent = (
-    <p className="text-sm sm:text-base md:text-lg text-gray-700 dark:text-neutral-300 max-w-2xl xl:max-w-3xl mx-auto lg:mx-0 leading-relaxed text-center lg:text-justify transition-colors duration-300">
+    <p className="text-sm sm:text-base md:text-lg text-gray-700 dark:text-neutral-300 max-w-2xl xl:max-w-3xl mx-auto lg:mx-0 leading-relaxed text-center lg:text-justify transition-colors duration-300 px-2 lg:px-0">
       Computer Engineer skilled in full-stack web development, IoT solutions,
       and IT infrastructure. Proven ability to architect scalable software and
       execute end-to-end hardware, network, and UPS troubleshooting. Strong
@@ -1225,9 +1347,9 @@ const Hero = () => {
     </p>
   );
 
-  // Action Buttons (Continuous Gradient Pulse on Primary Button)
+  // Action Buttons
   const buttonsContent = (
-    <div className="flex flex-row items-center justify-center lg:justify-start gap-3 sm:gap-4 w-full">
+    <div className="flex flex-wrap items-center justify-center lg:justify-start gap-3 sm:gap-4 w-full">
       <button
         onClick={() =>
           document
@@ -1251,15 +1373,18 @@ const Hero = () => {
     </div>
   );
 
-  // Social Links (Continuous Floating + Magnetic Glow)
+  // --- FIX APPLIED HERE: Corrected variables and added 'group' class ---
+  // Social Links (Continuous Floating + Premium Circular Backgrounds)
   const socialsContent = (
-    <div className="flex items-center justify-center lg:justify-start gap-4 md:gap-6 transition-all w-full animate-float">
+    <div className="flex items-center justify-center lg:justify-start gap-3 md:gap-4 transition-all w-full animate-float">
       {socialLinks.map(({ Icon: icon, href, label }) => (
         <a
           key={label}
           href={href}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="group flex items-center justify-center w-10 h-10 md:w-12 md:h-12 rounded-full bg-white dark:bg-neutral-800 border border-gray-200 dark:border-neutral-700 text-gray-500 dark:text-gray-400 hover:bg-orange-500 hover:text-white dark:hover:bg-orange-500 dark:hover:text-white hover:border-orange-500 transition-all duration-300 shadow-sm hover:shadow-[0_4px_15px_rgba(249,115,22,0.4)] hover:-translate-y-1 active:scale-95"
           aria-label={label}
-          className="group p-2 md:p-3 rounded-full bg-white dark:bg-neutral-800 border border-gray-200 dark:border-neutral-700 text-gray-600 dark:text-gray-400 hover:text-orange-500 hover:border-orange-500 hover:bg-orange-50/50 dark:hover:bg-orange-500/10 transition-all duration-300 transform hover:-translate-y-1.5 hover:shadow-[0_0_15px_rgba(249,115,22,0.2)] active:scale-95"
         >
           {React.createElement(icon, {
             className:
@@ -1270,11 +1395,10 @@ const Hero = () => {
     </div>
   );
 
-  // Unified Mobile Container (Theme-Aware Freelance Badge)
+  // Unified Mobile Container
   const mobileCodeContainer = (
-    <div className="relative w-full lg:hidden flex flex-col items-center gap-2 bg-white/80 dark:bg-neutral-800/80 backdrop-blur-md border border-gray-200/60 dark:border-neutral-700/50 rounded-2xl p-4 pt-8 shadow-sm">
-      {/* Theme-Aware Mobile Freelance Badge */}
-      <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-white dark:bg-black border border-gray-200 dark:border-white/10 px-3 py-1 rounded-full flex items-center gap-1.5 shadow-md dark:shadow-lg">
+    <div className="relative w-full max-w-[95%] mx-auto lg:hidden flex flex-col items-center gap-2 bg-white/80 dark:bg-neutral-800/80 backdrop-blur-md border border-gray-200/60 dark:border-neutral-700/50 rounded-2xl p-4 pt-8 shadow-sm">
+      <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-white dark:bg-black border border-gray-200 dark:border-white/10 px-3 py-1 rounded-full flex items-center gap-1.5 shadow-md dark:shadow-lg whitespace-nowrap">
         <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></span>
         <span className="text-[10px] font-bold text-gray-800 dark:text-white tracking-wider">
           OPEN FOR WORK/FREELANCE
@@ -1291,14 +1415,14 @@ const Hero = () => {
         <span className="text-gray-500 dark:text-neutral-400 font-semibold">
           =
         </span>
-        <span className="text-orange-600 dark:text-orange-500 font-semibold">
+        <span className="text-orange-600 dark:text-orange-500 font-semibold text-center">
           "Hello World! I am Arvin"
         </span>
         <span className="text-gray-500 dark:text-neutral-400 font-semibold">
           ;
         </span>
       </div>
-      <div className="h-6 font-mono text-sm sm:text-base flex items-center justify-center gap-2 w-full">
+      <div className="min-h-[24px] h-auto font-mono text-[13px] sm:text-base flex items-center justify-center gap-2 w-full text-center flex-wrap">
         <span className="text-orange-500 font-bold">&gt;</span>
         <span className={`${HERO_TITLES[titleIndex].color}`}>{text}</span>
         <span className="animate-pulse text-orange-500 font-bold">|</span>
@@ -1306,13 +1430,11 @@ const Hero = () => {
     </div>
   );
 
-  // Desktop Profile Overlaid Display (Theme-Aware Badge)
+  // Desktop Profile Overlaid Display
   const profileDesktopContent = (
     <div className="relative group w-full max-w-[400px] xl:max-w-[440px] aspect-square rounded-3xl z-10 mx-auto lg:mx-0 cursor-pointer">
-      {/* Animated Glow effect behind the profile */}
       <div className="absolute -inset-2 bg-gradient-to-r from-orange-500 via-purple-500 to-amber-500 rounded-3xl blur-lg opacity-30 group-hover:opacity-60 transition duration-700 group-hover:duration-200"></div>
 
-      {/* Image & Overlay Container */}
       <div className="relative w-full h-full rounded-3xl overflow-hidden shadow-2xl border border-gray-200 dark:border-white/20 bg-gray-100 dark:bg-neutral-900 transition-transform duration-500 group-hover:scale-[1.02]">
         <img
           src="/profile2.jpg"
@@ -1320,7 +1442,6 @@ const Hero = () => {
           className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
         />
 
-        {/* Hover 'Open for Freelance' Tag (Theme-Aware & Floating) */}
         <div className="absolute top-4 left-4 z-20 pointer-events-none opacity-0 group-hover:opacity-100 transition-all duration-500 group-hover:-translate-y-1 translate-y-2 animate-float">
           <div className="bg-white/95 dark:bg-black/80 backdrop-blur-md border border-gray-200 dark:border-white/10 px-3 py-1.5 rounded-full flex items-center gap-2 shadow-xl">
             <span className="w-2 h-2 rounded-full bg-green-500 shadow-[0_0_8px_rgba(34,197,94,0.8)] animate-pulse"></span>
@@ -1330,9 +1451,7 @@ const Hero = () => {
           </div>
         </div>
 
-        {/* Floating Content: Glass Container for Badge & Typewriter */}
         <div className="absolute bottom-4 left-4 right-4 p-4 xl:p-5 rounded-2xl bg-white/80 dark:bg-black/60 backdrop-blur-md border border-gray-200 dark:border-white/10 shadow-xl flex flex-col gap-2 transform transition-all duration-500 group-hover:-translate-y-2 group-hover:bg-white/95 dark:group-hover:bg-black/80">
-          {/* Aligned Badge Text */}
           <div className="font-mono text-[11px] xl:text-xs flex flex-wrap items-center gap-1.5 drop-shadow-sm dark:drop-shadow-md">
             <span className="text-purple-600 dark:text-purple-400 font-bold">
               const
@@ -1351,8 +1470,7 @@ const Hero = () => {
             </span>
           </div>
 
-          {/* Typewriter Text */}
-          <div className="font-mono text-sm xl:text-base flex items-center gap-2 drop-shadow-sm dark:drop-shadow-md">
+          <div className="font-mono text-sm xl:text-base flex items-center gap-2 drop-shadow-sm dark:drop-shadow-md flex-wrap">
             <span className="text-orange-500 font-bold">&gt;</span>
             <span
               className={`${HERO_TITLES[titleIndex].color} font-semibold tracking-wide`}
@@ -1369,9 +1487,8 @@ const Hero = () => {
   return (
     <section
       id="home"
-      className="min-h-[100svh] relative flex items-center justify-center overflow-hidden bg-gray-50 dark:bg-neutral-900 py-20 lg:py-0"
+      className="min-h-[100svh] pt-28 pb-16 lg:py-0 relative flex items-center justify-center overflow-hidden bg-gray-50 dark:bg-neutral-900"
     >
-      {/* Custom CSS for Continuous Animations */}
       <style>{`
         @keyframes gradient-pan {
           0% { background-position: 0% 50%; }
@@ -1396,27 +1513,22 @@ const Hero = () => {
         }
       `}</style>
 
-      {/* Background Canvas */}
       <canvas
         ref={canvasRef}
         className="absolute inset-0 z-0 pointer-events-none"
       />
 
-      {/* Mobile Profile Background Image Layout (Versatile Light/Dark Visibility) */}
       <div className="absolute inset-0 z-[1] lg:hidden pointer-events-none">
         <img
           src="/profile2.jpg"
           alt="Profile Background"
           className="w-full h-full object-cover opacity-85 dark:opacity-50 transition-opacity duration-300"
         />
-        {/* Single sophisticated gradient overlay for text contrast */}
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-white/50 to-white dark:via-neutral-900/70 dark:to-neutral-900" />
       </div>
 
-      {/* Main Container Layering */}
-      <div className="relative z-10 w-full max-w-7xl mx-auto px-6">
-        {/* 1. MOBILE LAYOUT (< lg Screens) */}
-        <div className="flex flex-col items-center gap-6 lg:hidden w-full mt-4">
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-4 md:px-6">
+        <div className="flex flex-col items-center gap-5 sm:gap-6 lg:hidden w-full mt-8 md:mt-12">
           {mobileCodeContainer}
           {headerContent}
           {paragraphContent}
@@ -1424,14 +1536,11 @@ const Hero = () => {
           <div className="mt-4">{socialsContent}</div>
         </div>
 
-        {/* 2. DESKTOP LAYOUT (>= lg Screens) */}
         <div className="hidden lg:grid grid-cols-12 gap-10 xl:gap-16 items-center w-full min-h-[70vh]">
-          {/* Left Column (Image & Overlay Content) - Spans 5 cols */}
           <div className="col-span-5 flex justify-center lg:justify-start xl:justify-center w-full">
             {profileDesktopContent}
           </div>
 
-          {/* Right Column (Text Info & Actions) - Spans 7 cols */}
           <div className="col-span-7 flex flex-col items-start gap-6 xl:gap-8 w-full">
             {headerContent}
             {paragraphContent}
@@ -1441,7 +1550,6 @@ const Hero = () => {
         </div>
       </div>
 
-      {/* Modern Scroll Indicator */}
       <div
         onClick={() =>
           document
@@ -1732,7 +1840,7 @@ const About = () => {
                   company="Samar State University"
                   desc="Developed a strong engineering mindset, merging low-level electronics with high-level software development."
                   bullets={[
-                    "Lead Developer for the 'SmartPen' IoT handwriting digitization thesis.",
+                    "Co-lead Developer for the 'SmartPen' IoT handwriting digitization thesis.",
                     "Mastered core fundamentals in C++, embedded systems, and circuitry.",
                     "Graduated with practical skills bridging IoT devices to web databases.",
                   ]}
@@ -2152,11 +2260,14 @@ const Projects = () => {
                 }
               `}
             >
-              {/* Background Image */}
-              <div className="absolute inset-0 z-0 bg-gray-900">
-                <img
-                  src={project.image}
-                  alt={project.title}
+              {/* Background Video Layer */}
+              <div className="absolute inset-0 z-0 bg-transparent">
+                <video
+                  src={project.video}
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
                   className={`w-full h-full object-cover transition-transform duration-[1200ms] ease-out ${
                     isActive
                       ? "scale-100"
@@ -2231,27 +2342,44 @@ const Projects = () => {
                     ))}
                   </div>
 
-                  {/* Action Buttons */}
-                  <div className="flex flex-row items-center gap-3">
-                    <a
-                      href={project.demoLink}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex-1 sm:flex-none flex items-center justify-center gap-2 px-5 py-3 md:px-6 md:py-3.5 bg-orange-500 hover:bg-orange-600 text-white text-[11px] md:text-sm font-bold rounded-xl transition-all shadow-[0_4px_15px_rgba(249,115,22,0.4)] hover:-translate-y-0.5 active:scale-95"
-                    >
-                      Live Demo
-                      <ExternalLinkIcon className="w-3.5 h-3.5 md:w-4 md:h-4" />
-                    </a>
+                  {/* --- UPDATED: Dynamic Action Buttons & Status Notes --- */}
+                  <div className="flex flex-wrap items-center gap-3">
+                    {/* Render Live Demo Button IF it exists */}
+                    {project.demoLink && (
+                      <a
+                        href={project.demoLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex-1 sm:flex-none flex items-center justify-center gap-2 px-5 py-3 md:px-6 md:py-3.5 bg-orange-500 hover:bg-orange-600 text-white text-[11px] md:text-sm font-bold rounded-xl transition-all shadow-[0_4px_15px_rgba(249,115,22,0.4)] hover:-translate-y-0.5 active:scale-95"
+                      >
+                        Live Demo
+                        <ExternalLinkIcon className="w-3.5 h-3.5 md:w-4 md:h-4" />
+                      </a>
+                    )}
 
-                    <a
-                      href={project.githubLink}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex-1 sm:flex-none flex items-center justify-center gap-2 px-5 py-3 md:px-6 md:py-3.5 bg-white/10 hover:bg-white/20 text-white border border-white/20 text-[11px] md:text-sm font-bold rounded-xl transition-all hover:-translate-y-0.5 active:scale-95"
-                    >
-                      <GithubIcon className="w-3.5 h-3.5 md:w-4 md:h-4" />
-                      Code
-                    </a>
+                    {/* Render Github Code Button IF it exists */}
+                    {project.githubLink && (
+                      <a
+                        href={project.githubLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex-1 sm:flex-none flex items-center justify-center gap-2 px-5 py-3 md:px-6 md:py-3.5 bg-white/10 hover:bg-white/20 text-white border border-white/20 text-[11px] md:text-sm font-bold rounded-xl transition-all hover:-translate-y-0.5 active:scale-95"
+                      >
+                        <GithubIcon className="w-3.5 h-3.5 md:w-4 md:h-4" />
+                        Code
+                      </a>
+                    )}
+
+                    {/* Render Status Note Badge IF a link is missing */}
+                    {(!project.demoLink || !project.githubLink) &&
+                      project.statusNote && (
+                        <div className="flex-1 min-w-[220px] flex items-center gap-2.5 px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-gray-300 text-[11px] md:text-xs font-medium backdrop-blur-md">
+                          <span className="w-2 h-2 rounded-full bg-orange-500 animate-pulse shrink-0"></span>
+                          <span className="leading-snug">
+                            {project.statusNote}
+                          </span>
+                        </div>
+                      )}
                   </div>
                 </div>
               </div>
@@ -2262,7 +2390,6 @@ const Projects = () => {
     </SectionWrapper>
   );
 };
-
 // --- INLINE ICONS ---
 const UserIcon = (props) => (
   <svg
@@ -2384,23 +2511,67 @@ const Contact = () => {
             <div className="flex items-center gap-3 sm:gap-4">
               {[
                 {
-                  Icon: Linkedin,
+                  id: "linkedin",
                   href: "https://www.linkedin.com/in/arvin-d-tenasas-1ba6082b8/",
+                  svg: (
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      className="w-4 h-4 sm:w-5 sm:h-5"
+                    >
+                      <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                      <rect x="2" y="9" width="4" height="12"></rect>
+                      <circle cx="4" cy="4" r="2"></circle>
+                    </svg>
+                  ),
                 },
-                { Icon: Github, href: "https://github.com/tenasasarvin" },
                 {
-                  Icon: Facebook,
-                  href: "https://www.facebook.com/share/19GxD5xYNq/",
+                  id: "github",
+                  href: "https://github.com/tenasasarvin",
+                  svg: (
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      className="w-4 h-4 sm:w-5 sm:h-5"
+                    >
+                      <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+                    </svg>
+                  ),
                 },
-              ].map((social, i) => (
+                {
+                  id: "facebook",
+                  href: "https://www.facebook.com/share/19GxD5xYNq/",
+                  svg: (
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      className="w-4 h-4 sm:w-5 sm:h-5"
+                    >
+                      <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+                    </svg>
+                  ),
+                },
+              ].map((social) => (
                 <a
-                  key={i}
+                  key={social.id}
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-10 h-10 rounded-full bg-gray-100 dark:bg-neutral-800 flex items-center justify-center text-gray-600 dark:text-gray-400 hover:bg-orange-500 hover:text-white transition-all transform hover:-translate-y-1"
                 >
-                  <social.Icon className="w-4 h-4 sm:w-5 sm:h-5" />
+                  {social.svg}
                 </a>
               ))}
             </div>
@@ -2473,25 +2644,273 @@ const Contact = () => {
                 type="submit"
                 className="w-full mt-2 flex items-center justify-center gap-2 px-6 py-3.5 sm:py-4 bg-orange-500 hover:bg-orange-600 text-white text-sm sm:text-base font-bold rounded-xl transition-all shadow-[0_0_20px_rgba(249,115,22,0.3)] active:scale-[0.98]"
               >
-                Send Message <Send className="w-4 h-4" />
+                Send Message
+                {/* Hard-coded Send Icon */}
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="w-4 h-4"
+                >
+                  <line x1="22" y1="2" x2="11" y2="13"></line>
+                  <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                </svg>
               </button>
             </form>
           </div>
         </div>
       </div>
-
-      {/* Footer detached from the card for a cleaner app layout */}
-      <footer className="mt-16 sm:mt-24 text-center text-gray-500 dark:text-gray-500 text-[10px] sm:text-xs font-mono px-4">
-        <p>
-          &copy; {new Date().getFullYear()} Arvin Tenasas. Designed & Built with
-          React.
-        </p>
-      </footer>
     </SectionWrapper>
   );
 };
-// --- APP ROOT ---
 
+const Footer = () => {
+  const currentYear = new Date().getFullYear();
+
+  const navLinks = [
+    { id: "home", label: "Home" },
+    { id: "about", label: "About Me" },
+    { id: "services", label: "My Services" },
+    { id: "projects", label: "My Projects" },
+    { id: "contact", label: "Contact Me" },
+  ];
+
+  const services = [
+    "Frontend Web Development",
+    "Full-Stack Architecture",
+    "Web & Mobile Apps",
+    "Hardware & IoT Solutions",
+  ];
+
+  const scrollToSection = (e, id) => {
+    e.preventDefault();
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
+  return (
+    <div className="w-full mt-24">
+      <footer className="bg-gradient-to-b from-white/80 to-gray-50/95 dark:from-neutral-900/80 dark:to-neutral-950/95 backdrop-blur-xl rounded-t-3xl sm:rounded-t-[2.5rem] border border-b-0 border-gray-200 dark:border-neutral-800 shadow-[0_-10px_40px_rgba(0,0,0,0.1)] overflow-hidden transition-colors duration-300">
+        <div className="max-w-6xl mx-auto p-8 sm:p-12 grid grid-cols-1 md:grid-cols-12 gap-10 lg:gap-16">
+          <div className="md:col-span-5 flex flex-col items-start">
+            <div className="flex items-center gap-3 mb-5">
+              <div className="w-32 sm:w-40 h-auto flex-shrink-0">
+                <img
+                  src="/logo-texts.png"
+                  alt="arvin.dev logo"
+                  className="w-full h-full object-contain"
+                />
+              </div>
+            </div>
+
+            <p className="text-gray-600 dark:text-gray-400 text-sm sm:text-base leading-relaxed mb-8 max-w-sm">
+              Engineering highly interactive, native-app-like web experiences
+              and robust full-stack solutions. Building the digital future, one
+              line of code at a time.
+            </p>
+
+            <div className="flex items-center gap-3">
+              <a
+                href="#"
+                aria-label="GitHub Profile"
+                className="p-2.5 rounded-full bg-gray-100 dark:bg-neutral-800 text-gray-600 dark:text-gray-400 hover:text-orange-500 hover:bg-orange-50 dark:hover:bg-orange-500/10 transition-all duration-300"
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="w-5 h-5"
+                >
+                  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+                </svg>
+              </a>
+              <a
+                href="#"
+                aria-label="LinkedIn Profile"
+                className="p-2.5 rounded-full bg-gray-100 dark:bg-neutral-800 text-gray-600 dark:text-gray-400 hover:text-orange-500 hover:bg-orange-50 dark:hover:bg-orange-500/10 transition-all duration-300"
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="w-5 h-5"
+                >
+                  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                  <rect x="2" y="9" width="4" height="12"></rect>
+                  <circle cx="4" cy="4" r="2"></circle>
+                </svg>
+              </a>
+              <a
+                href="mailto:arvintenasas29@gmail.com"
+                aria-label="Email Me"
+                className="p-2.5 rounded-full bg-gray-100 dark:bg-neutral-800 text-gray-600 dark:text-gray-400 hover:text-orange-500 hover:bg-orange-50 dark:hover:bg-orange-500/10 transition-all duration-300"
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="w-5 h-5"
+                >
+                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                  <polyline points="22,6 12,13 2,6"></polyline>
+                </svg>
+              </a>
+            </div>
+          </div>
+
+          <div className="md:col-span-3 flex flex-col">
+            <h3 className="text-gray-900 dark:text-white font-bold text-lg mb-6">
+              Navigation
+            </h3>
+            <nav
+              className="flex flex-col gap-3.5"
+              aria-label="Footer Navigation"
+            >
+              {navLinks.map((link) => (
+                <a
+                  key={link.id}
+                  href={`#${link.id}`}
+                  onClick={(e) => scrollToSection(e, link.id)}
+                  className="text-gray-500 dark:text-gray-400 hover:text-orange-500 dark:hover:text-orange-400 text-sm font-medium transition-colors w-fit flex items-center group"
+                >
+                  {link.label}
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="w-3 h-3 ml-1 opacity-0 -translate-y-1 translate-x-1 group-hover:opacity-100 group-hover:translate-y-0 group-hover:translate-x-0 transition-all duration-300"
+                  >
+                    <line x1="7" y1="17" x2="17" y2="7"></line>
+                    <polyline points="7 7 17 7 17 17"></polyline>
+                  </svg>
+                </a>
+              ))}
+            </nav>
+          </div>
+
+          <div className="md:col-span-4 flex flex-col">
+            <h3 className="text-gray-900 dark:text-white font-bold text-lg mb-6">
+              Capabilities
+            </h3>
+            <ul className="flex flex-col gap-3.5">
+              {services.map((service, index) => (
+                <li
+                  key={index}
+                  className="text-gray-500 dark:text-gray-400 text-sm font-medium flex items-center gap-2.5"
+                >
+                  <span className="w-1.5 h-1.5 rounded-full bg-orange-500/50"></span>
+                  {service}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+
+        {/* Bottom Tier */}
+        <div className="border-t border-gray-200/60 dark:border-neutral-800/60 bg-gray-50/30 dark:bg-black/10">
+          <div className="max-w-6xl mx-auto p-6 flex flex-col sm:flex-row justify-between items-center gap-4">
+            {/* The copyright text stays on the left */}
+            <p className="text-gray-500 dark:text-gray-400 text-xs sm:text-sm font-medium text-center sm:text-left">
+              &copy; {currentYear} Arvin Tenasas. All rights reserved.
+            </p>
+
+            {/* The new containerless compact counter on the right */}
+            {/* <CompactVisitorCounter /> */}
+          </div>
+        </div>
+      </footer>
+    </div>
+  );
+};
+
+const CompactVisitorCounter = () => {
+  // 🛑 PLACEHOLDER DATA:
+  // Because we don't have a backend returning JSON yet, these are static numbers.
+  const stats = {
+    today: 152,
+    total: "4,521",
+    trend: "24%",
+  };
+
+  return (
+    // Container-less, inline flex layout that perfectly matches the footer's natural text height
+    <div className="flex items-center gap-3 sm:gap-4 text-[11px] sm:text-xs font-medium text-gray-500 dark:text-gray-400">
+      {/* Today's Views - Featuring a live pulsing dot for a premium feel */}
+      <div className="flex items-center gap-2" title="Today's Views">
+        <span className="relative flex h-2 w-2">
+          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-orange-400 opacity-75"></span>
+          <span className="relative inline-flex rounded-full h-2 w-2 bg-orange-500"></span>
+        </span>
+        <span className="flex gap-1">
+          <strong className="text-gray-900 dark:text-gray-100">
+            {stats.today}
+          </strong>
+          <span>today</span>
+        </span>
+      </div>
+
+      {/* Subtle Vertical Divider */}
+      <div className="w-px h-3.5 bg-gray-300 dark:bg-neutral-700 rounded-full"></div>
+
+      {/* Total Views - With a subtle activity line icon */}
+      <div className="flex items-center gap-1.5" title="Total Views">
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          className="w-3.5 h-3.5 opacity-70"
+        >
+          <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+        </svg>
+        <span className="flex gap-1">
+          <strong className="text-gray-900 dark:text-gray-100">
+            {stats.total}
+          </strong>
+          <span>total</span>
+        </span>
+      </div>
+
+      {/* Micro Trend Badge */}
+      <div className="flex items-center text-green-600 dark:text-green-400 font-bold bg-green-50 dark:bg-green-500/10 px-1.5 py-0.5 rounded text-[10px]">
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          className="w-2.5 h-2.5 mr-0.5"
+        >
+          <line x1="12" y1="19" x2="12" y2="5"></line>
+          <polyline points="5 12 12 5 19 12"></polyline>
+        </svg>
+        +{stats.trend}
+      </div>
+    </div>
+  );
+};
+
+// --- APP ROOT ---
 const App = () => {
   const [activeSection, setActiveSection] = useState("home");
 
@@ -2535,6 +2954,8 @@ const App = () => {
           <Projects />
           <Contact />
         </main>
+        {/* ADDED FOOTER HERE SO IT ACTUALLY SHOWS UP */}
+        <Footer />
       </div>
     </ThemeProvider>
   );
