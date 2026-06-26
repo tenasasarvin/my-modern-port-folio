@@ -5,748 +5,52 @@ import React, {
   useContext,
   createContext,
 } from "react";
+import CompactVisitorCounter from "./api/CompactVisitorsCounter";
 
-// --- ICONS (Inline definitions to remove external dependencies) ---
-
-// --- Hardcoded SVG Icons ---
-const GithubIcon = ({ className }) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    className={className}
-  >
-    <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.02c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
-  </svg>
-);
-
-const LinkedinIcon = ({ className }) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    className={className}
-  >
-    <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
-    <rect width="4" height="12" x="2" y="9" />
-    <circle cx="4" cy="4" r="2" />
-  </svg>
-);
-
-const FacebookIcon = ({ className }) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    className={className}
-  >
-    <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
-  </svg>
-);
-
-const MailIcon = ({ className }) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    className={className}
-  >
-    <rect width="20" height="16" x="2" y="4" rx="2" />
-    <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
-  </svg>
-);
-
-const DownloadIcon = ({ className }) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    className={className}
-  >
-    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-    <polyline points="7 10 12 15 17 10" />
-    <line x1="12" x2="12" y1="15" y2="3" />
-  </svg>
-);
-
-const BriefcaseIcon = ({ className }) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    className={className}
-  >
-    <rect width="20" height="14" x="2" y="7" rx="2" ry="2" />
-    <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
-  </svg>
-);
-
-const Home = (props) => (
-  <svg
-    {...props}
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-  >
-    <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
-    <polyline points="9 22 9 12 15 12 15 22" />
-  </svg>
-);
-const User = (props) => (
-  <svg
-    {...props}
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-  >
-    <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
-    <circle cx="12" cy="7" r="4" />
-  </svg>
-);
-const Layers = (props) => (
-  <svg
-    {...props}
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-  >
-    <polygon points="12 2 2 7 12 12 22 7 12 2" />
-    <polyline points="2 17 12 22 22 17" />
-    <polyline points="2 12 12 17 22 12" />
-  </svg>
-);
-const Briefcase = (props) => (
-  <svg
-    {...props}
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-  >
-    <rect width="20" height="14" x="2" y="7" rx="2" ry="2" />
-    <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
-  </svg>
-);
-const Code = (props) => (
-  <svg
-    {...props}
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-  >
-    <polyline points="16 18 22 12 16 6" />
-    <polyline points="8 6 2 12 8 18" />
-  </svg>
-);
-const Mail = (props) => (
-  <svg
-    {...props}
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-  >
-    <rect width="20" height="16" x="2" y="4" rx="2" />
-    <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
-  </svg>
-);
-const Sun = (props) => (
-  <svg
-    {...props}
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-  >
-    <circle cx="12" cy="12" r="4" />
-    <path d="M12 2v2" />
-    <path d="M12 20v2" />
-    <path d="m4.93 4.93 1.41 1.41" />
-    <path d="m17.66 17.66 1.41 1.41" />
-    <path d="M2 12h2" />
-    <path d="M20 12h2" />
-    <path d="m6.34 17.66-1.41 1.41" />
-    <path d="m19.07 4.93-1.41 1.41" />
-  </svg>
-);
-const Moon = (props) => (
-  <svg
-    {...props}
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-  >
-    <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" />
-  </svg>
-);
-const Menu = (props) => (
-  <svg
-    {...props}
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-  >
-    <line x1="4" x2="20" y1="12" y2="12" />
-    <line x1="4" x2="20" y1="6" y2="6" />
-    <line x1="4" x2="20" y1="18" y2="18" />
-  </svg>
-);
-const X = (props) => (
-  <svg
-    {...props}
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-  >
-    <path d="M18 6 6 18" />
-    <path d="m6 6 12 12" />
-  </svg>
-);
-const ChevronRight = (props) => (
-  <svg
-    {...props}
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-  >
-    <path d="m9 18 6-6-6-6" />
-  </svg>
-);
-const Download = (props) => (
-  <svg
-    {...props}
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-  >
-    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-    <polyline points="7 10 12 15 17 10" />
-    <line x1="12" x2="12" y1="15" y2="3" />
-  </svg>
-);
-const Github = (props) => (
-  <svg
-    {...props}
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-  >
-    <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4" />
-    <path d="M9 18c-4.51 2-5-2-7-2" />
-  </svg>
-);
-const Linkedin = (props) => (
-  <svg
-    {...props}
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-  >
-    <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
-    <rect width="4" height="12" x="2" y="9" />
-    <circle cx="4" cy="4" r="2" />
-  </svg>
-);
-const Facebook = (props) => (
-  <svg
-    {...props}
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-  >
-    <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
-  </svg>
-);
-const GraduationCapIcon = ({ className }) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    className={className}
-  >
-    <path d="M21.42 10.922a2 2 0 0 0-.019-3.838L12.83 4.34a2 2 0 0 0-1.66 0L2.6 7.08a2 2 0 0 0 0 3.84l8.57 3.649c.533.227 1.137.227 1.67 0z" />
-    <path d="M22 10v6" />
-    <path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5" />
-  </svg>
-);
-const Wrench = (props) => (
-  <svg
-    {...props}
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-  >
-    <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" />
-  </svg>
-);
-const ExternalLink = (props) => (
-  <svg
-    {...props}
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-  >
-    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
-    <polyline points="15 3 21 3 21 9" />
-    <line x1="10" x2="21" y1="14" y2="3" />
-  </svg>
-);
-
-const Palette = (props) => (
-  <svg
-    {...props}
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-  >
-    <circle cx="13.5" cy="6.5" r=".5" />
-    <circle cx="17.5" cy="10.5" r=".5" />
-    <circle cx="8.5" cy="7.5" r=".5" />
-    <circle cx="6.5" cy="12.5" r=".5" />
-    <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z" />
-  </svg>
-);
-const Terminal = (props) => (
-  <svg
-    {...props}
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-  >
-    <polyline points="4 17 10 11 4 5" />
-    <line x1="12" x2="20" y1="19" y2="19" />
-  </svg>
-);
-const Atom = (props) => (
-  <svg
-    {...props}
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-  >
-    <circle cx="12" cy="12" r="1" />
-    <ellipse cx="12" cy="12" rx="11" ry="4" transform="rotate(45 12 12)" />
-    <ellipse cx="12" cy="12" rx="11" ry="4" transform="rotate(-45 12 12)" />
-  </svg>
-);
-const Wind = (props) => (
-  <svg
-    {...props}
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-  >
-    <path d="M17.7 7.7a2.5 2.5v 0 1 1 1.8 4.3H2" />
-    <path d="M9.6 4.6A2 2 0 1 1 11 8H2" />
-    <path d="M12.6 19.4A2 2 0 1 0 14 16H2" />
-  </svg>
-);
-const Server = (props) => (
-  <svg
-    {...props}
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-  >
-    <rect width="20" height="8" x="2" y="2" rx="2" ry="2" />
-    <rect width="20" height="8" x="2" y="14" rx="2" ry="2" />
-    <line x1="6" x2="6.01" y1="6" y2="6" />
-    <line x1="6" x2="6.01" y1="18" y2="18" />
-  </svg>
-);
-const Triangle = (props) => (
-  <svg
-    {...props}
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-  >
-    <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z" />
-  </svg>
-);
-const Database = (props) => (
-  <svg
-    {...props}
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-  >
-    <ellipse cx="12" cy="5" rx="9" ry="3" />
-    <path d="M3 5V19A9 3 0 0 0 21 19V5" />
-    <path d="M3 12A9 3 0 0 0 21 12" />
-  </svg>
-);
-const Cpu = (props) => (
-  <svg
-    {...props}
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-  >
-    <rect width="16" height="16" x="4" y="4" rx="2" />
-    <path d="M9 9h6v6H9z" />
-    <path d="M9 1v3" />
-    <path d="M15 1v3" />
-    <path d="M9 20v3" />
-    <path d="M15 20v3" />
-    <path d="M20 9h3" />
-    <path d="M20 14h3" />
-    <path d="M1 9h3" />
-    <path d="M1 14h3" />
-  </svg>
-);
-const Globe = (props) => (
-  <svg
-    {...props}
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-  >
-    <circle cx="12" cy="12" r="10" />
-    <line x1="2" x2="22" y1="12" y2="12" />
-    <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
-  </svg>
-);
-
-const Html5Icon = (props) => (
-  <svg {...props} viewBox="0 0 24 24" fill="currentColor">
-    <path d="M1.5 0h21l-1.91 21.56L11.977 24l-8.564-2.44L1.5 0zm7.031 9.75l-.232-2.718h10.059l.213-2.437H4.968l.875 9.911h8.77l-.232 2.65-2.404.665-2.386-.665-.152-1.748H6.96l.27 3.515 4.747 1.32 4.767-1.32.483-5.5h-8.7z" />
-  </svg>
-);
-const Css3Icon = (props) => (
-  <svg {...props} viewBox="0 0 24 24" fill="currentColor">
-    <path d="M1.5 0h21l-1.91 21.56L11.977 24l-8.564-2.44L1.5 0zm17.09 4.16l-.13-1.494H4.757l.154 1.75H18.59l-.234 2.51H5.1l.156 1.75h13.11l-.59 6.57-5.78 1.61-5.8-1.61-.39-4.28H4.2l.53 6.34 7.26 2.02 7.25-2.02 1.35-15.14z" />
-  </svg>
-);
-const JsIcon = (props) => (
-  <svg {...props} viewBox="0 0 24 24" fill="currentColor">
-    <path d="M0 0h24v24H0V0zm22.034 18.276c-.175-1.095-.888-2.015-3.003-2.873-.736-.345-1.554-.585-1.797-1.14-.091-.33-.105-.51-.046-.705.15-.646.915-.84 1.515-.81.39.015.75.09 1.066.21.36.135.63.345.855.615l2.25-1.605c-.66-1.185-1.71-2.085-3.045-2.475-1.185-.36-2.52-.36-3.69.075-1.395.495-2.355 1.44-2.805 2.805-.285.87-.27 1.83-.015 2.7.27.9.9 1.665 1.845 2.19.825.465 1.875.72 2.835.975.9.24 1.77.495 2.1.915.225.285.345.69.24 1.11-.12.48-.555.855-1.095.96-.54.105-1.155.075-1.635-.15-.465-.21-.855-.555-1.155-.945l-2.31 1.62c.705 1.155 1.845 2.055 3.195 2.415 1.17.33 2.505.285 3.66-.135 1.35-.48 2.295-1.38 2.76-2.715.345-1.005.345-2.085-.015-3.075zm-10.74-7.44c-.45-.225-1-.285-1.5-.24-.51.045-.96.225-1.32.51-.555.435-.915 1.05-1.035 1.755-.135.795.03 1.62.435 2.31.42.705 1.08 1.23 1.845 1.545l.9-4.32-.93 4.485c.18.06.36.12.54.18.915.24 1.86.3 2.79.135V10.836h-2.19v2.19c-.315-.42-.6-.87-.84-1.35-.18-.39-.33-.81-.405-1.245-.03-.18-.045-.36-.045-.555h-2.25c.015.3.06.6.12.885.06.33.165.645.285.96L11.294 10.836z" />
-  </svg>
-);
-const ReactIcon = (props) => (
-  <svg
-    {...props}
-    viewBox="-11.5 -10.232 23 20.463"
-    fill="none"
-    stroke="currentColor"
-  >
-    <circle cx="0" cy="0" r="2.05" fill="currentColor" stroke="none" />
-    <g strokeWidth="1">
-      <ellipse rx="11" ry="4.2" />
-      <ellipse rx="11" ry="4.2" transform="rotate(60)" />
-      <ellipse rx="11" ry="4.2" transform="rotate(120)" />
-    </g>
-  </svg>
-);
-const TailwindIcon = (props) => (
-  <svg {...props} viewBox="0 0 24 24" fill="currentColor">
-    <path d="M12.001 4.8c-3.2 0-5.2 1.6-6 4.8 1.2-1.6 2.6-2.2 4.2-1.8.913.228 1.565.89 2.288 1.624C13.666 10.618 15.027 12 18.001 12c3.2 0 5.2-1.6 6-4.8-1.2 1.6-2.6 2.2-4.2 1.8-.913-.228-1.565-.89-2.288-1.624C16.337 6.182 14.976 4.8 12.001 4.8zm-6 7.2c-3.2 0-5.2 1.6-6 4.8 1.2-1.6 2.6-2.2 4.2-1.8.913.228 1.565.89 2.288 1.624 1.177 1.194 2.538 2.576 5.512 2.576 3.2 0 5.2-1.6 6-4.8-1.2 1.6-2.6 2.2-4.2 1.8-.913-.228-1.565-.89-2.288-1.624C10.337 13.382 8.976 12 6.001 12z" />
-  </svg>
-);
-const NodeJsIcon = (props) => (
-  <svg
-    {...props}
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-  >
-    <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" />
-    <polyline points="3.27 6.96 12 12.01 20.73 6.96" />
-    <line x1="12" y1="22.08" x2="12" y2="12" />
-  </svg>
-);
-const NextJsIcon = (props) => (
-  <svg {...props} viewBox="0 0 24 24" fill="currentColor">
-    <path d="M12 22.75C6.063 22.75 1.25 17.937 1.25 12S6.063 1.25 12 1.25 22.75 6.063 22.75 12 17.937 22.75 12 22.75zm0-20C6.897 2.75 2.75 6.897 2.75 12s4.147 9.25 9.25 9.25 9.25-4.147 9.25-9.25S17.103 2.75 12 2.75zm5.022 13.905L9.61 7.42h-1.39v9.16h1.226v-6.94l6.812 8.441a7.712 7.712 0 0 1-4.258 1.419c-4.274 0-7.75-3.476-7.75-7.75s3.476-7.75 7.75-7.75 7.75 3.476 7.75 7.75a7.702 7.702 0 0 1-2.728 5.905z" />
-  </svg>
-);
-const CppIcon = (props) => (
-  <svg
-    {...props}
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-  >
-    <rect x="2" y="2" width="20" height="20" rx="4" />
-    <path d="M10 8H8a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h2" />
-    <line x1="14" y1="10" x2="14" y2="14" />
-    <line x1="12" y1="12" x2="16" y2="12" />
-    <line x1="19" y1="10" x2="19" y2="14" />
-    <line x1="17" y1="12" x2="21" y2="12" />
-  </svg>
-);
-const ViteIcon = (props) => (
-  <svg {...props} viewBox="0 0 256 256" fill="currentColor">
-    <path d="M246.47,44.75a13.33,13.33,0,0,0-15-4L128,84.08,24.5,40.73a13.33,13.33,0,0,0-17.75,17l89.65,183a13.33,13.33,0,0,0,24,0l126.85-183A13.33,13.33,0,0,0,246.47,44.75ZM134,220.89l-83-169.5,73,30.5Zm90-169.5-110,158.8V88.89l115-48Z" />
-  </svg>
-);
-const SupabaseIcon = (props) => (
-  <svg {...props} viewBox="0 0 24 24" fill="currentColor">
-    <path d="M21.362 9.354H12V.326a.31.31 0 0 0-.528-.22L.26 11.272a.31.31 0 0 0 .22.528h9.362v9.028a.31.31 0 0 0 .528.22l11.212-11.166a.31.31 0 0 0-.22-.528z" />
-  </svg>
-);
-const WordPressIcon = (props) => (
-  <svg {...props} viewBox="0 0 24 24" fill="currentColor">
-    <path d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm-1.03-4.526h.018l3.111-9.01h-2.126l-2.158 6.541-2.222-6.541H5.433l4.28 11.83a8.03 8.03 0 0 1-1.636-4.225l2.893-7.605-4.512 12.35A7.95 7.95 0 0 0 12 19.98c1.378 0 2.676-.35 3.823-.96l-4.853-13.546z" />
-  </svg>
-);
-
-const Lightbulb = (props) => (
-  <svg
-    {...props}
-    xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-  >
-    <path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1.3.5 2.6 1.5 3.5.8.8 1.3 1.5 1.5 2.5" />
-    <path d="M9 18h6" />
-    <path d="M10 22h4" />
-  </svg>
-);
-const ChevronLeft = (props) => (
-  <svg
-    {...props}
-    xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-  >
-    <path d="m15 18-6-6 6-6" />
-  </svg>
-);
-
-const MapPin = (props) => (
-  <svg
-    {...props}
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-  >
-    <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
-    <circle cx="12" cy="10" r="3" />
-  </svg>
-);
-
-const Send = (props) => (
-  <svg
-    {...props}
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-  >
-    <path d="m22 2-7 20-4-9-9-4Z" />
-    <path d="M22 2 11 13" />
-  </svg>
-);
+// --- CENTRALIZED ICONS ---
+import {
+  GithubIcon,
+  LinkedinIcon,
+  FacebookIcon,
+  MailIcon,
+  DownloadIcon,
+  BriefcaseIcon,
+  HomeIcon,
+  UserIcon,
+  LayersIcon,
+  CodeIcon,
+  SunIcon,
+  MoonIcon,
+  MenuIcon,
+  XIcon,
+  GraduationCapIcon,
+  WrenchIcon,
+  ExternalLinkIcon,
+  PaletteIcon,
+  TerminalIcon,
+  ServerIcon,
+  DatabaseIcon,
+  CpuIcon,
+  MapPinIcon,
+  SendIcon,
+  CalendarIcon,
+  ArrowRightIcon,
+  GalleryIcon,
+  PlayCircleIcon,
+  ArrowUpRightIcon,
+  Html5Icon,
+  Css3Icon,
+  JsIcon,
+  ReactIcon,
+  TailwindIcon,
+  NextJsIcon,
+  NodeJsIcon,
+  CppIcon,
+  ViteIcon,
+  SupabaseIcon,
+} from "./icons/all";
 
 // --- THEME CONTEXT ---
-
 const ThemeContext = createContext();
 
 const ThemeProvider = ({ children }) => {
@@ -795,11 +99,11 @@ const PROJECTS_DATA = [
     type: "personal",
     title: "Arvin Tenasas - Personal Portfolio",
     subtitle: "Interactive React Application",
-    category: "Frontend Web",
+    category: "Portfolio Site",
     role: "Sole Developer",
     description:
       "Designed and developed a highly interactive, native-app-like personal portfolio. Engineered with React, Tailwind CSS, and custom intersection observers for seamless scroll animations and responsive accordion galleries.",
-    tags: ["React", "Tailwind CSS", "Vite", "UI/UX"],
+    tags: ["React", "Tailwind CSS", "Vite", "Supabase", "API"],
     video: "/assets/portfolio-demo.mp4",
     demoLink: "https://arvintenasas-portfolio.vercel.app/",
     githubLink: "https://github.com/tenasasarvin/my-port-folio.git",
@@ -830,21 +134,26 @@ const PROJECTS_DATA = [
     category: "Full-Stack Web",
     role: "Lead Developer",
     description:
-      "Modernized a legacy WordPress architecture into a high-performance web application. Built a custom full-stack solution utilizing Node.js, Next.js, and a robust MySQL database to streamline corporate workflows. Due to strict NDA and company policy, source code and live access are restricted.",
-    tags: ["Next.js", "React.js", "Node.js", "MySQL"],
+      "Modernized a legacy WordPress architecture into a high-performance custom web application. Strategically deployed the modern Next.js replacement on Vercel while preserving the legacy site on the shared domain, ensuring seamless parallel operations. Due to strict company policy, source code access is restricted.",
+    tags: ["Next.js", "React.js", "Node.js", "MySQL", "API"],
     video: "/assets/lsi-demo.mp4",
-    demoLink: null, // Disabled due to NDA
-    githubLink: null, // Disabled due to NDA
+    // --- NEW: Multiple Demo Links ---
+    demoLink: "https://lsi-node-web.vercel.app/", // Put your Vercel Link here
+    demoLinkLabel: "Modern Site (Vercel)",
+    secondaryDemoLink: "https://lsi.com.ph/", // Put the Official old site link here
+    secondaryDemoLabel: "Official Site (Legacy)",
+    // --------------------------------
+    githubLink: null, // Disabled due to company policy
     status: "Confidential (NDA)",
     statusNote:
-      "Source code & live link are strictly confidential under company NDA.",
+      "Source code restricted under company policy. View live deployments.",
   },
   {
     id: 4,
     type: "personal",
     title: "SmartPen: IoT Fish Feeder",
     subtitle: "Remote Aquaculture Automation (Capstone)",
-    category: "Hardware & IoT",
+    category: "Software/Hardware & IoT",
     role: "Lead Engineer",
     description:
       "Developed a 3-tier remote offshore aquaculture capstone system. Bridged physical sensors and microcontrollers with a remote relay device to sync real-time automated feeding data to Firebase, accessible via a custom FlutterFlow app.",
@@ -919,79 +228,6 @@ const SectionHeader = ({ title, subtitle }) => (
   </div>
 );
 
-const IconSvg = ({ children, className = "" }) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    className={className}
-  >
-    {children}
-  </svg>
-);
-
-const Icons = {
-  Home: ({ className }) => (
-    <IconSvg className={className}>
-      <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
-      <polyline points="9 22 9 12 15 12 15 22" />
-    </IconSvg>
-  ),
-  User: ({ className }) => (
-    <IconSvg className={className}>
-      <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
-      <circle cx="12" cy="7" r="4" />
-    </IconSvg>
-  ),
-  Layers: ({ className }) => (
-    <IconSvg className={className}>
-      <polygon points="12 2 2 7 12 12 22 7 12 2" />
-      <polyline points="2 17 12 22 22 17" />
-      <polyline points="2 12 12 17 22 12" />
-    </IconSvg>
-  ),
-  Code: ({ className }) => (
-    <IconSvg className={className}>
-      <polyline points="16 18 22 12 16 6" />
-      <polyline points="8 6 2 12 8 18" />
-    </IconSvg>
-  ),
-  Mail: ({ className }) => (
-    <IconSvg className={className}>
-      <rect width="20" height="16" x="2" y="4" rx="2" />
-      <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
-    </IconSvg>
-  ),
-  Sun: ({ className }) => (
-    <IconSvg className={className}>
-      <circle cx="12" cy="12" r="4" />
-      <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" />
-    </IconSvg>
-  ),
-  Moon: ({ className }) => (
-    <IconSvg className={className}>
-      <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" />
-    </IconSvg>
-  ),
-  Menu: ({ className }) => (
-    <IconSvg className={className}>
-      <line x1="4" x2="20" y1="12" y2="12" />
-      <line x1="4" x2="20" y1="6" y2="6" />
-      <line x1="4" x2="20" y1="18" y2="18" />
-    </IconSvg>
-  ),
-  X: ({ className }) => (
-    <IconSvg className={className}>
-      <path d="M18 6 6 18" />
-      <path d="m6 6 12 12" />
-    </IconSvg>
-  ),
-};
-
 // ==========================================
 // 2. Navigation Component
 // ==========================================
@@ -1026,10 +262,10 @@ const Navigation = ({ activeSection }) => {
   }, []);
 
   const navLinks = [
-    // { id: "home", label: "Home", icon: Icons.Home },
-    { id: "about", label: "About Me", icon: Icons.User },
-    { id: "services", label: "My Services", icon: Icons.Layers },
-    { id: "projects", label: "My Projects", icon: Icons.Code },
+    // { id: "home", label: "Home", icon: HomeIcon },
+    { id: "about", label: "About Me", icon: UserIcon },
+    { id: "services", label: "My Services", icon: LayersIcon },
+    { id: "projects", label: "My Projects", icon: CodeIcon },
   ];
 
   const scrollToSection = (id) => {
@@ -1113,12 +349,12 @@ const Navigation = ({ activeSection }) => {
             >
               {theme === "dark" ? (
                 <>
-                  <Icons.Sun className="w-4 h-4 text-orange-400" />
+                  <SunIcon className="w-4 h-4 text-orange-400" />
                   <span>Light Theme</span>
                 </>
               ) : (
                 <>
-                  <Icons.Moon className="w-4 h-4" />
+                  <MoonIcon className="w-4 h-4" />
                   <span>Dark Theme</span>
                 </>
               )}
@@ -1133,9 +369,9 @@ const Navigation = ({ activeSection }) => {
               aria-label="Toggle Theme"
             >
               {theme === "dark" ? (
-                <Icons.Sun className="w-5 h-5" />
+                <SunIcon className="w-5 h-5" />
               ) : (
-                <Icons.Moon className="w-5 h-5" />
+                <MoonIcon className="w-5 h-5" />
               )}
             </button>
             <div className="w-px h-5 bg-gray-300 dark:bg-neutral-700 mx-1"></div>
@@ -1144,9 +380,9 @@ const Navigation = ({ activeSection }) => {
               className="p-2 text-gray-600 dark:text-gray-400 hover:text-orange-500 transition-colors focus:outline-none"
             >
               {isMobileMenuOpen ? (
-                <Icons.X className="w-5 h-5" />
+                <XIcon className="w-5 h-5" />
               ) : (
-                <Icons.Menu className="w-5 h-5" />
+                <MenuIcon className="w-5 h-5" />
               )}
             </button>
           </div>
@@ -1188,7 +424,7 @@ const Navigation = ({ activeSection }) => {
             onClick={() => scrollToSection("contact")}
             className="flex items-center gap-3 p-2.5 rounded-xl transition-colors text-left text-sm bg-orange-500/10 text-orange-600 dark:text-orange-400 font-medium hover:bg-orange-500/20"
           >
-            <Icons.Mail className="w-4 h-4" />
+            <MailIcon className="w-4 h-4" />
             <span>Contact Me</span>
           </button>
         </div>
@@ -1570,6 +806,9 @@ const Hero = () => {
 };
 
 const About = () => {
+  // --- State for Tab Navigation ---
+  const [activeTab, setActiveTab] = useState("summary");
+
   // Categorized technologies for a cleaner, more organized UI
   const techCategories = [
     {
@@ -1625,7 +864,7 @@ const About = () => {
         {
           name: "MySQL",
           color: "text-blue-500 dark:text-blue-400",
-          Icon: Database,
+          Icon: DatabaseIcon,
         },
       ],
     },
@@ -1640,21 +879,25 @@ const About = () => {
         {
           name: "ESP32 / Arduino",
           color: "text-emerald-600 dark:text-emerald-500",
-          Icon: Cpu,
+          Icon: CpuIcon,
         },
         {
           name: "IoT Systems",
           color: "text-gray-800 dark:text-gray-300",
-          Icon: Server,
+          Icon: ServerIcon,
         },
       ],
     },
     {
       title: "IT Support & Services",
       skills: [
-        { name: "Windows / MS Office", color: "text-blue-500", Icon: Wrench },
-        { name: "Hardware Repair", color: "text-orange-500", Icon: Layers },
-        { name: "Network Config", color: "text-green-500", Icon: Terminal },
+        {
+          name: "Windows / MS Office",
+          color: "text-blue-500",
+          Icon: WrenchIcon,
+        },
+        { name: "Hardware Repair", color: "text-orange-500", Icon: LayersIcon },
+        { name: "Network Config", color: "text-green-500", Icon: TerminalIcon },
       ],
     },
   ];
@@ -1727,209 +970,265 @@ const About = () => {
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeader title="My Background" subtitle="About & Experience" />
 
-        <div className="mt-12 md:mt-20 flex flex-col lg:flex-row gap-16 lg:gap-24">
-          {/* ========================================= */}
-          {/* LEFT COLUMN: Profile, Tech & Education    */}
-          {/* ========================================= */}
-          <div className="flex-1 lg:w-1/2 flex flex-col gap-16">
-            {/* 1. Summary Section */}
-            <div className="flex flex-col gap-6">
-              <div className="flex items-center gap-4 mb-2">
-                <h3 className="text-3xl md:text-4xl font-extrabold text-gray-900 dark:text-white tracking-tight">
-                  Who I <span className="text-orange-500">Am</span>
-                </h3>
-                <div className="h-[2px] flex-1 max-w-[12rem] bg-gradient-to-r from-orange-500/50 to-transparent dark:from-orange-500/30 rounded-full mt-1 sm:mt-2"></div>
+        {/* ========================================= */}
+        {/* TAB NAVIGATION BUTTONS                    */}
+        {/* ========================================= */}
+        <div className="flex justify-center mt-8 md:mt-12 mb-8 md:mb-16">
+          <div className="inline-flex p-1.5 bg-gray-100 dark:bg-neutral-900/50 backdrop-blur-sm border border-gray-200 dark:border-neutral-800 rounded-2xl">
+            <button
+              onClick={() => setActiveTab("summary")}
+              className={`px-6 sm:px-8 py-2.5 rounded-xl text-sm sm:text-base font-semibold transition-all duration-300 ${
+                activeTab === "summary"
+                  ? "bg-white dark:bg-neutral-800 text-orange-500 shadow-sm"
+                  : "text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
+              }`}
+            >
+              Professional Summary
+            </button>
+            <button
+              onClick={() => setActiveTab("media")}
+              className={`px-6 sm:px-8 py-2.5 rounded-xl text-sm sm:text-base font-semibold transition-all duration-300 ${
+                activeTab === "media"
+                  ? "bg-white dark:bg-neutral-900 text-orange-500 shadow-sm"
+                  : "text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
+              }`}
+            >
+              Gallery & Certifications
+            </button>
+          </div>
+        </div>
+
+        {/* ========================================= */}
+        {/* TAB CONTENT: PROFESSIONAL SUMMARY         */}
+        {/* ========================================= */}
+        {activeTab === "summary" && (
+          <div className="mt-8 md:mt-12 flex flex-col lg:flex-row gap-16 lg:gap-24 animate-fade-in">
+            {/* LEFT COLUMN: Profile, Tech & Education */}
+            <div className="flex-1 lg:w-1/2 flex flex-col gap-16">
+              {/* 1. Summary Section */}
+              <div className="flex flex-col gap-6">
+                <div className="flex items-center gap-4 mb-2">
+                  <h3 className="text-3xl md:text-4xl font-extrabold text-gray-900 dark:text-white tracking-tight">
+                    Who I <span className="text-orange-500">Am</span>
+                  </h3>
+                  <div className="h-[2px] flex-1 max-w-[12rem] bg-gradient-to-r from-orange-500/50 to-transparent dark:from-orange-500/30 rounded-full mt-1 sm:mt-2"></div>
+                </div>
+
+                {/* Connected Identity & Role Block */}
+                <div className="grid grid-cols-[auto_1fr] gap-x-6 gap-y-4 items-baseline pl-1 md:pl-2">
+                  <div className="text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-neutral-500">
+                    Name
+                  </div>
+                  <div className="text-xl md:text-2xl font-bold text-gray-900 dark:text-white">
+                    Arvin D. Tenasas
+                  </div>
+
+                  <div className="text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-neutral-500 mt-1">
+                    Role
+                  </div>
+                  <div className="flex flex-wrap items-center gap-x-2.5 gap-y-1.5 text-sm md:text-base font-medium text-gray-700 dark:text-gray-300">
+                    {[
+                      "Computer Engineer",
+                      "Software Developer",
+                      "IT Administrator",
+                      "Field Technician",
+                      "IT Support",
+                    ].map((role, i, arr) => (
+                      <React.Fragment key={i}>
+                        <span className="hover:text-orange-500 dark:hover:text-orange-400 transition-colors duration-300 cursor-default">
+                          {role}
+                        </span>
+                        {i < arr.length - 1 && (
+                          <span className="text-orange-500/40 dark:text-orange-500/30 font-light select-none">
+                            |
+                          </span>
+                        )}
+                      </React.Fragment>
+                    ))}
+                  </div>
+
+                  <div className="text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-neutral-500 mt-1">
+                    Base
+                  </div>
+                  <div className="text-sm md:text-base font-medium text-gray-700 dark:text-gray-300">
+                    Philippines
+                  </div>
+
+                  <div className="text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-neutral-500 mt-2">
+                    Bio
+                  </div>
+                  <p className="text-sm md:text-base text-gray-600 dark:text-gray-400 leading-relaxed max-w-2xl mt-1.5">
+                    Evolving with technology, building solutions, and enjoying
+                    life’s simple flavors.
+                  </p>
+                </div>
               </div>
 
-              {/* Connected Identity & Role Block */}
-              <div className="grid grid-cols-[auto_1fr] gap-x-6 gap-y-4 items-baseline pl-1 md:pl-2">
-                <div className="text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-neutral-500">
-                  Name
-                </div>
-                <div className="text-xl md:text-2xl font-bold text-gray-900 dark:text-white">
-                  Arvin D. Tenasas
-                </div>
+              {/* 2. Categorized Tech Arsenal */}
+              <div>
+                <h5 className="font-bold mb-8 text-sm md:text-base text-gray-900 dark:text-white uppercase tracking-widest flex items-center gap-3 border-b border-gray-200 dark:border-neutral-800 pb-4">
+                  <CodeIcon className="w-5 h-5 text-orange-500" /> Technical
+                  Arsenal
+                </h5>
 
-                <div className="text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-neutral-500 mt-1">
-                  Role
-                </div>
-                <div className="flex flex-wrap items-center gap-x-2.5 gap-y-1.5 text-sm md:text-base font-medium text-gray-700 dark:text-gray-300">
-                  {[
-                    "Computer Engineer",
-                    "Software Developer",
-                    "IT Administrator",
-                    "Field Technician",
-                    "IT Support",
-                  ].map((role, i, arr) => (
-                    <React.Fragment key={i}>
-                      <span className="hover:text-orange-500 dark:hover:text-orange-400 transition-colors duration-300 cursor-default">
-                        {role}
-                      </span>
-                      {i < arr.length - 1 && (
-                        <span className="text-orange-500/40 dark:text-orange-500/30 font-light select-none">
-                          |
-                        </span>
-                      )}
-                    </React.Fragment>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-10 items-start">
+                  {techCategories.map((category) => (
+                    <div key={category.title} className="flex flex-col gap-4">
+                      <h6 className="text-xs font-bold text-orange-500 dark:text-orange-400 uppercase tracking-widest">
+                        {category.title}
+                      </h6>
+                      <div className="flex flex-wrap gap-2.5">
+                        {category.skills.map((tech) => (
+                          <div
+                            key={tech.name}
+                            className="flex items-center gap-2 px-3 py-2 rounded-xl bg-gray-50/80 dark:bg-neutral-800/40 border border-gray-200/80 dark:border-neutral-700/50 backdrop-blur-sm shadow-sm hover:border-orange-500/50 hover:bg-orange-50/50 dark:hover:bg-orange-500/10 transition-all duration-300 group cursor-default"
+                          >
+                            <tech.Icon className="w-4 h-4 shrink-0 text-gray-500 dark:text-neutral-400 group-hover:text-orange-500 group-hover:scale-110 transition-all duration-300" />
+                            <span className="text-xs font-semibold text-gray-700 dark:text-gray-300 group-hover:text-orange-600 dark:group-hover:text-orange-400 transition-colors duration-300">
+                              {tech.name}
+                            </span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
                   ))}
                 </div>
-
-                <div className="text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-neutral-500 mt-1">
-                  Base
-                </div>
-                <div className="text-sm md:text-base font-medium text-gray-700 dark:text-gray-300">
-                  Philippines
-                </div>
-
-                <div className="text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-neutral-500 mt-2">
-                  Bio
-                </div>
-                <p className="text-sm md:text-base text-gray-600 dark:text-gray-400 leading-relaxed max-w-2xl mt-1.5">
-                  Evolving with technology, building solutions, and enjoying
-                  life’s simple flavors.
-                </p>
               </div>
-            </div>
 
-            {/* 2. Categorized Tech Arsenal */}
-            <div>
-              <h5 className="font-bold mb-8 text-sm md:text-base text-gray-900 dark:text-white uppercase tracking-widest flex items-center gap-3 border-b border-gray-200 dark:border-neutral-800 pb-4">
-                <Code className="w-5 h-5 text-orange-500" /> Technical Arsenal
-              </h5>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-10 items-start">
-                {techCategories.map((category) => (
-                  <div key={category.title} className="flex flex-col gap-4">
-                    <h6 className="text-xs font-bold text-orange-500 dark:text-orange-400 uppercase tracking-widest">
-                      {category.title}
-                    </h6>
-                    <div className="flex flex-wrap gap-2.5">
-                      {category.skills.map((tech) => (
-                        <div
-                          key={tech.name}
-                          className="flex items-center gap-2 px-3 py-2 rounded-xl bg-gray-50/80 dark:bg-neutral-800/40 border border-gray-200/80 dark:border-neutral-700/50 backdrop-blur-sm shadow-sm hover:border-orange-500/50 hover:bg-orange-50/50 dark:hover:bg-orange-500/10 transition-all duration-300 group cursor-default"
-                        >
-                          <tech.Icon className="w-4 h-4 shrink-0 text-gray-500 dark:text-neutral-400 group-hover:text-orange-500 group-hover:scale-110 transition-all duration-300" />
-                          <span className="text-xs font-semibold text-gray-700 dark:text-gray-300 group-hover:text-orange-600 dark:group-hover:text-orange-400 transition-colors duration-300">
-                            {tech.name}
-                          </span>
-                        </div>
-                      ))}
-                    </div>
+              {/* 3. Education Section */}
+              <div>
+                <div className="flex items-center gap-4 mb-10 mt-4">
+                  <div className="w-12 h-12 rounded-2xl bg-orange-500/10 text-orange-500 flex items-center justify-center shrink-0 shadow-inner">
+                    <GraduationCapIcon className="w-6 h-6" />
                   </div>
-                ))}
+                  <h4 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white">
+                    Education
+                  </h4>
+                </div>
+
+                <div>
+                  <TimelineItem
+                    isCurrent={false}
+                    date="June 2020 - June 2024"
+                    title="BS in Computer Engineering"
+                    company="Samar State University"
+                    desc="Developed a strong engineering mindset, merging low-level electronics with high-level software development."
+                    bullets={[
+                      "Co-lead Developer for the 'SmartPen' IoT handwriting digitization thesis.",
+                      "Mastered core fundamentals in C++, embedded systems, and circuitry.",
+                      "Graduated with practical skills bridging IoT devices to web databases.",
+                    ]}
+                  />
+                </div>
               </div>
             </div>
 
-            {/* 3. Education Section (Extracted properly to the bottom of the left column) */}
-            <div>
-              <div className="flex items-center gap-4 mb-10 mt-4">
+            {/* RIGHT COLUMN: Work Experience Timeline */}
+            <div className="flex-1 lg:w-1/2 lg:pl-16 lg:border-l border-gray-200 dark:border-neutral-800 pt-8 lg:pt-0">
+              <div className="flex items-center gap-4 mb-10">
                 <div className="w-12 h-12 rounded-2xl bg-orange-500/10 text-orange-500 flex items-center justify-center shrink-0 shadow-inner">
-                  <GraduationCapIcon className="w-6 h-6" />
+                  <BriefcaseIcon className="w-6 h-6" />
                 </div>
                 <h4 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white">
-                  Education
+                  Work Experience
                 </h4>
               </div>
 
-              <div>
+              <div className="mb-16">
+                <TimelineItem
+                  isCurrent={true}
+                  date="March 2025 - June 2026"
+                  title="Full-Stack Web Developer / Field Tech"
+                  company="LSI Leading Technologies Inc."
+                  desc="Developed modern web applications and executed UPS/Network infrastructure configuration."
+                  bullets={[
+                    "Developed modern web applications featuring API integration and database management.",
+                    "Performed system analysis, debugging, and software performance optimization.",
+                    "Executed UPS installation, configuration, and repair for in-house and field operations.",
+                    "Collaborated with cross-functional teams to deliver scalable software and hardware solutions.",
+                  ]}
+                />
+
                 <TimelineItem
                   isCurrent={false}
-                  date="June 2020 - June 2024"
-                  title="BS in Computer Engineering"
-                  company="Samar State University"
-                  desc="Developed a strong engineering mindset, merging low-level electronics with high-level software development."
+                  date="August 2024 - January 2025"
+                  title="IT Administrator"
+                  company="Great Odysseus Security Agency, Inc."
+                  desc="Managed network infrastructure, hardware maintenance, and technical liaison operations."
                   bullets={[
-                    "Co-lead Developer for the 'SmartPen' IoT handwriting digitization thesis.",
-                    "Mastered core fundamentals in C++, embedded systems, and circuitry.",
-                    "Graduated with practical skills bridging IoT devices to web databases.",
+                    "Managed network infrastructure and configured firewall policies to secure system access.",
+                    "Troubleshot and maintained office hardware, including desktop PCs, laptops, and printers.",
+                    "Served as the technical liaison with external developers to coordinate system requirements.",
+                    "Assisted with essential administrative operations, including processing checks and bank transfers.",
+                  ]}
+                />
+
+                <TimelineItem
+                  isCurrent={false}
+                  date="Feb 2024 - May 2024"
+                  title="Technical Support Intern"
+                  company="Bits N' Bytes Computer Shop"
+                  desc="Gained foundational hands-on experience in consumer electronics repair and system building."
+                  bullets={[
+                    "Diagnosed complex hardware and software issues for retail clients.",
+                    "Assembled and optimized custom PC builds tailored to user budgets.",
                   ]}
                 />
               </div>
             </div>
           </div>
+        )}
 
-          {/* ========================================= */}
-          {/* RIGHT COLUMN: Work Experience Timeline    */}
-          {/* ========================================= */}
-          <div className="flex-1 lg:w-1/2 lg:pl-16 lg:border-l border-gray-200 dark:border-neutral-800 pt-8 lg:pt-0">
-            {/* Work Experience Header */}
-            <div className="flex items-center gap-4 mb-10">
-              <div className="w-12 h-12 rounded-2xl bg-orange-500/10 text-orange-500 flex items-center justify-center shrink-0 shadow-inner">
-                <BriefcaseIcon className="w-6 h-6" />
+        {/* ========================================= */}
+        {/* TAB CONTENT: CERTIFICATIONS & MEDIA       */}
+        {/* ========================================= */}
+        {activeTab === "media" && (
+          <div className="mt-8 md:mt-12 animate-fade-in w-full flex items-center justify-center min-h-[50vh]">
+            <div className="relative w-full max-w-2xl mx-auto">
+              {/* Aesthetic Background Glow for the Coming Soon Box */}
+              <div className="absolute -inset-1 bg-gradient-to-r from-orange-500 to-amber-500 rounded-3xl blur opacity-20 dark:opacity-30"></div>
+
+              <div className="relative flex flex-col items-center justify-center p-12 md:p-20 text-center bg-white/80 dark:bg-neutral-900/80 backdrop-blur-xl border-2 border-dashed border-gray-200 dark:border-neutral-700 rounded-3xl">
+                {/* Custom SVG Icon Array Setup */}
+                <div className="relative flex items-center justify-center mb-8">
+                  <div className="absolute inset-0 bg-orange-500 blur-xl opacity-30 rounded-full animate-pulse"></div>
+                  <div className="w-20 h-20 bg-orange-100 dark:bg-orange-500/10 rounded-2xl flex items-center justify-center rotate-3 transition-transform hover:rotate-0 duration-300 shadow-xl border border-orange-200 dark:border-orange-500/20 z-10">
+                    <GalleryIcon className="w-10 h-10 text-orange-500" />
+                  </div>
+                </div>
+
+                {/* Aesthetic Typography */}
+                <h3 className="text-3xl md:text-4xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-gray-900 to-gray-600 dark:from-white dark:to-gray-400 mb-4">
+                  Curating the{" "}
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-amber-500">
+                    Gallery
+                  </span>
+                </h3>
+
+                <p className="text-base md:text-lg text-gray-500 dark:text-gray-400 max-w-lg mx-auto leading-relaxed">
+                  I'm currently compiling my professional certifications,
+                  hardware workspace photos, and video reels. The media gallery
+                  is being built and will be deployed in the next update. Stay
+                  tuned!
+                </p>
+
+                <div className="mt-8 inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gray-100 dark:bg-neutral-800 border border-gray-200 dark:border-neutral-700 text-sm font-medium text-gray-600 dark:text-gray-300">
+                  <div className="w-2 h-2 rounded-full bg-orange-500 animate-ping"></div>
+                  Under Construction
+                </div>
               </div>
-              <h4 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white">
-                Work Experience
-              </h4>
-            </div>
-
-            <div className="mb-16">
-              <TimelineItem
-                isCurrent={true}
-                date="March 2025 - June 2026"
-                title="Full-Stack Web Developer / Field Tech"
-                company="LSI Leading Technologies Inc."
-                desc="Developed modern web applications and executed UPS/Network infrastructure configuration."
-                bullets={[
-                  "Developed modern web applications featuring API integration and database management.",
-                  "Performed system analysis, debugging, and software performance optimization.",
-                  "Executed UPS installation, configuration, and repair for in-house and field operations.",
-                  "Collaborated with cross-functional teams to deliver scalable software and hardware solutions.",
-                ]}
-              />
-
-              <TimelineItem
-                isCurrent={false}
-                date="August 2024 - January 2025"
-                title="IT Administrator"
-                company="Great Odysseus Security Agency, Inc."
-                desc="Managed network infrastructure, hardware maintenance, and technical liaison operations."
-                bullets={[
-                  "Managed network infrastructure and configured firewall policies to secure system access.",
-                  "Troubleshot and maintained office hardware, including desktop PCs, laptops, and printers.",
-                  "Served as the technical liaison with external developers to coordinate system requirements.",
-                  "Assisted with essential administrative operations, including processing checks and bank transfers.",
-                ]}
-              />
-
-              <TimelineItem
-                isCurrent={false}
-                date="Feb 2024 - May 2024"
-                title="Technical Support Intern"
-                company="Bits N' Bytes Computer Shop"
-                desc="Gained foundational hands-on experience in consumer electronics repair and system building."
-                bullets={[
-                  "Diagnosed complex hardware and software issues for retail clients.",
-                  "Assembled and optimized custom PC builds tailored to user budgets.",
-                ]}
-              />
             </div>
           </div>
-        </div>
+        )}
       </div>
     </SectionWrapper>
   );
 };
 
-// --- INLINE CALENDAR ICON FOR THE DATES ---
-const CalendarIcon = (props) => (
-  <svg
-    {...props}
-    xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2.5"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-  >
-    <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
-    <line x1="16" y1="2" x2="16" y2="6" />
-    <line x1="8" y1="2" x2="8" y2="6" />
-    <line x1="3" y1="10" x2="21" y2="10" />
-  </svg>
-);
 const Services = () => {
+  // --- State for Tab Navigation ---
+  const [activeTab, setActiveTab] = useState("overview");
+
   const servicesData = [
     {
       id: "01",
@@ -1946,6 +1245,7 @@ const Services = () => {
         "UI/UX",
         "SEO",
         "Responsive",
+        "Portfolio Sites",
       ],
       ctaText: "Start Web Project",
     },
@@ -1997,188 +1297,173 @@ const Services = () => {
     >
       <SectionHeader title="My Expertise" subtitle="Services" />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-12 md:mt-16">
-        {/* Bento Box Grid Layout - Increased heights to prevent CTA clipping */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 auto-rows-[420px] sm:auto-rows-[460px] lg:auto-rows-[460px] gap-4 md:gap-6">
-          {servicesData.map((service) => {
-            const Icon = service.icon;
+      {/* ========================================= */}
+      {/* PREMIUM TAB NAVIGATION                      */}
+      {/* ========================================= */}
+      <div className="flex justify-center mt-8 md:mt-12 mb-8 md:mb-16">
+        <div className="inline-flex p-1.5 bg-gray-100 dark:bg-neutral-900/50 backdrop-blur-sm border border-gray-200 dark:border-neutral-800 rounded-2xl">
+          <button
+            onClick={() => setActiveTab("overview")}
+            className={`flex items-center justify-center gap-2 px-6 sm:px-8 py-2.5 rounded-xl text-sm sm:text-base font-semibold transition-all duration-300 ${
+              activeTab === "overview"
+                ? "bg-white dark:bg-neutral-800 text-orange-500 shadow-sm"
+                : "text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
+            }`}
+          >
+            Services Overview
+          </button>
 
-            return (
-              <div
-                key={service.id}
-                className={`relative group rounded-3xl overflow-hidden bg-gray-900 border border-gray-200 dark:border-neutral-800 shadow-lg hover:shadow-2xl transition-all duration-500 ${service.gridSpan}`}
-              >
-                {/* Base Background Image */}
-                <img
-                  src={service.image}
-                  alt={service.title}
-                  className="absolute inset-0 w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-[1000ms] ease-[cubic-bezier(0.25,1,0.5,1)] opacity-80"
-                />
+          <button
+            onClick={() => setActiveTab("demos")}
+            className={`flex items-center justify-center gap-2 px-6 sm:px-8 py-2.5 rounded-xl text-sm sm:text-base font-semibold transition-all duration-300 ${
+              activeTab === "demos"
+                ? "bg-white dark:bg-neutral-800 text-orange-500 shadow-sm"
+                : "text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
+            }`}
+          >
+            Demos & Details
+          </button>
+        </div>
+      </div>
 
-                {/* Intelligent Gradient Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent z-10 transition-colors duration-500 group-hover:from-black/95 group-hover:via-black/85 group-hover:to-black/70"></div>
+      {/* ========================================= */}
+      {/* TAB 1: SERVICES OVERVIEW (BENTO GRID)       */}
+      {/* ========================================= */}
+      {activeTab === "overview" && (
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 animate-fade-in">
+          {/* Bento Box Grid Layout */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 auto-rows-[420px] sm:auto-rows-[460px] lg:auto-rows-[460px] gap-4 md:gap-6">
+            {servicesData.map((service) => {
+              const Icon = service.icon;
 
-                {/* Content Container */}
-                <div className="absolute inset-0 z-20 flex flex-col p-6 md:p-8">
-                  {/* Top Bar: Number & Icon */}
-                  <div className="flex justify-between items-start">
-                    <span className="text-5xl md:text-6xl font-black text-white/40 drop-shadow-lg group-hover:text-orange-500 transition-colors duration-500 tracking-tighter">
-                      {service.id}
-                    </span>
-                    <div className="w-12 h-12 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-white group-hover:bg-orange-500 group-hover:text-white group-hover:border-orange-500 transition-all duration-300 shadow-xl">
-                      <Icon className="w-6 h-6" />
+              return (
+                <div
+                  key={service.id}
+                  className={`relative group rounded-3xl overflow-hidden bg-gray-900 border border-gray-200 dark:border-neutral-800 shadow-lg hover:shadow-2xl transition-all duration-500 ${service.gridSpan}`}
+                >
+                  {/* Base Background Image */}
+                  <img
+                    src={service.image}
+                    alt={service.title}
+                    className="absolute inset-0 w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-[1000ms] ease-[cubic-bezier(0.25,1,0.5,1)] opacity-80"
+                  />
+
+                  {/* Intelligent Gradient Overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent z-10 transition-colors duration-500 group-hover:from-black/95 group-hover:via-black/85 group-hover:to-black/70"></div>
+
+                  {/* Content Container */}
+                  <div className="absolute inset-0 z-20 flex flex-col p-6 md:p-8">
+                    {/* Top Bar: Number & Icon */}
+                    <div className="flex justify-between items-start">
+                      <span className="text-5xl md:text-6xl font-black text-white/40 drop-shadow-lg group-hover:text-orange-500 transition-colors duration-500 tracking-tighter">
+                        {service.id}
+                      </span>
+                      <div className="w-12 h-12 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-white group-hover:bg-orange-500 group-hover:text-white group-hover:border-orange-500 transition-all duration-300 shadow-xl">
+                        <Icon className="w-6 h-6" />
+                      </div>
                     </div>
-                  </div>
 
-                  {/* Bottom Bar: Title & Hover Expansion */}
-                  <div className="mt-auto">
-                    <h3 className="text-2xl md:text-3xl font-extrabold text-white tracking-tight drop-shadow-md transition-transform duration-300">
-                      {service.title}
-                    </h3>
+                    {/* Bottom Bar: Title & Hover Expansion */}
+                    <div className="mt-auto">
+                      <h3 className="text-2xl md:text-3xl font-extrabold text-white tracking-tight drop-shadow-md transition-transform duration-300">
+                        {service.title}
+                      </h3>
 
-                    {/* Smooth Expandable Section using CSS Grid Animation */}
-                    <div className="grid grid-rows-[0fr] group-hover:grid-rows-[1fr] transition-[grid-template-rows] duration-500 ease-[cubic-bezier(0.4,0,0.2,1)]">
-                      <div className="overflow-hidden">
-                        {/* Hidden Content Box - Tightened gaps so it fits perfectly */}
-                        <div className="flex flex-col gap-3 pt-3 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">
-                          <p className="text-sm text-gray-300 leading-relaxed">
-                            {service.desc}
-                          </p>
+                      {/* Smooth Expandable Section using CSS Grid Animation */}
+                      <div className="grid grid-rows-[0fr] group-hover:grid-rows-[1fr] transition-[grid-template-rows] duration-500 ease-[cubic-bezier(0.4,0,0.2,1)]">
+                        <div className="overflow-hidden">
+                          {/* Hidden Content Box */}
+                          <div className="flex flex-col gap-3 pt-3 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">
+                            <p className="text-sm text-gray-300 leading-relaxed">
+                              {service.desc}
+                            </p>
 
-                          {/* Tech / Feature Tags */}
-                          <div className="flex flex-wrap gap-2">
-                            {service.tags.map((tag, idx) => {
-                              const isHighlight = tag.includes("FREE");
-                              return (
-                                <span
-                                  key={idx}
-                                  // Slimmed down padding to prevent multi-line wrapping issues
-                                  className={`px-2.5 py-1 text-[11px] font-bold rounded-md border backdrop-blur-sm ${
-                                    isHighlight
-                                      ? "bg-orange-500/90 text-white border-orange-500 shadow-[0_0_10px_rgba(249,115,22,0.5)]"
-                                      : "bg-white/10 text-gray-200 border-white/20"
-                                  }`}
-                                >
-                                  {tag}
-                                </span>
-                              );
-                            })}
-                          </div>
+                            {/* Tech / Feature Tags */}
+                            <div className="flex flex-wrap gap-2">
+                              {service.tags.map((tag, idx) => {
+                                const isHighlight = tag.includes("FREE");
+                                return (
+                                  <span
+                                    key={idx}
+                                    className={`px-2.5 py-1 text-[11px] font-bold rounded-md border backdrop-blur-sm ${
+                                      isHighlight
+                                        ? "bg-orange-500/90 text-white border-orange-500 shadow-[0_0_10px_rgba(249,115,22,0.5)]"
+                                        : "bg-white/10 text-gray-200 border-white/20"
+                                    }`}
+                                  >
+                                    {tag}
+                                  </span>
+                                );
+                              })}
+                            </div>
 
-                          {/* Action Button */}
-                          <div className="pt-1">
-                            <a
-                              href="#contact"
-                              className="group/btn inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-white hover:bg-orange-500 text-black hover:text-white font-bold text-sm transition-all duration-300 active:scale-95 w-fit"
-                            >
-                              {service.ctaText}
-                              <ArrowRightIcon className="w-4 h-4 transition-transform duration-300 group-hover/btn:translate-x-1" />
-                            </a>
+                            {/* Action Button */}
+                            <div className="pt-1">
+                              <a
+                                href="#contact"
+                                className="group/btn inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-white hover:bg-orange-500 text-black hover:text-white font-bold text-sm transition-all duration-300 active:scale-95 w-fit"
+                              >
+                                {service.ctaText}
+                                <ArrowRightIcon className="w-4 h-4 transition-transform duration-300 group-hover/btn:translate-x-1" />
+                              </a>
+                            </div>
                           </div>
                         </div>
                       </div>
+                      {/* End Expandable Section */}
                     </div>
-                    {/* End Expandable Section */}
                   </div>
                 </div>
-              </div>
-            );
-          })}
+              );
+            })}
+          </div>
         </div>
-      </div>
+      )}
+
+      {/* ========================================= */}
+      {/* TAB 2: DEMOS & DETAILS (UNDER CONSTRUCTION) */}
+      {/* ========================================= */}
+      {activeTab === "demos" && (
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-4 md:mt-8 animate-fade-in w-full flex items-center justify-center min-h-[45vh]">
+          <div className="relative w-full max-w-2xl mx-auto">
+            {/* Aesthetic Background Glow */}
+            <div className="absolute -inset-1 bg-gradient-to-r from-orange-500 to-amber-500 rounded-3xl blur opacity-20 dark:opacity-30"></div>
+
+            <div className="relative flex flex-col items-center justify-center p-12 md:p-20 text-center bg-gray-50/80 dark:bg-[#0a0a0a]/80 backdrop-blur-xl border-2 border-dashed border-gray-200 dark:border-neutral-800 rounded-3xl">
+              {/* Play/Video Icon Setup */}
+              <div className="relative flex items-center justify-center mb-8">
+                <div className="absolute inset-0 bg-orange-500 blur-xl opacity-30 rounded-full animate-pulse"></div>
+                <div className="w-20 h-20 bg-orange-100 dark:bg-orange-500/10 rounded-2xl flex items-center justify-center rotate-3 transition-transform hover:rotate-0 duration-300 shadow-xl border border-orange-200 dark:border-orange-500/20 z-10">
+                  <PlayCircleIcon className="w-10 h-10 text-orange-500" />
+                </div>
+              </div>
+
+              {/* Aesthetic Typography */}
+              <h3 className="text-3xl md:text-4xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-gray-900 to-gray-600 dark:from-white dark:to-gray-400 mb-4">
+                Preparing{" "}
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-amber-500">
+                  Service Demos
+                </span>
+              </h3>
+
+              <p className="text-base md:text-lg text-gray-500 dark:text-gray-400 max-w-lg mx-auto leading-relaxed">
+                I'm currently compiling detailed case studies, pricing
+                structures, and live video demonstrations for each of my
+                services. This section is being built and will be deployed in an
+                upcoming update!
+              </p>
+
+              <div className="mt-8 inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gray-100 dark:bg-neutral-900 border border-gray-200 dark:border-neutral-800 text-sm font-medium text-gray-600 dark:text-gray-300">
+                <div className="w-2 h-2 rounded-full bg-orange-500 animate-ping"></div>
+                Development in Progress
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </SectionWrapper>
   );
 };
-
-// --- INLINE ICONS ---
-const ArrowRightIcon = (props) => (
-  <svg
-    {...props}
-    xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2.5"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-  >
-    <path d="M5 12h14M12 5l7 7-7 7" />
-  </svg>
-);
-
-const CodeIcon = (props) => (
-  <svg
-    {...props}
-    xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-  >
-    <polyline points="16 18 22 12 16 6" />
-    <polyline points="8 6 2 12 8 18" />
-  </svg>
-);
-
-const WrenchIcon = (props) => (
-  <svg
-    {...props}
-    xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-  >
-    <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" />
-  </svg>
-);
-
-const CpuIcon = (props) => (
-  <svg
-    {...props}
-    xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-  >
-    <rect width="16" height="16" x="4" y="4" rx="2" />
-    <path d="M9 9h6v6H9z" />
-    <path d="M9 1v3" />
-    <path d="M15 1v3" />
-    <path d="M9 20v3" />
-    <path d="M15 20v3" />
-    <path d="M20 9h3" />
-    <path d="M20 14h3" />
-    <path d="M1 9h3" />
-    <path d="M1 14h3" />
-  </svg>
-);
-
-const PaletteIcon = (props) => (
-  <svg
-    {...props}
-    xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-  >
-    <circle cx="13.5" cy="6.5" r=".5" fill="currentColor" />
-    <circle cx="17.5" cy="10.5" r=".5" fill="currentColor" />
-    <circle cx="8.5" cy="7.5" r=".5" fill="currentColor" />
-    <circle cx="6.5" cy="12.5" r=".5" fill="currentColor" />
-    <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z" />
-  </svg>
-);
 
 const Projects = () => {
   const [activeTab, setActiveTab] = useState("personal");
@@ -2211,14 +1496,14 @@ const Projects = () => {
       <SectionHeader title="Featured Works" subtitle="Projects" />
 
       {/* --- PREMIUM TAB NAVIGATION --- */}
-      <div className="flex justify-center mt-8 mb-10 md:mb-14 px-4">
-        <div className="inline-flex items-center p-1.5 bg-gray-100 dark:bg-[#111111] rounded-full border border-gray-200 dark:border-neutral-800 shadow-inner">
+      <div className="flex justify-center mt-8 md:mt-12 mb-8 md:mb-16">
+        <div className="inline-flex p-1.5 bg-gray-100 dark:bg-neutral-900/50 backdrop-blur-sm border border-gray-200 dark:border-neutral-800 rounded-2xl">
           <button
             onClick={() => handleTabSwitch("personal")}
-            className={`flex items-center gap-2 px-6 py-3 rounded-full text-sm md:text-base font-bold transition-all duration-300 ${
+            className={`flex items-center justify-center gap-2 px-6 sm:px-8 py-2.5 rounded-xl text-sm sm:text-base font-semibold transition-all duration-300 ${
               activeTab === "personal"
-                ? "bg-orange-500 text-white shadow-[0_4px_15px_rgba(249,115,22,0.4)]"
-                : "text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-200 dark:hover:bg-neutral-800"
+                ? "bg-white dark:bg-neutral-800 text-orange-500 shadow-sm"
+                : "text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
             }`}
           >
             <UserIcon className="w-4 h-4 md:w-5 md:h-5" />
@@ -2227,10 +1512,10 @@ const Projects = () => {
 
           <button
             onClick={() => handleTabSwitch("client")}
-            className={`flex items-center gap-2 px-6 py-3 rounded-full text-sm md:text-base font-bold transition-all duration-300 ${
+            className={`flex items-center justify-center gap-2 px-6 sm:px-8 py-2.5 rounded-xl text-sm sm:text-base font-semibold transition-all duration-300 ${
               activeTab === "client"
-                ? "bg-orange-500 text-white shadow-[0_4px_15px_rgba(249,115,22,0.4)]"
-                : "text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-200 dark:hover:bg-neutral-800"
+                ? "bg-white dark:bg-neutral-900 text-orange-500 shadow-sm"
+                : "text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
             }`}
           >
             <BriefcaseIcon className="w-4 h-4 md:w-5 md:h-5" />
@@ -2344,7 +1629,7 @@ const Projects = () => {
 
                   {/* --- UPDATED: Dynamic Action Buttons & Status Notes --- */}
                   <div className="flex flex-wrap items-center gap-3">
-                    {/* Render Live Demo Button IF it exists */}
+                    {/* Render Primary Live Demo Button (Vercel) */}
                     {project.demoLink && (
                       <a
                         href={project.demoLink}
@@ -2352,12 +1637,25 @@ const Projects = () => {
                         rel="noopener noreferrer"
                         className="flex-1 sm:flex-none flex items-center justify-center gap-2 px-5 py-3 md:px-6 md:py-3.5 bg-orange-500 hover:bg-orange-600 text-white text-[11px] md:text-sm font-bold rounded-xl transition-all shadow-[0_4px_15px_rgba(249,115,22,0.4)] hover:-translate-y-0.5 active:scale-95"
                       >
-                        Live Demo
+                        {project.demoLinkLabel || "Live Demo"}
                         <ExternalLinkIcon className="w-3.5 h-3.5 md:w-4 md:h-4" />
                       </a>
                     )}
 
-                    {/* Render Github Code Button IF it exists */}
+                    {/* NEW: Render Secondary Live Demo Button (Legacy / Official Site) */}
+                    {project.secondaryDemoLink && (
+                      <a
+                        href={project.secondaryDemoLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex-1 sm:flex-none flex items-center justify-center gap-2 px-5 py-3 md:px-6 md:py-3.5 bg-white/10 hover:bg-white/20 text-white border border-white/20 text-[11px] md:text-sm font-bold rounded-xl transition-all hover:-translate-y-0.5 active:scale-95"
+                      >
+                        {project.secondaryDemoLabel}
+                        <ExternalLinkIcon className="w-3.5 h-3.5 md:w-4 md:h-4" />
+                      </a>
+                    )}
+
+                    {/* Render Github Code Button */}
                     {project.githubLink && (
                       <a
                         href={project.githubLink}
@@ -2370,7 +1668,7 @@ const Projects = () => {
                       </a>
                     )}
 
-                    {/* Render Status Note Badge IF a link is missing */}
+                    {/* Render Status Note Badge if Code or Demo is restricted */}
                     {(!project.demoLink || !project.githubLink) &&
                       project.statusNote && (
                         <div className="flex-1 min-w-[220px] flex items-center gap-2.5 px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-gray-300 text-[11px] md:text-xs font-medium backdrop-blur-md">
@@ -2390,39 +1688,6 @@ const Projects = () => {
     </SectionWrapper>
   );
 };
-// --- INLINE ICONS ---
-const UserIcon = (props) => (
-  <svg
-    {...props}
-    xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-  >
-    <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
-    <circle cx="12" cy="7" r="4" />
-  </svg>
-);
-
-const ExternalLinkIcon = (props) => (
-  <svg
-    {...props}
-    xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2.5"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-  >
-    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
-    <polyline points="15 3 21 3 21 9" />
-    <line x1="10" y1="14" x2="21" y2="3" />
-  </svg>
-);
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -2479,7 +1744,7 @@ const Contact = () => {
                   className="flex items-center gap-4 p-3 sm:p-4 rounded-2xl bg-gray-50 dark:bg-neutral-800/50 border border-gray-100 dark:border-neutral-800 hover:border-orange-500/30 transition-colors group"
                 >
                   <div className="w-10 h-10 rounded-xl bg-orange-500/10 text-orange-500 flex items-center justify-center shrink-0 group-hover:bg-orange-500 group-hover:text-white transition-colors">
-                    <Mail className="w-5 h-5" />
+                    <MailIcon className="w-5 h-5" />
                   </div>
                   <div>
                     <p className="text-[10px] sm:text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-0.5">
@@ -2493,7 +1758,7 @@ const Contact = () => {
 
                 <div className="flex items-center gap-4 p-3 sm:p-4 rounded-2xl bg-gray-50 dark:bg-neutral-800/50 border border-gray-100 dark:border-neutral-800">
                   <div className="w-10 h-10 rounded-xl bg-blue-500/10 text-blue-500 flex items-center justify-center shrink-0">
-                    <MapPin className="w-5 h-5" />
+                    <MapPinIcon className="w-5 h-5" />
                   </div>
                   <div>
                     <p className="text-[10px] sm:text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-0.5">
@@ -2513,55 +1778,17 @@ const Contact = () => {
                 {
                   id: "linkedin",
                   href: "https://www.linkedin.com/in/arvin-d-tenasas-1ba6082b8/",
-                  svg: (
-                    <svg
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      className="w-4 h-4 sm:w-5 sm:h-5"
-                    >
-                      <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
-                      <rect x="2" y="9" width="4" height="12"></rect>
-                      <circle cx="4" cy="4" r="2"></circle>
-                    </svg>
-                  ),
+                  svg: <LinkedinIcon className="w-4 h-4 sm:w-5 sm:h-5" />,
                 },
                 {
                   id: "github",
                   href: "https://github.com/tenasasarvin",
-                  svg: (
-                    <svg
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      className="w-4 h-4 sm:w-5 sm:h-5"
-                    >
-                      <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
-                    </svg>
-                  ),
+                  svg: <GithubIcon className="w-4 h-4 sm:w-5 sm:h-5" />,
                 },
                 {
                   id: "facebook",
                   href: "https://www.facebook.com/share/19GxD5xYNq/",
-                  svg: (
-                    <svg
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      className="w-4 h-4 sm:w-5 sm:h-5"
-                    >
-                      <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
-                    </svg>
-                  ),
+                  svg: <FacebookIcon className="w-4 h-4 sm:w-5 sm:h-5" />,
                 },
               ].map((social) => (
                 <a
@@ -2597,7 +1824,7 @@ const Contact = () => {
                   value={formData.name}
                   onChange={handleChange}
                   required
-                  placeholder="John Doe"
+                  placeholder="Arvin Tenasas"
                   className="w-full px-4 py-3 sm:py-3.5 rounded-xl bg-white dark:bg-neutral-900 border border-gray-200 dark:border-neutral-700 text-sm text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-orange-500/50 transition-all placeholder:text-gray-400"
                 />
               </div>
@@ -2616,7 +1843,7 @@ const Contact = () => {
                   value={formData.email}
                   onChange={handleChange}
                   required
-                  placeholder="john@example.com"
+                  placeholder="arvin.tenasas@example.com"
                   className="w-full px-4 py-3 sm:py-3.5 rounded-xl bg-white dark:bg-neutral-900 border border-gray-200 dark:border-neutral-700 text-sm text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-orange-500/50 transition-all placeholder:text-gray-400"
                 />
               </div>
@@ -2645,19 +1872,7 @@ const Contact = () => {
                 className="w-full mt-2 flex items-center justify-center gap-2 px-6 py-3.5 sm:py-4 bg-orange-500 hover:bg-orange-600 text-white text-sm sm:text-base font-bold rounded-xl transition-all shadow-[0_0_20px_rgba(249,115,22,0.3)] active:scale-[0.98]"
               >
                 Send Message
-                {/* Hard-coded Send Icon */}
-                <svg
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="w-4 h-4"
-                >
-                  <line x1="22" y1="2" x2="11" y2="13"></line>
-                  <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
-                </svg>
+                <SendIcon className="w-4 h-4" />
               </button>
             </form>
           </div>
@@ -2679,10 +1894,12 @@ const Footer = () => {
   ];
 
   const services = [
-    "Frontend Web Development",
-    "Full-Stack Architecture",
-    "Web & Mobile Apps",
+    "Full-Stack Web Development & Architecture",
     "Hardware & IoT Solutions",
+    "API Development & Integration",
+    "Database Design & Management",
+    "Maintenance & Support",
+    "Multi Media & Interactive Experiences",
   ];
 
   const scrollToSection = (e, id) => {
@@ -2695,217 +1912,137 @@ const Footer = () => {
 
   return (
     <div className="w-full mt-24">
-      <footer className="bg-gradient-to-b from-white/80 to-gray-50/95 dark:from-neutral-900/80 dark:to-neutral-950/95 backdrop-blur-xl rounded-t-3xl sm:rounded-t-[2.5rem] border border-b-0 border-gray-200 dark:border-neutral-800 shadow-[0_-10px_40px_rgba(0,0,0,0.1)] overflow-hidden transition-colors duration-300">
-        <div className="max-w-6xl mx-auto p-8 sm:p-12 grid grid-cols-1 md:grid-cols-12 gap-10 lg:gap-16">
-          <div className="md:col-span-5 flex flex-col items-start">
-            <div className="flex items-center gap-3 mb-5">
-              <div className="w-32 sm:w-40 h-auto flex-shrink-0">
-                <img
-                  src="/logo-texts.png"
-                  alt="arvin.dev logo"
-                  className="w-full h-full object-contain"
-                />
+      {/* The main footer container must be relative and have overflow-hidden 
+        so the glowing background blobs don't stretch the page.
+      */}
+      <footer className="relative rounded-t-3xl sm:rounded-t-[2.5rem] border border-b-0 border-gray-200 dark:border-neutral-800 shadow-[0_-10px_40px_rgba(0,0,0,0.05)] overflow-hidden transition-colors duration-300">
+        {/* ========================================= */}
+        {/* ANIMATED GRADIENT BACKGROUND GLOWS        */}
+        {/* ========================================= */}
+        <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden flex items-center justify-center">
+          {/* Top Left Orange Glow */}
+          <div
+            className="absolute -top-[20%] left-[10%] w-[500px] h-[500px] bg-orange-500/30 dark:bg-orange-600/20 rounded-full blur-[120px] animate-pulse"
+            style={{ animationDuration: "4s" }}
+          ></div>
+
+          {/* Bottom Right Amber/Yellow Glow (Delayed for contrast) */}
+          <div
+            className="absolute -bottom-[20%] right-[10%] w-[600px] h-[600px] bg-amber-400/20 dark:bg-amber-600/10 rounded-full blur-[120px] animate-pulse"
+            style={{ animationDelay: "2s", animationDuration: "5s" }}
+          ></div>
+        </div>
+
+        {/* ========================================= */}
+        {/* FROSTED GLASS OVERLAY                     */}
+        {/* ========================================= */}
+        <div className="absolute inset-0 bg-gradient-to-b from-white/70 to-gray-50/90 dark:from-neutral-950/70 dark:to-[#050505]/95 backdrop-blur-2xl z-0"></div>
+
+        {/* ========================================= */}
+        {/* FOOTER CONTENT (Elevated above background)*/}
+        {/* ========================================= */}
+        <div className="relative z-10">
+          <div className="max-w-6xl mx-auto p-8 sm:p-12 grid grid-cols-1 md:grid-cols-12 gap-10 lg:gap-16">
+            {/* Left Column: Brand & Bio */}
+            <div className="md:col-span-5 flex flex-col items-start">
+              <div className="flex items-center gap-3 mb-5">
+                <div className="w-32 sm:w-40 h-auto flex-shrink-0">
+                  <img
+                    src="/logo-texts.png"
+                    alt="arvin.dev logo"
+                    className="w-full h-full object-contain drop-shadow-sm"
+                  />
+                </div>
+              </div>
+
+              <p className="text-gray-600 dark:text-gray-400 text-sm sm:text-base leading-relaxed mb-8 max-w-sm">
+                Engineering highly interactive, native-app-like web experiences
+                and robust full-stack solutions. Building the digital future,
+                one line of code at a time.
+              </p>
+
+              {/* Social Icons */}
+              <div className="flex items-center gap-3">
+                <a
+                  href="https://github.com/tenasasarvin"
+                  aria-label="GitHub Profile"
+                  className="p-2.5 rounded-full bg-white/50 dark:bg-neutral-900/50 border border-gray-200 dark:border-neutral-800 text-gray-600 dark:text-gray-400 hover:text-orange-500 hover:border-orange-500/50 hover:bg-orange-50 dark:hover:bg-orange-500/10 transition-all duration-300 shadow-sm hover:shadow-[0_0_15px_rgba(249,115,22,0.2)]"
+                >
+                  <GithubIcon className="w-5 h-5" />
+                </a>
+                <a
+                  href="https://www.linkedin.com/in/arvin-d-tenasas-1ba6082b8/"
+                  aria-label="LinkedIn Profile"
+                  className="p-2.5 rounded-full bg-white/50 dark:bg-neutral-900/50 border border-gray-200 dark:border-neutral-800 text-gray-600 dark:text-gray-400 hover:text-orange-500 hover:border-orange-500/50 hover:bg-orange-50 dark:hover:bg-orange-500/10 transition-all duration-300 shadow-sm hover:shadow-[0_0_15px_rgba(249,115,22,0.2)]"
+                >
+                  <LinkedinIcon className="w-5 h-5" />
+                </a>
+                <a
+                  href="mailto:arvintenasas29@gmail.com"
+                  aria-label="Email Me"
+                  className="p-2.5 rounded-full bg-white/50 dark:bg-neutral-900/50 border border-gray-200 dark:border-neutral-800 text-gray-600 dark:text-gray-400 hover:text-orange-500 hover:border-orange-500/50 hover:bg-orange-50 dark:hover:bg-orange-500/10 transition-all duration-300 shadow-sm hover:shadow-[0_0_15px_rgba(249,115,22,0.2)]"
+                >
+                  <MailIcon className="w-5 h-5" />
+                </a>
               </div>
             </div>
 
-            <p className="text-gray-600 dark:text-gray-400 text-sm sm:text-base leading-relaxed mb-8 max-w-sm">
-              Engineering highly interactive, native-app-like web experiences
-              and robust full-stack solutions. Building the digital future, one
-              line of code at a time.
-            </p>
+            {/* Middle Column: Navigation */}
+            <div className="md:col-span-3 flex flex-col">
+              <h3 className="text-gray-900 dark:text-white font-bold text-lg mb-6">
+                Navigation
+              </h3>
+              <nav
+                className="flex flex-col gap-3.5"
+                aria-label="Footer Navigation"
+              >
+                {navLinks.map((link) => (
+                  <a
+                    key={link.id}
+                    href={`#${link.id}`}
+                    onClick={(e) => scrollToSection(e, link.id)}
+                    className="text-gray-500 dark:text-gray-400 hover:text-orange-500 dark:hover:text-orange-400 text-sm font-medium transition-colors w-fit flex items-center group"
+                  >
+                    {link.label}
+                    <ArrowUpRightIcon className="w-3 h-3 ml-1 opacity-0 -translate-y-1 translate-x-1 group-hover:opacity-100 group-hover:translate-y-0 group-hover:translate-x-0 transition-all duration-300" />
+                  </a>
+                ))}
+              </nav>
+            </div>
 
-            <div className="flex items-center gap-3">
-              <a
-                href="#"
-                aria-label="GitHub Profile"
-                className="p-2.5 rounded-full bg-gray-100 dark:bg-neutral-800 text-gray-600 dark:text-gray-400 hover:text-orange-500 hover:bg-orange-50 dark:hover:bg-orange-500/10 transition-all duration-300"
-              >
-                <svg
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="w-5 h-5"
-                >
-                  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
-                </svg>
-              </a>
-              <a
-                href="#"
-                aria-label="LinkedIn Profile"
-                className="p-2.5 rounded-full bg-gray-100 dark:bg-neutral-800 text-gray-600 dark:text-gray-400 hover:text-orange-500 hover:bg-orange-50 dark:hover:bg-orange-500/10 transition-all duration-300"
-              >
-                <svg
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="w-5 h-5"
-                >
-                  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
-                  <rect x="2" y="9" width="4" height="12"></rect>
-                  <circle cx="4" cy="4" r="2"></circle>
-                </svg>
-              </a>
-              <a
-                href="mailto:arvintenasas29@gmail.com"
-                aria-label="Email Me"
-                className="p-2.5 rounded-full bg-gray-100 dark:bg-neutral-800 text-gray-600 dark:text-gray-400 hover:text-orange-500 hover:bg-orange-50 dark:hover:bg-orange-500/10 transition-all duration-300"
-              >
-                <svg
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="w-5 h-5"
-                >
-                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-                  <polyline points="22,6 12,13 2,6"></polyline>
-                </svg>
-              </a>
+            {/* Right Column: Capabilities */}
+            <div className="md:col-span-4 flex flex-col">
+              <h3 className="text-gray-900 dark:text-white font-bold text-lg mb-6">
+                Capabilities
+              </h3>
+              <ul className="flex flex-col gap-3.5">
+                {services.map((service, index) => (
+                  <li
+                    key={index}
+                    className="text-gray-500 dark:text-gray-400 text-sm font-medium flex items-center gap-2.5 group cursor-default"
+                  >
+                    <span className="w-1.5 h-1.5 rounded-full bg-orange-500/50 group-hover:bg-orange-500 group-hover:scale-150 transition-all duration-300"></span>
+                    <span className="group-hover:text-gray-800 dark:group-hover:text-gray-200 transition-colors duration-300">
+                      {service}
+                    </span>
+                  </li>
+                ))}
+              </ul>
             </div>
           </div>
 
-          <div className="md:col-span-3 flex flex-col">
-            <h3 className="text-gray-900 dark:text-white font-bold text-lg mb-6">
-              Navigation
-            </h3>
-            <nav
-              className="flex flex-col gap-3.5"
-              aria-label="Footer Navigation"
-            >
-              {navLinks.map((link) => (
-                <a
-                  key={link.id}
-                  href={`#${link.id}`}
-                  onClick={(e) => scrollToSection(e, link.id)}
-                  className="text-gray-500 dark:text-gray-400 hover:text-orange-500 dark:hover:text-orange-400 text-sm font-medium transition-colors w-fit flex items-center group"
-                >
-                  {link.label}
-                  <svg
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    className="w-3 h-3 ml-1 opacity-0 -translate-y-1 translate-x-1 group-hover:opacity-100 group-hover:translate-y-0 group-hover:translate-x-0 transition-all duration-300"
-                  >
-                    <line x1="7" y1="17" x2="17" y2="7"></line>
-                    <polyline points="7 7 17 7 17 17"></polyline>
-                  </svg>
-                </a>
-              ))}
-            </nav>
-          </div>
+          {/* Bottom Tier: Copyright & Counter */}
+          <div className="border-t border-gray-200/60 dark:border-neutral-800/60 bg-white/20 dark:bg-black/20 backdrop-blur-md">
+            <div className="max-w-6xl mx-auto p-6 flex flex-col sm:flex-row justify-between items-center gap-4">
+              <p className="text-gray-500 dark:text-gray-400 text-xs sm:text-sm font-medium text-center sm:text-left">
+                &copy; {currentYear} Arvin Tenasas. All rights reserved.
+              </p>
 
-          <div className="md:col-span-4 flex flex-col">
-            <h3 className="text-gray-900 dark:text-white font-bold text-lg mb-6">
-              Capabilities
-            </h3>
-            <ul className="flex flex-col gap-3.5">
-              {services.map((service, index) => (
-                <li
-                  key={index}
-                  className="text-gray-500 dark:text-gray-400 text-sm font-medium flex items-center gap-2.5"
-                >
-                  <span className="w-1.5 h-1.5 rounded-full bg-orange-500/50"></span>
-                  {service}
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-
-        {/* Bottom Tier */}
-        <div className="border-t border-gray-200/60 dark:border-neutral-800/60 bg-gray-50/30 dark:bg-black/10">
-          <div className="max-w-6xl mx-auto p-6 flex flex-col sm:flex-row justify-between items-center gap-4">
-            {/* The copyright text stays on the left */}
-            <p className="text-gray-500 dark:text-gray-400 text-xs sm:text-sm font-medium text-center sm:text-left">
-              &copy; {currentYear} Arvin Tenasas. All rights reserved.
-            </p>
-
-            {/* The new containerless compact counter on the right */}
-            {/* <CompactVisitorCounter /> */}
+              <CompactVisitorCounter />
+            </div>
           </div>
         </div>
       </footer>
-    </div>
-  );
-};
-
-const CompactVisitorCounter = () => {
-  // 🛑 PLACEHOLDER DATA:
-  // Because we don't have a backend returning JSON yet, these are static numbers.
-  const stats = {
-    today: 152,
-    total: "4,521",
-    trend: "24%",
-  };
-
-  return (
-    // Container-less, inline flex layout that perfectly matches the footer's natural text height
-    <div className="flex items-center gap-3 sm:gap-4 text-[11px] sm:text-xs font-medium text-gray-500 dark:text-gray-400">
-      {/* Today's Views - Featuring a live pulsing dot for a premium feel */}
-      <div className="flex items-center gap-2" title="Today's Views">
-        <span className="relative flex h-2 w-2">
-          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-orange-400 opacity-75"></span>
-          <span className="relative inline-flex rounded-full h-2 w-2 bg-orange-500"></span>
-        </span>
-        <span className="flex gap-1">
-          <strong className="text-gray-900 dark:text-gray-100">
-            {stats.today}
-          </strong>
-          <span>today</span>
-        </span>
-      </div>
-
-      {/* Subtle Vertical Divider */}
-      <div className="w-px h-3.5 bg-gray-300 dark:bg-neutral-700 rounded-full"></div>
-
-      {/* Total Views - With a subtle activity line icon */}
-      <div className="flex items-center gap-1.5" title="Total Views">
-        <svg
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          className="w-3.5 h-3.5 opacity-70"
-        >
-          <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
-        </svg>
-        <span className="flex gap-1">
-          <strong className="text-gray-900 dark:text-gray-100">
-            {stats.total}
-          </strong>
-          <span>total</span>
-        </span>
-      </div>
-
-      {/* Micro Trend Badge */}
-      <div className="flex items-center text-green-600 dark:text-green-400 font-bold bg-green-50 dark:bg-green-500/10 px-1.5 py-0.5 rounded text-[10px]">
-        <svg
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2.5"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          className="w-2.5 h-2.5 mr-0.5"
-        >
-          <line x1="12" y1="19" x2="12" y2="5"></line>
-          <polyline points="5 12 12 5 19 12"></polyline>
-        </svg>
-        +{stats.trend}
-      </div>
     </div>
   );
 };
@@ -2954,7 +2091,6 @@ const App = () => {
           <Projects />
           <Contact />
         </main>
-        {/* ADDED FOOTER HERE SO IT ACTUALLY SHOWS UP */}
         <Footer />
       </div>
     </ThemeProvider>
