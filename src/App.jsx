@@ -61,6 +61,11 @@ const ThemeProvider = ({ children }) => {
       theme === "dark"
         ? "dark bg-neutral-950 text-gray-100 selection:bg-orange-500/30"
         : "light bg-gray-50 text-gray-900 selection:bg-orange-500/30";
+
+    // Enforcing the font and line-height requirements from reference
+    document.body.style.fontFamily =
+      "'Inter', 'San Francisco', 'Roboto', sans-serif";
+    document.body.style.lineHeight = "1.6";
   }, [theme]);
 
   const toggleTheme = () => {
@@ -120,7 +125,7 @@ const PROJECTS_DATA = [
       "Engineered a comprehensive dual-portal management system. Developed dedicated, secure interfaces for both landlords and tenants to seamlessly handle property data, communication, and real-time operations.",
     tags: ["React Native", "Expo", "Supabase", "UI/UX"],
     video: "/assets/balay-demo.mp4",
-    demoLink: null, // Removed the live link since it's not deployed yet
+    demoLink: null,
     githubLink: "https://github.com/tenasasarvin/balay.git",
     status: "In Development",
     statusNote:
@@ -137,13 +142,11 @@ const PROJECTS_DATA = [
       "Modernized a legacy WordPress architecture into a high-performance custom web application. Strategically deployed the modern Next.js replacement on Vercel while preserving the legacy site on the shared domain, ensuring seamless parallel operations. Due to strict company policy, source code access is restricted.",
     tags: ["Next.js", "React.js", "Node.js", "MySQL", "API"],
     video: "/assets/lsi-demo.mp4",
-    // --- NEW: Multiple Demo Links ---
-    demoLink: "https://lsi-node-web.vercel.app/", // Put your Vercel Link here
+    demoLink: "https://lsi-node-web.vercel.app/",
     demoLinkLabel: "Modern Site (Vercel)",
-    secondaryDemoLink: "https://lsi.com.ph/", // Put the Official old site link here
+    secondaryDemoLink: "https://lsi.com.ph/",
     secondaryDemoLabel: "Official Site (Legacy)",
-    // --------------------------------
-    githubLink: null, // Disabled due to company policy
+    githubLink: null,
     status: "Confidential (NDA)",
     statusNote:
       "Source code restricted under company policy. View live deployments.",
@@ -159,8 +162,8 @@ const PROJECTS_DATA = [
       "Developed a 3-tier remote offshore aquaculture capstone system. Bridged physical sensors and microcontrollers with a remote relay device to sync real-time automated feeding data to Firebase, accessible via a custom FlutterFlow app.",
     tags: ["Microcontrollers", "FlutterFlow", "Firebase", "Sensors"],
     video: "/assets/smartpen-demo.mp4",
-    demoLink: null, // Academic hardware project
-    githubLink: null, // Academic hardware project
+    demoLink: null,
+    githubLink: null,
     status: "Academic Capstone",
     statusNote:
       "Proprietary hardware system. Showcased via video demonstration.",
@@ -168,7 +171,6 @@ const PROJECTS_DATA = [
 ];
 
 // --- ANIMATION HOOK ---
-
 const useScrollReveal = (ref) => {
   useEffect(() => {
     const target = ref.current;
@@ -207,7 +209,6 @@ const SectionWrapper = ({ id, children, className = "" }) => {
     <section
       id={id}
       ref={sectionRef}
-      // Scaled down vertical padding for mobile (py-16), standard for desktop (py-24)
       className={`py-16 md:py-24 px-4 md:px-6 min-h-screen flex items-center justify-center overflow-hidden ${className}`}
     >
       <div className="w-full max-w-6xl mx-auto">{children}</div>
@@ -216,7 +217,6 @@ const SectionWrapper = ({ id, children, className = "" }) => {
 };
 
 const SectionHeader = ({ title, subtitle }) => (
-  // Scaled down bottom margins and font sizes for smaller screens
   <div className="text-center mb-10 md:mb-16 reveal px-4">
     <h2 className="text-orange-500 font-bold tracking-[0.2em] text-[10px] md:text-xs lg:text-sm uppercase mb-2 md:mb-3">
       {subtitle}
@@ -236,7 +236,6 @@ const Navigation = ({ activeSection }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
 
-  // Replace this with however you actually manage theme state in your app
   const { theme, toggleTheme } = useTheme();
 
   useEffect(() => {
@@ -262,7 +261,6 @@ const Navigation = ({ activeSection }) => {
   }, []);
 
   const navLinks = [
-    // { id: "home", label: "Home", icon: HomeIcon },
     { id: "about", label: "About Me", icon: UserIcon },
     { id: "services", label: "My Services", icon: LayersIcon },
     { id: "projects", label: "My Projects", icon: CodeIcon },
@@ -291,7 +289,6 @@ const Navigation = ({ activeSection }) => {
       >
         {/* LEFT SIDE: Logo & Navigation Links */}
         <div className="flex items-center gap-6 md:gap-10">
-          {/* Logo */}
           <div
             className="cursor-pointer flex items-center justify-center shrink-0"
             onClick={() => scrollToSection("home")}
@@ -318,7 +315,7 @@ const Navigation = ({ activeSection }) => {
                     : "text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
                 }`}
               >
-                {link.label}
+                <span className="whitespace-nowrap">{link.label}</span>
                 <span
                   className={`absolute left-0 -bottom-1 h-0.5 w-full bg-orange-500 rounded-full transition-transform duration-300 origin-left ${
                     activeSection === link.id
@@ -332,57 +329,53 @@ const Navigation = ({ activeSection }) => {
         </div>
 
         {/* RIGHT SIDE: Expanded Theme Toggle, Contact Button & Mobile Menu */}
-        <div className="flex items-center gap-3 md:gap-4">
-          {/* Desktop Actions */}
+        <div className="flex items-center gap-3 md:gap-4 shrink-0">
           <div className="hidden md:flex items-center gap-3">
-            {/* Orange Contact Button */}
             <button
               onClick={() => scrollToSection("contact")}
-              className="px-5 py-2 text-sm font-medium text-white bg-orange-500 border border-transparent rounded-full shadow-sm hover:bg-orange-600 transition-all duration-200"
+              className="px-5 py-2 text-sm font-medium text-white bg-orange-500 border border-transparent rounded-full shadow-sm hover:bg-orange-600 transition-all duration-200 whitespace-nowrap shrink-0"
             >
               Contact Me
             </button>
-            {/* Expanded Dark/Light Theme Button */}
             <button
               onClick={toggleTheme}
-              className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-600 bg-gray-100/80 border border-transparent rounded-full hover:bg-gray-200 dark:text-gray-300 dark:bg-neutral-800/80 dark:hover:bg-neutral-700 transition-all duration-200"
+              className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-600 bg-gray-100/80 border border-transparent rounded-full hover:bg-gray-200 dark:text-gray-300 dark:bg-neutral-800/80 dark:hover:bg-neutral-700 transition-all duration-200 shrink-0"
             >
               {theme === "dark" ? (
                 <>
-                  <SunIcon className="w-4 h-4 text-orange-400" />
-                  <span>Light Theme</span>
+                  <SunIcon className="w-4 h-4 text-orange-400 shrink-0" />
+                  <span className="whitespace-nowrap">Light Theme</span>
                 </>
               ) : (
                 <>
-                  <MoonIcon className="w-4 h-4" />
-                  <span>Dark Theme</span>
+                  <MoonIcon className="w-4 h-4 shrink-0" />
+                  <span className="whitespace-nowrap">Dark Theme</span>
                 </>
               )}
             </button>
           </div>
 
-          {/* Mobile Menu & Small Theme Toggle */}
-          <div className="md:hidden flex items-center gap-1">
+          <div className="md:hidden flex items-center gap-1 shrink-0">
             <button
               onClick={toggleTheme}
-              className="p-2 rounded-full text-gray-600 dark:text-gray-400 hover:text-orange-500 transition-colors focus:outline-none"
+              className="p-2 rounded-full text-gray-600 dark:text-gray-400 hover:text-orange-500 transition-colors focus:outline-none shrink-0"
               aria-label="Toggle Theme"
             >
               {theme === "dark" ? (
-                <SunIcon className="w-5 h-5" />
+                <SunIcon className="w-5 h-5 shrink-0" />
               ) : (
-                <MoonIcon className="w-5 h-5" />
+                <MoonIcon className="w-5 h-5 shrink-0" />
               )}
             </button>
             <div className="w-px h-5 bg-gray-300 dark:bg-neutral-700 mx-1"></div>
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="p-2 text-gray-600 dark:text-gray-400 hover:text-orange-500 transition-colors focus:outline-none"
+              className="p-2 text-gray-600 dark:text-gray-400 hover:text-orange-500 transition-colors focus:outline-none shrink-0"
             >
               {isMobileMenuOpen ? (
-                <XIcon className="w-5 h-5" />
+                <XIcon className="w-5 h-5 shrink-0" />
               ) : (
-                <MenuIcon className="w-5 h-5" />
+                <MenuIcon className="w-5 h-5 shrink-0" />
               )}
             </button>
           </div>
@@ -406,11 +399,11 @@ const Navigation = ({ activeSection }) => {
                   }`}
               >
                 <IconComponent
-                  className={`w-4 h-4 ${
+                  className={`w-4 h-4 shrink-0 ${
                     activeSection === link.id ? "text-orange-500" : ""
                   }`}
                 />
-                <span>{link.label}</span>
+                <span className="whitespace-nowrap">{link.label}</span>
                 {activeSection === link.id && (
                   <span className="absolute left-0 top-0 bottom-0 w-1 bg-orange-500 rounded-r-full"></span>
                 )}
@@ -424,8 +417,8 @@ const Navigation = ({ activeSection }) => {
             onClick={() => scrollToSection("contact")}
             className="flex items-center gap-3 p-2.5 rounded-xl transition-colors text-left text-sm bg-orange-500/10 text-orange-600 dark:text-orange-400 font-medium hover:bg-orange-500/20"
           >
-            <MailIcon className="w-4 h-4" />
-            <span>Contact Me</span>
+            <MailIcon className="w-4 h-4 shrink-0" />
+            <span className="whitespace-nowrap">Contact Me</span>
           </button>
         </div>
       )}
@@ -440,7 +433,6 @@ const Hero = () => {
   const canvasRef = useRef(null);
   const { theme } = useTheme();
 
-  // --- Animation Hooks ---
   useEffect(() => {
     const currentTitle = HERO_TITLES[titleIndex].text;
     const typingSpeed = 100;
@@ -558,9 +550,6 @@ const Hero = () => {
     { Icon: MailIcon, href: "mailto:arvintenasas29@gmail.com", label: "Email" },
   ];
 
-  // --- UI Layout Pieces ---
-
-  // Main Text Header
   const headerContent = (
     <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-5xl xl:text-7xl font-extrabold tracking-tight leading-[1.15] md:leading-[1.1] transition-all text-center lg:text-left w-full px-2 lg:px-0">
       <span className="block xl:block text-transparent bg-clip-text bg-gradient-to-r from-gray-900 via-gray-600 to-gray-900 dark:from-white dark:via-gray-300 dark:to-white animate-gradient-text">
@@ -572,7 +561,6 @@ const Hero = () => {
     </h1>
   );
 
-  // Paragraph Summary
   const paragraphContent = (
     <p className="text-sm sm:text-base md:text-lg text-gray-700 dark:text-neutral-300 max-w-2xl xl:max-w-3xl mx-auto lg:mx-0 leading-relaxed text-center lg:text-justify transition-colors duration-300 px-2 lg:px-0">
       Computer Engineer skilled in full-stack web development, IoT solutions,
@@ -583,7 +571,6 @@ const Hero = () => {
     </p>
   );
 
-  // Action Buttons
   const buttonsContent = (
     <div className="flex flex-wrap items-center justify-center lg:justify-start gap-3 sm:gap-4 w-full">
       <button
@@ -592,7 +579,7 @@ const Hero = () => {
             .getElementById("projects")
             ?.scrollIntoView({ behavior: "smooth" })
         }
-        className="group relative px-5 py-2.5 sm:px-6 sm:py-3 rounded-xl bg-gradient-to-r from-orange-500 via-amber-500 to-orange-500 animate-gradient-bg text-white text-xs sm:text-sm xl:text-base font-semibold transition-all duration-300 hover:-translate-y-1 shadow-[0_0_15px_rgba(249,115,22,0.4)] hover:shadow-[0_0_25px_rgba(249,115,22,0.6)] active:scale-95 overflow-hidden flex items-center justify-center gap-2"
+        className="group relative px-5 py-2.5 sm:px-6 sm:py-3 rounded-xl bg-gradient-to-r from-orange-500 via-amber-500 to-orange-500 animate-gradient-bg text-white text-xs sm:text-sm xl:text-base font-semibold transition-all duration-300 hover:-translate-y-1 shadow-[0_0_15px_rgba(249,115,22,0.4)] hover:shadow-[0_0_25px_rgba(249,115,22,0.6)] active:scale-95 overflow-hidden flex items-center justify-center gap-2 shrink-0 whitespace-nowrap"
       >
         <BriefcaseIcon className="w-4 h-4 sm:w-5 sm:h-5 shrink-0 relative z-10" />
         <span className="relative z-10 whitespace-nowrap">View My Work</span>
@@ -601,16 +588,14 @@ const Hero = () => {
       <a
         href="/updated-resume-arvin.pdf"
         download
-        className="group px-4 py-2.5 sm:px-6 sm:py-3 rounded-xl bg-white dark:bg-neutral-800 border border-gray-200 dark:border-neutral-700 hover:bg-gray-50 dark:hover:bg-neutral-700 text-gray-900 dark:text-white text-xs sm:text-sm xl:text-base font-medium transition-all duration-300 hover:-translate-y-1 hover:shadow-lg active:scale-95 flex items-center justify-center gap-2 whitespace-nowrap"
+        className="group px-4 py-2.5 sm:px-6 sm:py-3 rounded-xl bg-white dark:bg-neutral-800 border border-gray-200 dark:border-neutral-700 hover:bg-gray-50 dark:hover:bg-neutral-700 text-gray-900 dark:text-white text-xs sm:text-sm xl:text-base font-medium transition-all duration-300 hover:-translate-y-1 hover:shadow-lg active:scale-95 flex items-center justify-center gap-2 shrink-0 whitespace-nowrap"
       >
         <DownloadIcon className="w-4 h-4 sm:w-5 sm:h-5 shrink-0 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:text-orange-500" />
-        Download CV
+        <span className="whitespace-nowrap">Download CV</span>
       </a>
     </div>
   );
 
-  // --- FIX APPLIED HERE: Corrected variables and added 'group' class ---
-  // Social Links (Continuous Floating + Premium Circular Backgrounds)
   const socialsContent = (
     <div className="flex items-center justify-center lg:justify-start gap-3 md:gap-4 transition-all w-full animate-float">
       {socialLinks.map(({ Icon: icon, href, label }) => (
@@ -619,24 +604,23 @@ const Hero = () => {
           href={href}
           target="_blank"
           rel="noopener noreferrer"
-          className="group flex items-center justify-center w-10 h-10 md:w-12 md:h-12 rounded-full bg-white dark:bg-neutral-800 border border-gray-200 dark:border-neutral-700 text-gray-500 dark:text-gray-400 hover:bg-orange-500 hover:text-white dark:hover:bg-orange-500 dark:hover:text-white hover:border-orange-500 transition-all duration-300 shadow-sm hover:shadow-[0_4px_15px_rgba(249,115,22,0.4)] hover:-translate-y-1 active:scale-95"
+          className="group flex items-center justify-center w-10 h-10 md:w-12 md:h-12 rounded-full bg-white dark:bg-neutral-800 border border-gray-200 dark:border-neutral-700 text-gray-500 dark:text-gray-400 hover:bg-orange-500 hover:text-white dark:hover:bg-orange-500 dark:hover:text-white hover:border-orange-500 transition-all duration-300 shadow-sm hover:shadow-[0_4px_15px_rgba(249,115,22,0.4)] hover:-translate-y-1 active:scale-95 shrink-0"
           aria-label={label}
         >
           {React.createElement(icon, {
             className:
-              "w-4 h-4 md:w-5 md:h-5 transition-transform duration-300 group-hover:scale-110",
+              "w-4 h-4 md:w-5 md:h-5 transition-transform duration-300 group-hover:scale-110 shrink-0",
           })}
         </a>
       ))}
     </div>
   );
 
-  // Unified Mobile Container
   const mobileCodeContainer = (
     <div className="relative w-full max-w-[95%] mx-auto lg:hidden flex flex-col items-center gap-2 bg-white/80 dark:bg-neutral-800/80 backdrop-blur-md border border-gray-200/60 dark:border-neutral-700/50 rounded-2xl p-4 pt-8 shadow-sm">
-      <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-white dark:bg-black border border-gray-200 dark:border-white/10 px-3 py-1 rounded-full flex items-center gap-1.5 shadow-md dark:shadow-lg whitespace-nowrap">
-        <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></span>
-        <span className="text-[10px] font-bold text-gray-800 dark:text-white tracking-wider">
+      <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-white dark:bg-black border border-gray-200 dark:border-white/10 px-3 py-1 rounded-full flex items-center gap-1.5 shadow-md dark:shadow-lg whitespace-nowrap shrink-0">
+        <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse shrink-0"></span>
+        <span className="text-[10px] font-bold text-gray-800 dark:text-white tracking-wider whitespace-nowrap">
           OPEN FOR WORK/FREELANCE
         </span>
       </div>
@@ -651,7 +635,7 @@ const Hero = () => {
         <span className="text-gray-500 dark:text-neutral-400 font-semibold">
           =
         </span>
-        <span className="text-orange-600 dark:text-orange-500 font-semibold text-center">
+        <span className="text-orange-600 dark:text-orange-500 font-semibold text-center whitespace-nowrap">
           "Hello World! I am Arvin"
         </span>
         <span className="text-gray-500 dark:text-neutral-400 font-semibold">
@@ -666,7 +650,6 @@ const Hero = () => {
     </div>
   );
 
-  // Desktop Profile Overlaid Display
   const profileDesktopContent = (
     <div className="relative group w-full max-w-[400px] xl:max-w-[440px] aspect-square rounded-3xl z-10 mx-auto lg:mx-0 cursor-pointer">
       <div className="absolute -inset-2 bg-gradient-to-r from-orange-500 via-purple-500 to-amber-500 rounded-3xl blur-lg opacity-30 group-hover:opacity-60 transition duration-700 group-hover:duration-200"></div>
@@ -679,9 +662,9 @@ const Hero = () => {
         />
 
         <div className="absolute top-4 left-4 z-20 pointer-events-none opacity-0 group-hover:opacity-100 transition-all duration-500 group-hover:-translate-y-1 translate-y-2 animate-float">
-          <div className="bg-white/95 dark:bg-black/80 backdrop-blur-md border border-gray-200 dark:border-white/10 px-3 py-1.5 rounded-full flex items-center gap-2 shadow-xl">
-            <span className="w-2 h-2 rounded-full bg-green-500 shadow-[0_0_8px_rgba(34,197,94,0.8)] animate-pulse"></span>
-            <span className="text-[10px] xl:text-xs font-bold text-gray-800 dark:text-white tracking-wide">
+          <div className="bg-white/95 dark:bg-black/80 backdrop-blur-md border border-gray-200 dark:border-white/10 px-3 py-1.5 rounded-full flex items-center gap-2 shadow-xl whitespace-nowrap">
+            <span className="w-2 h-2 rounded-full bg-green-500 shadow-[0_0_8px_rgba(34,197,94,0.8)] animate-pulse shrink-0"></span>
+            <span className="text-[10px] xl:text-xs font-bold text-gray-800 dark:text-white tracking-wide whitespace-nowrap">
               OPEN FOR WORK/FREELANCE
             </span>
           </div>
@@ -698,7 +681,7 @@ const Hero = () => {
             <span className="text-gray-500 dark:text-gray-300 font-bold">
               =
             </span>
-            <span className="text-orange-600 dark:text-orange-400 font-bold">
+            <span className="text-orange-600 dark:text-orange-400 font-bold whitespace-nowrap">
               "Hello World! I am Arvin"
             </span>
             <span className="text-gray-500 dark:text-gray-300 font-bold">
@@ -747,6 +730,9 @@ const Hero = () => {
         .animate-float {
           animation: float 4s ease-in-out infinite;
         }
+        /* Mobile Tab Bar hidden horizontal scrollbar class */
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
       `}</style>
 
       <canvas
@@ -806,10 +792,8 @@ const Hero = () => {
 };
 
 const About = () => {
-  // --- State for Tab Navigation ---
   const [activeTab, setActiveTab] = useState("summary");
 
-  // Categorized technologies for a cleaner, more organized UI
   const techCategories = [
     {
       title: "Frontend & Design",
@@ -902,10 +886,8 @@ const About = () => {
     },
   ];
 
-  // Reusable premium timeline component
   const TimelineItem = ({ date, title, company, desc, bullets, isCurrent }) => (
     <div className="relative pl-8 md:pl-10 pb-12 border-l-2 border-gray-200 dark:border-neutral-800 last:border-0 last:pb-0 group">
-      {/* Timeline Dot with Pulse Effect for Current Role */}
       <div
         className={`absolute -left-[11px] top-1.5 w-5 h-5 rounded-full border-4 border-white dark:border-neutral-950 z-10 transition-colors duration-300 ${
           isCurrent
@@ -914,7 +896,6 @@ const About = () => {
         }`}
       ></div>
 
-      {/* Content */}
       <div className="flex flex-col gap-1.5 mb-3">
         <h4 className="text-lg md:text-xl font-bold text-gray-900 dark:text-white leading-tight">
           {title}
@@ -926,7 +907,6 @@ const About = () => {
           <span className="hidden sm:block text-gray-300 dark:text-neutral-600">
             •
           </span>
-          {/* Integrated Calendar Icon Here */}
           <span className="flex items-center gap-1.5 text-xs md:text-sm font-mono font-medium text-gray-500 dark:text-gray-400 bg-gray-100 dark:bg-neutral-900/80 px-3 py-1 rounded-md w-fit border border-gray-200 dark:border-neutral-800">
             <CalendarIcon className="w-3.5 h-3.5 shrink-0" />
             {date}
@@ -961,7 +941,6 @@ const About = () => {
       id="about"
       className="relative bg-gray-50 dark:bg-neutral-950 overflow-hidden"
     >
-      {/* Section-Wide Background Glows */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
         <div className="absolute top-[-10%] left-[-5%] w-[500px] h-[500px] bg-orange-500/10 dark:bg-orange-500/5 rounded-full blur-[120px]"></div>
         <div className="absolute bottom-[-10%] right-[-5%] w-[500px] h-[500px] bg-blue-500/10 dark:bg-blue-500/5 rounded-full blur-[120px]"></div>
@@ -973,11 +952,11 @@ const About = () => {
         {/* ========================================= */}
         {/* TAB NAVIGATION BUTTONS                    */}
         {/* ========================================= */}
-        <div className="flex justify-center mt-8 md:mt-12 mb-8 md:mb-16">
-          <div className="inline-flex p-1.5 bg-gray-100 dark:bg-neutral-900/50 backdrop-blur-sm border border-gray-200 dark:border-neutral-800 rounded-2xl">
+        <div className="flex justify-center mt-8 md:mt-12 mb-8 md:mb-16 w-full px-2">
+          <div className="inline-flex p-1.5 bg-gray-100 dark:bg-neutral-900/50 backdrop-blur-sm border border-gray-200 dark:border-neutral-800 rounded-2xl overflow-x-auto hide-scrollbar max-w-full">
             <button
               onClick={() => setActiveTab("summary")}
-              className={`px-6 sm:px-8 py-2.5 rounded-xl text-sm sm:text-base font-semibold transition-all duration-300 ${
+              className={`px-6 sm:px-8 py-2.5 rounded-xl text-sm sm:text-base font-semibold transition-all duration-300 whitespace-nowrap shrink-0 ${
                 activeTab === "summary"
                   ? "bg-white dark:bg-neutral-800 text-orange-500 shadow-sm"
                   : "text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
@@ -987,7 +966,7 @@ const About = () => {
             </button>
             <button
               onClick={() => setActiveTab("media")}
-              className={`px-6 sm:px-8 py-2.5 rounded-xl text-sm sm:text-base font-semibold transition-all duration-300 ${
+              className={`px-6 sm:px-8 py-2.5 rounded-xl text-sm sm:text-base font-semibold transition-all duration-300 whitespace-nowrap shrink-0 ${
                 activeTab === "media"
                   ? "bg-white dark:bg-neutral-900 text-orange-500 shadow-sm"
                   : "text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
@@ -998,14 +977,9 @@ const About = () => {
           </div>
         </div>
 
-        {/* ========================================= */}
-        {/* TAB CONTENT: PROFESSIONAL SUMMARY         */}
-        {/* ========================================= */}
         {activeTab === "summary" && (
           <div className="mt-8 md:mt-12 flex flex-col lg:flex-row gap-16 lg:gap-24 animate-fade-in">
-            {/* LEFT COLUMN: Profile, Tech & Education */}
             <div className="flex-1 lg:w-1/2 flex flex-col gap-16">
-              {/* 1. Summary Section */}
               <div className="flex flex-col gap-6">
                 <div className="flex items-center gap-4 mb-2">
                   <h3 className="text-3xl md:text-4xl font-extrabold text-gray-900 dark:text-white tracking-tight">
@@ -1014,7 +988,6 @@ const About = () => {
                   <div className="h-[2px] flex-1 max-w-[12rem] bg-gradient-to-r from-orange-500/50 to-transparent dark:from-orange-500/30 rounded-full mt-1 sm:mt-2"></div>
                 </div>
 
-                {/* Connected Identity & Role Block */}
                 <div className="grid grid-cols-[auto_1fr] gap-x-6 gap-y-4 items-baseline pl-1 md:pl-2">
                   <div className="text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-neutral-500">
                     Name
@@ -1064,11 +1037,10 @@ const About = () => {
                 </div>
               </div>
 
-              {/* 2. Categorized Tech Arsenal */}
               <div>
                 <h5 className="font-bold mb-8 text-sm md:text-base text-gray-900 dark:text-white uppercase tracking-widest flex items-center gap-3 border-b border-gray-200 dark:border-neutral-800 pb-4">
-                  <CodeIcon className="w-5 h-5 text-orange-500" /> Technical
-                  Arsenal
+                  <CodeIcon className="w-5 h-5 text-orange-500 shrink-0" />{" "}
+                  Technical Arsenal
                 </h5>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-10 items-start">
@@ -1084,7 +1056,7 @@ const About = () => {
                             className="flex items-center gap-2 px-3 py-2 rounded-xl bg-gray-50/80 dark:bg-neutral-800/40 border border-gray-200/80 dark:border-neutral-700/50 backdrop-blur-sm shadow-sm hover:border-orange-500/50 hover:bg-orange-50/50 dark:hover:bg-orange-500/10 transition-all duration-300 group cursor-default"
                           >
                             <tech.Icon className="w-4 h-4 shrink-0 text-gray-500 dark:text-neutral-400 group-hover:text-orange-500 group-hover:scale-110 transition-all duration-300" />
-                            <span className="text-xs font-semibold text-gray-700 dark:text-gray-300 group-hover:text-orange-600 dark:group-hover:text-orange-400 transition-colors duration-300">
+                            <span className="text-xs font-semibold text-gray-700 dark:text-gray-300 group-hover:text-orange-600 dark:group-hover:text-orange-400 transition-colors duration-300 whitespace-nowrap">
                               {tech.name}
                             </span>
                           </div>
@@ -1095,11 +1067,10 @@ const About = () => {
                 </div>
               </div>
 
-              {/* 3. Education Section */}
               <div>
                 <div className="flex items-center gap-4 mb-10 mt-4">
                   <div className="w-12 h-12 rounded-2xl bg-orange-500/10 text-orange-500 flex items-center justify-center shrink-0 shadow-inner">
-                    <GraduationCapIcon className="w-6 h-6" />
+                    <GraduationCapIcon className="w-6 h-6 shrink-0" />
                   </div>
                   <h4 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white">
                     Education
@@ -1123,11 +1094,10 @@ const About = () => {
               </div>
             </div>
 
-            {/* RIGHT COLUMN: Work Experience Timeline */}
             <div className="flex-1 lg:w-1/2 lg:pl-16 lg:border-l border-gray-200 dark:border-neutral-800 pt-8 lg:pt-0">
               <div className="flex items-center gap-4 mb-10">
                 <div className="w-12 h-12 rounded-2xl bg-orange-500/10 text-orange-500 flex items-center justify-center shrink-0 shadow-inner">
-                  <BriefcaseIcon className="w-6 h-6" />
+                  <BriefcaseIcon className="w-6 h-6 shrink-0" />
                 </div>
                 <h4 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white">
                   Work Experience
@@ -1179,25 +1149,19 @@ const About = () => {
           </div>
         )}
 
-        {/* ========================================= */}
-        {/* TAB CONTENT: CERTIFICATIONS & MEDIA       */}
-        {/* ========================================= */}
         {activeTab === "media" && (
           <div className="mt-8 md:mt-12 animate-fade-in w-full flex items-center justify-center min-h-[50vh]">
             <div className="relative w-full max-w-2xl mx-auto">
-              {/* Aesthetic Background Glow for the Coming Soon Box */}
               <div className="absolute -inset-1 bg-gradient-to-r from-orange-500 to-amber-500 rounded-3xl blur opacity-20 dark:opacity-30"></div>
 
               <div className="relative flex flex-col items-center justify-center p-12 md:p-20 text-center bg-white/80 dark:bg-neutral-900/80 backdrop-blur-xl border-2 border-dashed border-gray-200 dark:border-neutral-700 rounded-3xl">
-                {/* Custom SVG Icon Array Setup */}
                 <div className="relative flex items-center justify-center mb-8">
                   <div className="absolute inset-0 bg-orange-500 blur-xl opacity-30 rounded-full animate-pulse"></div>
                   <div className="w-20 h-20 bg-orange-100 dark:bg-orange-500/10 rounded-2xl flex items-center justify-center rotate-3 transition-transform hover:rotate-0 duration-300 shadow-xl border border-orange-200 dark:border-orange-500/20 z-10">
-                    <GalleryIcon className="w-10 h-10 text-orange-500" />
+                    <GalleryIcon className="w-10 h-10 text-orange-500 shrink-0" />
                   </div>
                 </div>
 
-                {/* Aesthetic Typography */}
                 <h3 className="text-3xl md:text-4xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-gray-900 to-gray-600 dark:from-white dark:to-gray-400 mb-4">
                   Curating the{" "}
                   <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-amber-500">
@@ -1212,8 +1176,8 @@ const About = () => {
                   tuned!
                 </p>
 
-                <div className="mt-8 inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gray-100 dark:bg-neutral-800 border border-gray-200 dark:border-neutral-700 text-sm font-medium text-gray-600 dark:text-gray-300">
-                  <div className="w-2 h-2 rounded-full bg-orange-500 animate-ping"></div>
+                <div className="mt-8 inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gray-100 dark:bg-neutral-800 border border-gray-200 dark:border-neutral-700 text-sm font-medium text-gray-600 dark:text-gray-300 whitespace-nowrap">
+                  <div className="w-2 h-2 rounded-full bg-orange-500 animate-ping shrink-0"></div>
                   Under Construction
                 </div>
               </div>
@@ -1226,7 +1190,6 @@ const About = () => {
 };
 
 const Services = () => {
-  // --- State for Tab Navigation ---
   const [activeTab, setActiveTab] = useState("overview");
 
   const servicesData = [
@@ -1238,15 +1201,7 @@ const Services = () => {
       icon: CodeIcon,
       gridSpan: "md:col-span-12 lg:col-span-7",
       desc: "Transforming ideas into high-performance digital experiences. I build scalable, SEO-optimized web applications and visually engaging landing pages designed to convert, prioritizing speed and flawless UI/UX across all devices.",
-      tags: [
-        "Web Dev",
-        "Redesign",
-        "Sales Funnels",
-        "UI/UX",
-        "SEO",
-        "Responsive",
-        "Portfolio Sites",
-      ],
+      tags: ["Web Dev", "Redesign", "Funnels", "UI/UX", "Portfolio Sites"],
       ctaText: "Start Web Project",
     },
     {
@@ -1300,11 +1255,11 @@ const Services = () => {
       {/* ========================================= */}
       {/* PREMIUM TAB NAVIGATION                      */}
       {/* ========================================= */}
-      <div className="flex justify-center mt-8 md:mt-12 mb-8 md:mb-16">
-        <div className="inline-flex p-1.5 bg-gray-100 dark:bg-neutral-900/50 backdrop-blur-sm border border-gray-200 dark:border-neutral-800 rounded-2xl">
+      <div className="flex justify-center mt-8 md:mt-12 mb-8 md:mb-16 w-full px-2">
+        <div className="inline-flex p-1.5 bg-gray-100 dark:bg-neutral-900/50 backdrop-blur-sm border border-gray-200 dark:border-neutral-800 rounded-2xl overflow-x-auto hide-scrollbar max-w-full">
           <button
             onClick={() => setActiveTab("overview")}
-            className={`flex items-center justify-center gap-2 px-6 sm:px-8 py-2.5 rounded-xl text-sm sm:text-base font-semibold transition-all duration-300 ${
+            className={`flex items-center justify-center gap-2 px-6 sm:px-8 py-2.5 rounded-xl text-sm sm:text-base font-semibold transition-all duration-300 whitespace-nowrap shrink-0 ${
               activeTab === "overview"
                 ? "bg-white dark:bg-neutral-800 text-orange-500 shadow-sm"
                 : "text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
@@ -1315,7 +1270,7 @@ const Services = () => {
 
           <button
             onClick={() => setActiveTab("demos")}
-            className={`flex items-center justify-center gap-2 px-6 sm:px-8 py-2.5 rounded-xl text-sm sm:text-base font-semibold transition-all duration-300 ${
+            className={`flex items-center justify-center gap-2 px-6 sm:px-8 py-2.5 rounded-xl text-sm sm:text-base font-semibold transition-all duration-300 whitespace-nowrap shrink-0 ${
               activeTab === "demos"
                 ? "bg-white dark:bg-neutral-800 text-orange-500 shadow-sm"
                 : "text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
@@ -1331,7 +1286,6 @@ const Services = () => {
       {/* ========================================= */}
       {activeTab === "overview" && (
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 animate-fade-in">
-          {/* Bento Box Grid Layout */}
           <div className="grid grid-cols-1 lg:grid-cols-12 auto-rows-[420px] sm:auto-rows-[460px] lg:auto-rows-[460px] gap-4 md:gap-6">
             {servicesData.map((service) => {
               const Icon = service.icon;
@@ -1341,51 +1295,42 @@ const Services = () => {
                   key={service.id}
                   className={`relative group rounded-3xl overflow-hidden bg-gray-900 border border-gray-200 dark:border-neutral-800 shadow-lg hover:shadow-2xl transition-all duration-500 ${service.gridSpan}`}
                 >
-                  {/* Base Background Image */}
                   <img
                     src={service.image}
                     alt={service.title}
                     className="absolute inset-0 w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-[1000ms] ease-[cubic-bezier(0.25,1,0.5,1)] opacity-80"
                   />
-
-                  {/* Intelligent Gradient Overlay */}
                   <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent z-10 transition-colors duration-500 group-hover:from-black/95 group-hover:via-black/85 group-hover:to-black/70"></div>
 
-                  {/* Content Container */}
                   <div className="absolute inset-0 z-20 flex flex-col p-6 md:p-8">
-                    {/* Top Bar: Number & Icon */}
                     <div className="flex justify-between items-start">
                       <span className="text-5xl md:text-6xl font-black text-white/40 drop-shadow-lg group-hover:text-orange-500 transition-colors duration-500 tracking-tighter">
                         {service.id}
                       </span>
-                      <div className="w-12 h-12 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-white group-hover:bg-orange-500 group-hover:text-white group-hover:border-orange-500 transition-all duration-300 shadow-xl">
-                        <Icon className="w-6 h-6" />
+                      <div className="w-12 h-12 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-white group-hover:bg-orange-500 group-hover:text-white group-hover:border-orange-500 transition-all duration-300 shadow-xl shrink-0">
+                        <Icon className="w-6 h-6 shrink-0" />
                       </div>
                     </div>
 
-                    {/* Bottom Bar: Title & Hover Expansion */}
                     <div className="mt-auto">
                       <h3 className="text-2xl md:text-3xl font-extrabold text-white tracking-tight drop-shadow-md transition-transform duration-300">
                         {service.title}
                       </h3>
 
-                      {/* Smooth Expandable Section using CSS Grid Animation */}
                       <div className="grid grid-rows-[0fr] group-hover:grid-rows-[1fr] transition-[grid-template-rows] duration-500 ease-[cubic-bezier(0.4,0,0.2,1)]">
                         <div className="overflow-hidden">
-                          {/* Hidden Content Box */}
                           <div className="flex flex-col gap-3 pt-3 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">
                             <p className="text-sm text-gray-300 leading-relaxed">
                               {service.desc}
                             </p>
 
-                            {/* Tech / Feature Tags */}
                             <div className="flex flex-wrap gap-2">
                               {service.tags.map((tag, idx) => {
                                 const isHighlight = tag.includes("FREE");
                                 return (
                                   <span
                                     key={idx}
-                                    className={`px-2.5 py-1 text-[11px] font-bold rounded-md border backdrop-blur-sm ${
+                                    className={`px-2.5 py-1 text-[11px] font-bold rounded-md border backdrop-blur-sm whitespace-nowrap ${
                                       isHighlight
                                         ? "bg-orange-500/90 text-white border-orange-500 shadow-[0_0_10px_rgba(249,115,22,0.5)]"
                                         : "bg-white/10 text-gray-200 border-white/20"
@@ -1397,20 +1342,20 @@ const Services = () => {
                               })}
                             </div>
 
-                            {/* Action Button */}
                             <div className="pt-1">
                               <a
                                 href="#contact"
-                                className="group/btn inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-white hover:bg-orange-500 text-black hover:text-white font-bold text-sm transition-all duration-300 active:scale-95 w-fit"
+                                className="group/btn inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-white hover:bg-orange-500 text-black hover:text-white font-bold text-sm transition-all duration-300 active:scale-95 w-fit whitespace-nowrap shrink-0"
                               >
-                                {service.ctaText}
-                                <ArrowRightIcon className="w-4 h-4 transition-transform duration-300 group-hover/btn:translate-x-1" />
+                                <span className="whitespace-nowrap">
+                                  {service.ctaText}
+                                </span>
+                                <ArrowRightIcon className="w-4 h-4 shrink-0 transition-transform duration-300 group-hover/btn:translate-x-1" />
                               </a>
                             </div>
                           </div>
                         </div>
                       </div>
-                      {/* End Expandable Section */}
                     </div>
                   </div>
                 </div>
@@ -1426,19 +1371,16 @@ const Services = () => {
       {activeTab === "demos" && (
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-4 md:mt-8 animate-fade-in w-full flex items-center justify-center min-h-[45vh]">
           <div className="relative w-full max-w-2xl mx-auto">
-            {/* Aesthetic Background Glow */}
             <div className="absolute -inset-1 bg-gradient-to-r from-orange-500 to-amber-500 rounded-3xl blur opacity-20 dark:opacity-30"></div>
 
             <div className="relative flex flex-col items-center justify-center p-12 md:p-20 text-center bg-gray-50/80 dark:bg-[#0a0a0a]/80 backdrop-blur-xl border-2 border-dashed border-gray-200 dark:border-neutral-800 rounded-3xl">
-              {/* Play/Video Icon Setup */}
               <div className="relative flex items-center justify-center mb-8">
                 <div className="absolute inset-0 bg-orange-500 blur-xl opacity-30 rounded-full animate-pulse"></div>
                 <div className="w-20 h-20 bg-orange-100 dark:bg-orange-500/10 rounded-2xl flex items-center justify-center rotate-3 transition-transform hover:rotate-0 duration-300 shadow-xl border border-orange-200 dark:border-orange-500/20 z-10">
-                  <PlayCircleIcon className="w-10 h-10 text-orange-500" />
+                  <PlayCircleIcon className="w-10 h-10 text-orange-500 shrink-0" />
                 </div>
               </div>
 
-              {/* Aesthetic Typography */}
               <h3 className="text-3xl md:text-4xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-gray-900 to-gray-600 dark:from-white dark:to-gray-400 mb-4">
                 Preparing{" "}
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-amber-500">
@@ -1453,8 +1395,8 @@ const Services = () => {
                 upcoming update!
               </p>
 
-              <div className="mt-8 inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gray-100 dark:bg-neutral-900 border border-gray-200 dark:border-neutral-800 text-sm font-medium text-gray-600 dark:text-gray-300">
-                <div className="w-2 h-2 rounded-full bg-orange-500 animate-ping"></div>
+              <div className="mt-8 inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gray-100 dark:bg-neutral-900 border border-gray-200 dark:border-neutral-800 text-sm font-medium text-gray-600 dark:text-gray-300 whitespace-nowrap">
+                <div className="w-2 h-2 rounded-full bg-orange-500 animate-ping shrink-0"></div>
                 Development in Progress
               </div>
             </div>
@@ -1469,18 +1411,15 @@ const Projects = () => {
   const [activeTab, setActiveTab] = useState("personal");
   const [activeIndex, setActiveIndex] = useState(0);
 
-  // Filter projects based on the active tab
   const filteredProjects = PROJECTS_DATA.filter(
     (project) => project.type === activeTab,
   );
 
-  // Handle Tab Switch (Resets the accordion index so it doesn't break)
   const handleTabSwitch = (tab) => {
     setActiveTab(tab);
     setActiveIndex(0);
   };
 
-  // Keyboard accessibility handler for the accordion
   const handleKeyDown = (e, index) => {
     if (e.key === "Enter" || e.key === " ") {
       e.preventDefault();
@@ -1496,30 +1435,30 @@ const Projects = () => {
       <SectionHeader title="Featured Works" subtitle="Projects" />
 
       {/* --- PREMIUM TAB NAVIGATION --- */}
-      <div className="flex justify-center mt-8 md:mt-12 mb-8 md:mb-16">
-        <div className="inline-flex p-1.5 bg-gray-100 dark:bg-neutral-900/50 backdrop-blur-sm border border-gray-200 dark:border-neutral-800 rounded-2xl">
+      <div className="flex justify-center mt-8 md:mt-12 mb-8 md:mb-16 w-full px-2">
+        <div className="inline-flex p-1.5 bg-gray-100 dark:bg-neutral-900/50 backdrop-blur-sm border border-gray-200 dark:border-neutral-800 rounded-2xl overflow-x-auto hide-scrollbar max-w-full">
           <button
             onClick={() => handleTabSwitch("personal")}
-            className={`flex items-center justify-center gap-2 px-6 sm:px-8 py-2.5 rounded-xl text-sm sm:text-base font-semibold transition-all duration-300 ${
+            className={`flex items-center justify-center gap-2 px-6 sm:px-8 py-2.5 rounded-xl text-sm sm:text-base font-semibold transition-all duration-300 whitespace-nowrap shrink-0 ${
               activeTab === "personal"
                 ? "bg-white dark:bg-neutral-800 text-orange-500 shadow-sm"
                 : "text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
             }`}
           >
-            <UserIcon className="w-4 h-4 md:w-5 md:h-5" />
-            Personal Projects
+            <UserIcon className="w-4 h-4 md:w-5 md:h-5 shrink-0" />
+            <span className="whitespace-nowrap">Personal Projects</span>
           </button>
 
           <button
             onClick={() => handleTabSwitch("client")}
-            className={`flex items-center justify-center gap-2 px-6 sm:px-8 py-2.5 rounded-xl text-sm sm:text-base font-semibold transition-all duration-300 ${
+            className={`flex items-center justify-center gap-2 px-6 sm:px-8 py-2.5 rounded-xl text-sm sm:text-base font-semibold transition-all duration-300 whitespace-nowrap shrink-0 ${
               activeTab === "client"
                 ? "bg-white dark:bg-neutral-900 text-orange-500 shadow-sm"
                 : "text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
             }`}
           >
-            <BriefcaseIcon className="w-4 h-4 md:w-5 md:h-5" />
-            Client Projects
+            <BriefcaseIcon className="w-4 h-4 md:w-5 md:h-5 shrink-0" />
+            <span className="whitespace-nowrap">Client Projects</span>
           </button>
         </div>
       </div>
@@ -1545,7 +1484,6 @@ const Projects = () => {
                 }
               `}
             >
-              {/* Background Video Layer */}
               <div className="absolute inset-0 z-0 bg-transparent">
                 <video
                   src={project.video}
@@ -1561,7 +1499,6 @@ const Projects = () => {
                 />
               </div>
 
-              {/* Intelligent Gradient Overlay */}
               <div
                 className={`absolute inset-0 z-10 transition-colors duration-700 ${
                   isActive
@@ -1570,23 +1507,19 @@ const Projects = () => {
                 }`}
               ></div>
 
-              {/* --- INACTIVE STATE UI (Rotated Labels) --- */}
               <div
                 className={`absolute inset-0 z-20 flex items-center justify-center transition-opacity duration-500 ${
                   isActive ? "opacity-0 pointer-events-none" : "opacity-100"
                 }`}
               >
-                {/* Desktop Vertical Text */}
                 <span className="hidden md:block -rotate-90 text-gray-300 font-bold tracking-[0.2em] uppercase whitespace-nowrap group-hover:text-orange-400 transition-colors duration-300 drop-shadow-md">
                   {project.title}
                 </span>
-                {/* Mobile Horizontal Text */}
                 <span className="block md:hidden text-gray-200 font-bold tracking-widest uppercase text-sm group-hover:text-orange-400 transition-colors duration-300 px-4 truncate drop-shadow-md">
                   {project.title}
                 </span>
               </div>
 
-              {/* --- ACTIVE STATE UI (Premium Glassmorphic Content) --- */}
               <div
                 className={`absolute inset-0 z-20 flex flex-col justify-end p-4 sm:p-6 lg:p-8 transition-all duration-700 delay-100 ${
                   isActive
@@ -1594,11 +1527,9 @@ const Projects = () => {
                     : "opacity-0 translate-y-8 pointer-events-none"
                 }`}
               >
-                {/* Glassmorphic Panel */}
                 <div className="relative max-w-3xl w-full bg-black/30 backdrop-blur-md border border-white/10 rounded-2xl p-5 md:p-6 shadow-2xl overflow-hidden transform translate-z-0">
-                  {/* Floating Category Pill */}
                   <div className="mb-3 hidden sm:block">
-                    <span className="px-3 py-1.5 bg-orange-500/20 text-orange-400 border border-orange-500/30 text-[10px] md:text-xs font-bold uppercase tracking-widest rounded-full">
+                    <span className="px-3 py-1.5 bg-orange-500/20 text-orange-400 border border-orange-500/30 text-[10px] md:text-xs font-bold uppercase tracking-widest rounded-full whitespace-nowrap">
                       {project.category}
                     </span>
                   </div>
@@ -1615,63 +1546,61 @@ const Projects = () => {
                     {project.description}
                   </p>
 
-                  {/* Tech Stack Tags */}
                   <div className="flex flex-wrap gap-2 mb-6">
                     {project.tags.map((tag) => (
                       <span
                         key={tag}
-                        className="px-2.5 py-1 text-[10px] md:text-xs font-semibold rounded-md bg-white/10 border border-white/20 text-gray-200"
+                        className="px-2.5 py-1 text-[10px] md:text-xs font-semibold rounded-md bg-white/10 border border-white/20 text-gray-200 whitespace-nowrap"
                       >
                         {tag}
                       </span>
                     ))}
                   </div>
 
-                  {/* --- UPDATED: Dynamic Action Buttons & Status Notes --- */}
                   <div className="flex flex-wrap items-center gap-3">
-                    {/* Render Primary Live Demo Button (Vercel) */}
                     {project.demoLink && (
                       <a
                         href={project.demoLink}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex-1 sm:flex-none flex items-center justify-center gap-2 px-5 py-3 md:px-6 md:py-3.5 bg-orange-500 hover:bg-orange-600 text-white text-[11px] md:text-sm font-bold rounded-xl transition-all shadow-[0_4px_15px_rgba(249,115,22,0.4)] hover:-translate-y-0.5 active:scale-95"
+                        className="flex-1 sm:flex-none flex items-center justify-center gap-2 px-5 py-3 md:px-6 md:py-3.5 bg-orange-500 hover:bg-orange-600 text-white text-[11px] md:text-sm font-bold rounded-xl transition-all shadow-[0_4px_15px_rgba(249,115,22,0.4)] hover:-translate-y-0.5 active:scale-95 whitespace-nowrap shrink-0"
                       >
-                        {project.demoLinkLabel || "Live Demo"}
-                        <ExternalLinkIcon className="w-3.5 h-3.5 md:w-4 md:h-4" />
+                        <span className="whitespace-nowrap">
+                          {project.demoLinkLabel || "Live Demo"}
+                        </span>
+                        <ExternalLinkIcon className="w-3.5 h-3.5 md:w-4 md:h-4 shrink-0" />
                       </a>
                     )}
 
-                    {/* NEW: Render Secondary Live Demo Button (Legacy / Official Site) */}
                     {project.secondaryDemoLink && (
                       <a
                         href={project.secondaryDemoLink}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex-1 sm:flex-none flex items-center justify-center gap-2 px-5 py-3 md:px-6 md:py-3.5 bg-white/10 hover:bg-white/20 text-white border border-white/20 text-[11px] md:text-sm font-bold rounded-xl transition-all hover:-translate-y-0.5 active:scale-95"
+                        className="flex-1 sm:flex-none flex items-center justify-center gap-2 px-5 py-3 md:px-6 md:py-3.5 bg-white/10 hover:bg-white/20 text-white border border-white/20 text-[11px] md:text-sm font-bold rounded-xl transition-all hover:-translate-y-0.5 active:scale-95 whitespace-nowrap shrink-0"
                       >
-                        {project.secondaryDemoLabel}
-                        <ExternalLinkIcon className="w-3.5 h-3.5 md:w-4 md:h-4" />
+                        <span className="whitespace-nowrap">
+                          {project.secondaryDemoLabel}
+                        </span>
+                        <ExternalLinkIcon className="w-3.5 h-3.5 md:w-4 md:h-4 shrink-0" />
                       </a>
                     )}
 
-                    {/* Render Github Code Button */}
                     {project.githubLink && (
                       <a
                         href={project.githubLink}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex-1 sm:flex-none flex items-center justify-center gap-2 px-5 py-3 md:px-6 md:py-3.5 bg-white/10 hover:bg-white/20 text-white border border-white/20 text-[11px] md:text-sm font-bold rounded-xl transition-all hover:-translate-y-0.5 active:scale-95"
+                        className="flex-1 sm:flex-none flex items-center justify-center gap-2 px-5 py-3 md:px-6 md:py-3.5 bg-white/10 hover:bg-white/20 text-white border border-white/20 text-[11px] md:text-sm font-bold rounded-xl transition-all hover:-translate-y-0.5 active:scale-95 whitespace-nowrap shrink-0"
                       >
-                        <GithubIcon className="w-3.5 h-3.5 md:w-4 md:h-4" />
-                        Code
+                        <GithubIcon className="w-3.5 h-3.5 md:w-4 md:h-4 shrink-0" />
+                        <span className="whitespace-nowrap">Code</span>
                       </a>
                     )}
 
-                    {/* Render Status Note Badge if Code or Demo is restricted */}
                     {(!project.demoLink || !project.githubLink) &&
                       project.statusNote && (
-                        <div className="flex-1 min-w-[220px] flex items-center gap-2.5 px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-gray-300 text-[11px] md:text-xs font-medium backdrop-blur-md">
+                        <div className="flex-1 min-w-[220px] flex items-center gap-2.5 px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-gray-300 text-[11px] md:text-xs font-medium backdrop-blur-md shrink-0">
                           <span className="w-2 h-2 rounded-full bg-orange-500 animate-pulse shrink-0"></span>
                           <span className="leading-snug">
                             {project.statusNote}
@@ -1702,8 +1631,7 @@ const Contact = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // This securely constructs an email template and opens the user's default mail client
-    const emailTo = "arvintenasas29@gmail.com"; // Replace with your actual email
+    const emailTo = "arvintenasas29@gmail.com";
     const subject = encodeURIComponent(
       `New Portfolio Contact from ${formData.name}`,
     );
@@ -1719,11 +1647,9 @@ const Contact = () => {
 
       <div className="max-w-5xl mx-auto px-2 sm:px-0">
         <div className="bg-white dark:bg-neutral-900 rounded-3xl sm:rounded-[2.5rem] border border-gray-200 dark:border-neutral-800 shadow-xl overflow-hidden flex flex-col lg:flex-row relative">
-          {/* Subtle Background Glows */}
           <div className="absolute top-0 right-0 w-64 h-64 bg-orange-500/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3 pointer-events-none"></div>
           <div className="absolute bottom-0 left-0 w-64 h-64 bg-blue-500/10 rounded-full blur-3xl translate-y-1/2 -translate-x-1/3 pointer-events-none"></div>
 
-          {/* Left Column: Pitch & Info */}
           <div className="flex-1 p-6 sm:p-10 md:p-12 z-10 flex flex-col justify-between">
             <div>
               <h3 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-gray-900 dark:text-white mb-3 sm:mb-4 leading-tight">
@@ -1737,14 +1663,13 @@ const Contact = () => {
                 ready to help.
               </p>
 
-              {/* App-style Info Cards */}
               <div className="flex flex-col gap-3 sm:gap-4 mb-8">
                 <a
                   href="mailto:arvintenasas29@gmail.com"
                   className="flex items-center gap-4 p-3 sm:p-4 rounded-2xl bg-gray-50 dark:bg-neutral-800/50 border border-gray-100 dark:border-neutral-800 hover:border-orange-500/30 transition-colors group"
                 >
                   <div className="w-10 h-10 rounded-xl bg-orange-500/10 text-orange-500 flex items-center justify-center shrink-0 group-hover:bg-orange-500 group-hover:text-white transition-colors">
-                    <MailIcon className="w-5 h-5" />
+                    <MailIcon className="w-5 h-5 shrink-0" />
                   </div>
                   <div>
                     <p className="text-[10px] sm:text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-0.5">
@@ -1758,7 +1683,7 @@ const Contact = () => {
 
                 <div className="flex items-center gap-4 p-3 sm:p-4 rounded-2xl bg-gray-50 dark:bg-neutral-800/50 border border-gray-100 dark:border-neutral-800">
                   <div className="w-10 h-10 rounded-xl bg-blue-500/10 text-blue-500 flex items-center justify-center shrink-0">
-                    <MapPinIcon className="w-5 h-5" />
+                    <MapPinIcon className="w-5 h-5 shrink-0" />
                   </div>
                   <div>
                     <p className="text-[10px] sm:text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-0.5">
@@ -1772,23 +1697,28 @@ const Contact = () => {
               </div>
             </div>
 
-            {/* Social Links Row */}
             <div className="flex items-center gap-3 sm:gap-4">
               {[
                 {
                   id: "linkedin",
                   href: "https://www.linkedin.com/in/arvin-d-tenasas-1ba6082b8/",
-                  svg: <LinkedinIcon className="w-4 h-4 sm:w-5 sm:h-5" />,
+                  svg: (
+                    <LinkedinIcon className="w-4 h-4 sm:w-5 sm:h-5 shrink-0" />
+                  ),
                 },
                 {
                   id: "github",
                   href: "https://github.com/tenasasarvin",
-                  svg: <GithubIcon className="w-4 h-4 sm:w-5 sm:h-5" />,
+                  svg: (
+                    <GithubIcon className="w-4 h-4 sm:w-5 sm:h-5 shrink-0" />
+                  ),
                 },
                 {
                   id: "facebook",
                   href: "https://www.facebook.com/share/19GxD5xYNq/",
-                  svg: <FacebookIcon className="w-4 h-4 sm:w-5 sm:h-5" />,
+                  svg: (
+                    <FacebookIcon className="w-4 h-4 sm:w-5 sm:h-5 shrink-0" />
+                  ),
                 },
               ].map((social) => (
                 <a
@@ -1796,7 +1726,7 @@ const Contact = () => {
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-10 h-10 rounded-full bg-gray-100 dark:bg-neutral-800 flex items-center justify-center text-gray-600 dark:text-gray-400 hover:bg-orange-500 hover:text-white transition-all transform hover:-translate-y-1"
+                  className="w-10 h-10 rounded-full bg-gray-100 dark:bg-neutral-800 flex items-center justify-center text-gray-600 dark:text-gray-400 hover:bg-orange-500 hover:text-white transition-all transform hover:-translate-y-1 shrink-0"
                 >
                   {social.svg}
                 </a>
@@ -1804,7 +1734,6 @@ const Contact = () => {
             </div>
           </div>
 
-          {/* Right Column: Contact Form */}
           <div className="flex-[1.2] bg-gray-50 dark:bg-neutral-800/50 p-6 sm:p-10 md:p-12 z-10 border-t lg:border-t-0 lg:border-l border-gray-200 dark:border-neutral-800">
             <form
               onSubmit={handleSubmit}
@@ -1869,10 +1798,10 @@ const Contact = () => {
 
               <button
                 type="submit"
-                className="w-full mt-2 flex items-center justify-center gap-2 px-6 py-3.5 sm:py-4 bg-orange-500 hover:bg-orange-600 text-white text-sm sm:text-base font-bold rounded-xl transition-all shadow-[0_0_20px_rgba(249,115,22,0.3)] active:scale-[0.98]"
+                className="w-full mt-2 flex items-center justify-center gap-2 px-6 py-3.5 sm:py-4 bg-orange-500 hover:bg-orange-600 text-white text-sm sm:text-base font-bold rounded-xl transition-all shadow-[0_0_20px_rgba(249,115,22,0.3)] active:scale-[0.98] whitespace-nowrap shrink-0"
               >
-                Send Message
-                <SendIcon className="w-4 h-4" />
+                <span className="whitespace-nowrap">Send Message</span>
+                <SendIcon className="w-4 h-4 shrink-0" />
               </button>
             </form>
           </div>
@@ -1912,38 +1841,22 @@ const Footer = () => {
 
   return (
     <div className="w-full mt-24">
-      {/* The main footer container must be relative and have overflow-hidden 
-        so the glowing background blobs don't stretch the page.
-      */}
       <footer className="relative rounded-t-3xl sm:rounded-t-[2.5rem] border border-b-0 border-gray-200 dark:border-neutral-800 shadow-[0_-10px_40px_rgba(0,0,0,0.05)] overflow-hidden transition-colors duration-300">
-        {/* ========================================= */}
-        {/* ANIMATED GRADIENT BACKGROUND GLOWS        */}
-        {/* ========================================= */}
         <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden flex items-center justify-center">
-          {/* Top Left Orange Glow */}
           <div
             className="absolute -top-[20%] left-[10%] w-[500px] h-[500px] bg-orange-500/30 dark:bg-orange-600/20 rounded-full blur-[120px] animate-pulse"
             style={{ animationDuration: "4s" }}
           ></div>
-
-          {/* Bottom Right Amber/Yellow Glow (Delayed for contrast) */}
           <div
             className="absolute -bottom-[20%] right-[10%] w-[600px] h-[600px] bg-amber-400/20 dark:bg-amber-600/10 rounded-full blur-[120px] animate-pulse"
             style={{ animationDelay: "2s", animationDuration: "5s" }}
           ></div>
         </div>
 
-        {/* ========================================= */}
-        {/* FROSTED GLASS OVERLAY                     */}
-        {/* ========================================= */}
         <div className="absolute inset-0 bg-gradient-to-b from-white/70 to-gray-50/90 dark:from-neutral-950/70 dark:to-[#050505]/95 backdrop-blur-2xl z-0"></div>
 
-        {/* ========================================= */}
-        {/* FOOTER CONTENT (Elevated above background)*/}
-        {/* ========================================= */}
         <div className="relative z-10">
           <div className="max-w-6xl mx-auto p-8 sm:p-12 grid grid-cols-1 md:grid-cols-12 gap-10 lg:gap-16">
-            {/* Left Column: Brand & Bio */}
             <div className="md:col-span-5 flex flex-col items-start">
               <div className="flex items-center gap-3 mb-5">
                 <div className="w-32 sm:w-40 h-auto flex-shrink-0">
@@ -1961,33 +1874,31 @@ const Footer = () => {
                 one line of code at a time.
               </p>
 
-              {/* Social Icons */}
               <div className="flex items-center gap-3">
                 <a
                   href="https://github.com/tenasasarvin"
                   aria-label="GitHub Profile"
-                  className="p-2.5 rounded-full bg-white/50 dark:bg-neutral-900/50 border border-gray-200 dark:border-neutral-800 text-gray-600 dark:text-gray-400 hover:text-orange-500 hover:border-orange-500/50 hover:bg-orange-50 dark:hover:bg-orange-500/10 transition-all duration-300 shadow-sm hover:shadow-[0_0_15px_rgba(249,115,22,0.2)]"
+                  className="p-2.5 rounded-full bg-white/50 dark:bg-neutral-900/50 border border-gray-200 dark:border-neutral-800 text-gray-600 dark:text-gray-400 hover:text-orange-500 hover:border-orange-500/50 hover:bg-orange-50 dark:hover:bg-orange-500/10 transition-all duration-300 shadow-sm hover:shadow-[0_0_15px_rgba(249,115,22,0.2)] shrink-0"
                 >
-                  <GithubIcon className="w-5 h-5" />
+                  <GithubIcon className="w-5 h-5 shrink-0" />
                 </a>
                 <a
                   href="https://www.linkedin.com/in/arvin-d-tenasas-1ba6082b8/"
                   aria-label="LinkedIn Profile"
-                  className="p-2.5 rounded-full bg-white/50 dark:bg-neutral-900/50 border border-gray-200 dark:border-neutral-800 text-gray-600 dark:text-gray-400 hover:text-orange-500 hover:border-orange-500/50 hover:bg-orange-50 dark:hover:bg-orange-500/10 transition-all duration-300 shadow-sm hover:shadow-[0_0_15px_rgba(249,115,22,0.2)]"
+                  className="p-2.5 rounded-full bg-white/50 dark:bg-neutral-900/50 border border-gray-200 dark:border-neutral-800 text-gray-600 dark:text-gray-400 hover:text-orange-500 hover:border-orange-500/50 hover:bg-orange-50 dark:hover:bg-orange-500/10 transition-all duration-300 shadow-sm hover:shadow-[0_0_15px_rgba(249,115,22,0.2)] shrink-0"
                 >
-                  <LinkedinIcon className="w-5 h-5" />
+                  <LinkedinIcon className="w-5 h-5 shrink-0" />
                 </a>
                 <a
                   href="mailto:arvintenasas29@gmail.com"
                   aria-label="Email Me"
-                  className="p-2.5 rounded-full bg-white/50 dark:bg-neutral-900/50 border border-gray-200 dark:border-neutral-800 text-gray-600 dark:text-gray-400 hover:text-orange-500 hover:border-orange-500/50 hover:bg-orange-50 dark:hover:bg-orange-500/10 transition-all duration-300 shadow-sm hover:shadow-[0_0_15px_rgba(249,115,22,0.2)]"
+                  className="p-2.5 rounded-full bg-white/50 dark:bg-neutral-900/50 border border-gray-200 dark:border-neutral-800 text-gray-600 dark:text-gray-400 hover:text-orange-500 hover:border-orange-500/50 hover:bg-orange-50 dark:hover:bg-orange-500/10 transition-all duration-300 shadow-sm hover:shadow-[0_0_15px_rgba(249,115,22,0.2)] shrink-0"
                 >
-                  <MailIcon className="w-5 h-5" />
+                  <MailIcon className="w-5 h-5 shrink-0" />
                 </a>
               </div>
             </div>
 
-            {/* Middle Column: Navigation */}
             <div className="md:col-span-3 flex flex-col">
               <h3 className="text-gray-900 dark:text-white font-bold text-lg mb-6">
                 Navigation
@@ -2001,16 +1912,15 @@ const Footer = () => {
                     key={link.id}
                     href={`#${link.id}`}
                     onClick={(e) => scrollToSection(e, link.id)}
-                    className="text-gray-500 dark:text-gray-400 hover:text-orange-500 dark:hover:text-orange-400 text-sm font-medium transition-colors w-fit flex items-center group"
+                    className="text-gray-500 dark:text-gray-400 hover:text-orange-500 dark:hover:text-orange-400 text-sm font-medium transition-colors w-fit flex items-center group whitespace-nowrap"
                   >
                     {link.label}
-                    <ArrowUpRightIcon className="w-3 h-3 ml-1 opacity-0 -translate-y-1 translate-x-1 group-hover:opacity-100 group-hover:translate-y-0 group-hover:translate-x-0 transition-all duration-300" />
+                    <ArrowUpRightIcon className="w-3 h-3 ml-1 opacity-0 -translate-y-1 translate-x-1 group-hover:opacity-100 group-hover:translate-y-0 group-hover:translate-x-0 transition-all duration-300 shrink-0" />
                   </a>
                 ))}
               </nav>
             </div>
 
-            {/* Right Column: Capabilities */}
             <div className="md:col-span-4 flex flex-col">
               <h3 className="text-gray-900 dark:text-white font-bold text-lg mb-6">
                 Capabilities
@@ -2021,7 +1931,7 @@ const Footer = () => {
                     key={index}
                     className="text-gray-500 dark:text-gray-400 text-sm font-medium flex items-center gap-2.5 group cursor-default"
                   >
-                    <span className="w-1.5 h-1.5 rounded-full bg-orange-500/50 group-hover:bg-orange-500 group-hover:scale-150 transition-all duration-300"></span>
+                    <span className="w-1.5 h-1.5 rounded-full bg-orange-500/50 group-hover:bg-orange-500 group-hover:scale-150 transition-all duration-300 shrink-0"></span>
                     <span className="group-hover:text-gray-800 dark:group-hover:text-gray-200 transition-colors duration-300">
                       {service}
                     </span>
@@ -2031,14 +1941,13 @@ const Footer = () => {
             </div>
           </div>
 
-          {/* Bottom Tier: Copyright & Counter */}
           <div className="border-t border-gray-200/60 dark:border-neutral-800/60 bg-white/20 dark:bg-black/20 backdrop-blur-md">
             <div className="max-w-6xl mx-auto p-6 flex flex-col sm:flex-row justify-between items-center gap-4">
               <p className="text-gray-500 dark:text-gray-400 text-xs sm:text-sm font-medium text-center sm:text-left">
                 &copy; {currentYear} Arvin Tenasas. All rights reserved.
               </p>
 
-              <CompactVisitorCounter />
+              {/* <CompactVisitorCounter /> */}
             </div>
           </div>
         </div>
@@ -2082,6 +1991,9 @@ const App = () => {
 
   return (
     <ThemeProvider>
+      {/* The main container now natively handles font overriding inside the Context
+        and strictly enforces antialiased traits and transitions.
+      */}
       <div className="font-sans antialiased transition-colors duration-300">
         <Navigation activeSection={activeSection} />
         <main>
