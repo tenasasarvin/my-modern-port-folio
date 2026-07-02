@@ -210,7 +210,6 @@ const Contact = () => {
               className="w-full mt-2 flex items-center justify-center gap-3 py-4 rounded-2xl bg-[#1F2937] dark:bg-white text-white dark:text-[#111] border border-[#1F2937] dark:border-white text-[12px] font-mono tracking-widest uppercase font-bold hover:bg-transparent dark:hover:bg-transparent hover:text-[#1F2937] dark:hover:text-white transition-all duration-300 shadow-md"
             >
               <span>Send Message</span>
-              <span>Send Message</span>
               <SendIcon className="w-4 h-4 shrink-0" />
             </motion.button>
           </form>
