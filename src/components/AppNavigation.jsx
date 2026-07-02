@@ -29,7 +29,7 @@ const AppNavigation = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
-  const [isMoreMenuOpen, setIsMoreMenuOpen] = useState(false);
+  // const [isMoreMenuOpen, setIsMoreMenuOpen] = useState(false);
 
   // New state for our custom alert modal
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -46,7 +46,7 @@ const AppNavigation = () => {
       if (currentScrollY > lastScrollY && currentScrollY > 80) {
         setIsVisible(false);
         setIsMobileMenuOpen(false);
-        setIsMoreMenuOpen(false);
+        // setIsMoreMenuOpen(false);
       } else {
         setIsVisible(true);
       }
@@ -77,19 +77,19 @@ const AppNavigation = () => {
     { id: "contact", label: "Contact", icon: MailIcon },
   ];
 
-  const extraLinks = [
-    { id: "testimonials", label: "Client Testimonials", icon: StarIcon },
-    { id: "blog", label: "Tech Blog", icon: BookOpenIcon },
-    {
-      id: "instant-services",
-      label: "Instant Digital Services",
-      icon: ZapIcon,
-    },
-    { id: "onboarding", label: "Project Onboarding", icon: ClipboardIcon },
-    { id: "tools", label: "Tools & Libraries", icon: PackageIcon },
-    { id: "learning", label: "Learning Hub", icon: GraduationCapIcon },
-    { id: "collab", label: "Collaborate With Me", icon: UsersIcon },
-  ];
+  // const extraLinks = [
+  //   { id: "testimonials", label: "Client Testimonials", icon: StarIcon },
+  //   { id: "blog", label: "Tech Blog", icon: BookOpenIcon },
+  //   {
+  //     id: "instant-services",
+  //     label: "Instant Digital Services",
+  //     icon: ZapIcon,
+  //   },
+  //   { id: "onboarding", label: "Project Onboarding", icon: ClipboardIcon },
+  //   { id: "tools", label: "Tools & Libraries", icon: PackageIcon },
+  //   { id: "learning", label: "Learning Hub", icon: GraduationCapIcon },
+  //   { id: "collab", label: "Collaborate With Me", icon: UsersIcon },
+  // ];
 
   const scrollToSection = (id) => {
     const element = document.getElementById(id);
@@ -100,11 +100,11 @@ const AppNavigation = () => {
     }
   };
 
-  // Updated to trigger the custom modal instead of the browser alert
-  const handleUnderDevelopment = (e) => {
-    e.preventDefault();
-    setIsModalOpen(true);
-  };
+  // // Updated to trigger the custom modal instead of the browser alert
+  // const handleUnderDevelopment = (e) => {
+  //   e.preventDefault();
+  //   setIsModalOpen(true);
+  // };
 
   // Update your handler functions to accept the event
   const handleSetLight = (e) => {
@@ -206,6 +206,8 @@ const AppNavigation = () => {
                 </button>
               </div>
 
+              {/* MORE VERTICAL MENU COMMENTED OUT FOR DESKTOP */}
+              {/*
               <div
                 className="relative"
                 onMouseEnter={() => setIsMoreMenuOpen(true)}
@@ -252,6 +254,7 @@ const AppNavigation = () => {
                   )}
                 </AnimatePresence>
               </div>
+              */}
             </div>
 
             <button
@@ -307,6 +310,8 @@ const AppNavigation = () => {
 
                   <div className="w-full h-px bg-[#E5E7EB] dark:bg-[#333] my-1.5"></div>
 
+                  {/* EXPLORE MORE COMMENTED OUT FOR MOBILE */}
+                  {/*
                   <span className="px-3 py-1.5 text-[11px] font-semibold text-[#9CA3AF] dark:text-[#6B7280]">
                     Explore more
                   </span>
@@ -336,6 +341,7 @@ const AppNavigation = () => {
                   })}
 
                   <div className="w-full h-px bg-[#E5E7EB] dark:bg-[#333] my-1.5"></div>
+                  */}
 
                   <div className="flex items-center justify-between p-3">
                     <span className="text-[13px] font-medium text-[#4B5563] dark:text-[#A1A1AA]">

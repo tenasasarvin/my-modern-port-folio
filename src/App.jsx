@@ -15,6 +15,7 @@ const App = () => {
     <ThemeProvider>
       <div className="font-sans min-h-screen transition-colors duration-300 antialiased selection:bg-[#E5E7EB]">
         <AppNavigation />
+        {/* <main className="md:ml-64 pt-16 md:pt-0"> */}
         <main>
           <Hero />
           <About />

@@ -73,7 +73,7 @@ const Projects = () => {
           variants={fadeUp3D}
           // Changed to flex-col on mobile, flex-row on sm and up
           // items-start ensures the dropdown doesn't stretch full width on mobile
-          className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 md:gap-4 mb-10 w-full relative z-50"
+          className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 md:gap-4 mb-10 w-full relative z-10"
         >
           {/* Tabs */}
           <div className="flex gap-2 md:gap-3 overflow-x-auto flex-nowrap scrollbar-hide w-full sm:w-auto pb-1 sm:pb-0">
