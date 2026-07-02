@@ -382,3 +382,71 @@ export const WordPressIcon = (props) => (
     <path d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm-1.03-4.526h.018l3.111-9.01h-2.126l-2.158 6.541-2.222-6.541H5.433l4.28 11.83a8.03 8.03 0 0 1-1.636-4.225l2.893-7.605-4.512 12.35A7.95 7.95 0 0 0 12 19.98c1.378 0 2.676-.35 3.823-.96l-4.853-13.546z" />
   </ColoredSvg>
 );
+
+// --- NEW ICONS FOR NAVIGATION DROPDOWN ---
+export const StarIcon = (props) => (
+  <StandardSvg {...props}>
+    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+  </StandardSvg>
+);
+
+export const BookOpenIcon = (props) => (
+  <StandardSvg {...props}>
+    <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z" />
+    <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z" />
+  </StandardSvg>
+);
+
+export const ZapIcon = (props) => (
+  <StandardSvg {...props}>
+    <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
+  </StandardSvg>
+);
+
+export const ClipboardIcon = (props) => (
+  <StandardSvg {...props}>
+    <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
+    <rect x="8" y="2" width="8" height="4" rx="1" ry="1" />
+  </StandardSvg>
+);
+
+export const UsersIcon = (props) => (
+  <StandardSvg {...props}>
+    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+    <circle cx="9" cy="7" r="4" />
+    <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+    <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+  </StandardSvg>
+);
+
+export const PackageIcon = (props) => (
+  <StandardSvg {...props}>
+    <line x1="16.5" y1="9.4" x2="7.5" y2="4.21" />
+    <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" />
+    <polyline points="3.27 6.96 12 12.01 20.73 6.96" />
+    <line x1="12" y1="22.08" x2="12" y2="12" />
+  </StandardSvg>
+);
+
+export const MonitorIcon = (props) => (
+  <StandardSvg {...props}>
+    <rect x="2" y="3" width="20" height="14" rx="2" ry="2" />
+    <line x1="8" y1="21" x2="16" y2="21" />
+    <line x1="12" y1="17" x2="12" y2="21" />
+  </StandardSvg>
+);
+
+export const SmartphoneIcon = (props) => (
+  <StandardSvg {...props}>
+    <rect x="5" y="2" width="14" height="20" rx="2" ry="2" />
+    <line x1="12" y1="18" x2="12.01" y2="18" />
+  </StandardSvg>
+);
+
+export const MoreVerticalIcon = (props) => (
+  <StandardSvg {...props}>
+    <circle cx="12" cy="12" r="1.5" />
+    <circle cx="12" cy="5" r="1.5" />
+    <circle cx="12" cy="19" r="1.5" />
+  </StandardSvg>
+);
